@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <RowSet
+    id="ContactDetailsRowSet"
+    mode="ABPlace|ABLegalVenue">
+    <Require
+      name="keptContact"
+      type="ABContact"/>
+    <Require
+      name="retiredContact"
+      type="ABContact"/>
+    <Require
+      name="mergedContact"
+      type="ABContact"/>
+    <Require
+      name="addressDataHolder"
+      type="gw.web.merge.MergeContactsAddressHolder"/>
+    <Require
+      name="phoneHolder"
+      type="gw.web.merge.MergeContactsPhoneHolder"/>
+    <Variable
+      initialValue="keptContact as ABPlace"
+      name="keptPlace"
+      recalculateOnRefresh="true"/>
+    <Variable
+      initialValue="retiredContact as ABPlace"
+      name="retiredPlace"/>
+    <Variable
+      initialValue="mergedContact as ABPlace"
+      name="mergedPlace"
+      recalculateOnRefresh="true"/>
+    <Variable
+      initialValue="{keptPlace, retiredPlace, mergedPlace}"
+      name="places"
+      type="ABPlace[]"/>
+    <Row>
+      <Cell
+        bold="true"
+        colspan="4"
+        id="keptPlace"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.Place"/>
+    </Row>
+    <Row>
+      <Cell
+        id="nameLabel"
+        value="displaykey.Web.ContactDetail.Name.OrganizationName"/>
+      <CellIterator
+        elementName="aContact"
+        id="name"
+        value="places">
+        <Cell
+          editable="aContact == mergedPlace"
+          id="name"
+          value="aContact.Name"/>
+      </CellIterator>
+    </Row>
+    <RowSetRef
+      def="ContactTagRowSet(keptContact, retiredContact, mergedContact)"
+      id="tag"/>
+    <RowSetRef
+      def="NotesRowSet(keptContact, retiredContact, mergedContact)"/>
+    <RowSetRef
+      def="ContactInfoRowSet(keptContact, retiredContact, mergedContact, phoneHolder)"/>
+  </RowSet>
+</PCF>

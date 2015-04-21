@@ -1,0 +1,74 @@
+/* TA80_CONF240_GosuClasses_Lab.docx */
+/* Copy to Gosu ScratchPad */
+/* Create addresses for given contact! */
+
+uses com.google.common.base.Strings
+uses gw.transaction.Transaction
+uses ta.QueryUtil
+
+var output: String = ""
+var publicIds: String[] = {"5", "98"}
+output += "TA80_CONF240_GosuClasses_Lab.gsp \n"
+
+for (publicID in publicIds) {
+  output += createAddressesForContact(publicID)
+}
+print(output)
+//
+
+function createAddressesForContact(publicID: String): String {
+  if (Strings.isNullOrEmpty(publicID)) {
+    return ("You need to assign a value for the publicID variable! \n")
+  } else {
+    // Queries for the desired contact using a help function
+    var targetContact = QueryUtil.findPerson(publicID)
+    if (targetContact == null) {
+      return (publicID + " is not a valid PublicID! \n")
+    } else {
+      Transaction.runWithNewBundle(\aBundle -> {
+        // Adds the read-only targetContact object to the bundle
+        // Makes the targetContact editable
+        targetContact = aBundle.add(targetContact)
+        // Create three addresses. Adds each address object to the target contact's Address array.
+        // There are ways to do this without resorting to five separate objects
+        // Technique require a more detailed discussion of bundles and database transactions.
+
+        //o	Other , United States , 555 Straight Stave Ave , San Francisco , CA 94104,
+        //o	Other , United States , 444 Ave Maria Stairway St. , San Francisco , CA 94104
+        //o	Other , United States , 9032 Flave Steep Str , San Francisco , CA 94104
+        var address1 = new Address()
+        address1.AddressType = typekey.AddressType.TC_OTHER
+        address1.Country = typekey.Country.TC_US
+        address1.AddressLine1 = "55 Straight Stave Ave"
+        address1.City = "San Francisco"
+        address1.State = typekey.State.TC_CA
+        address1.PostalCode = "94104"
+        targetContact.addAddress(address1)
+
+        var address2 = new Address()
+        address2.AddressType = typekey.AddressType.TC_OTHER
+        address2.Country = typekey.Country.TC_US
+        address2.AddressLine1 = "444 Ave Maria Stairway St."
+        address2.City = "San Francisco"
+        address2.State = typekey.State.TC_CA
+        address2.PostalCode = "94104"
+        targetContact.addAddress(address2)
+
+        var address3 = new Address()
+        address3.AddressType = typekey.AddressType.TC_OTHER
+        address3.Country = typekey.Country.TC_US
+        address3.AddressLine1 = "9032 Flave Steep Str"
+        address3.City = "San Francisco"
+        address3.State = typekey.State.TC_CA
+        address3.PostalCode = "94104"
+        targetContact.addAddress(address3)
+
+        // The modified targetContact and all bank account objects will be inherently committed to the
+        // database when the execution of runWithNewBundle() is complete
+      }, "su")
+      return(publicID + " is " + targetContact.DisplayName + " addresses  created. \n")
+    }
+  }
+}
+
+

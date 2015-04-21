@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <Page
+    canEdit="true"
+    id="IntegrationMessageAcknowledgementPage"
+    startInEditMode="true"
+    title="displaykey.Training.MessageAcknowledgement">
+    <Variable
+      name="Destination"
+      type="String"/>
+    <Variable
+      name="SenderRefID"
+      type="String"/>
+    <Variable
+      initialValue="null"
+      name="ExternalSystemResponseType"
+      type="String"/>
+    <Variable
+      initialValue="null"
+      name="VendorProfileCode"
+      type="String"/>
+    <Variable
+      initialValue="null"
+      name="ResultString"
+      type="String"/>
+    <Variable
+      name="ErrorCategory"
+      type="String"/>
+    <Screen>
+      <DetailViewPanel>
+        <InputColumn>
+          <ContentInput>
+            <Link
+              action="MessageAcknowledgementExitPoint.push()"
+              id="DisplayInstructions"
+              label="displaykey.Training.DisplayInstructions"/>
+          </ContentInput>
+          <RangeInput
+            editable="true"
+            id="Destination"
+            label="displaykey.Training.Destination"
+            required="true"
+            value="Destination"
+            valueRange="getArrayofMessageDestinations()">
+            <PostOnChange/>
+          </RangeInput>
+          <Input
+            editable="true"
+            formatType="general"
+            helpText="Destination != &quot;Bank Account Verification&quot; ? &quot;ab:123&quot; : &quot;123&quot;"
+            id="SenderRefID"
+            label="Destination != &quot;Bank Account Verification&quot; ? displaykey.Training.SenderRefID : displaykey.Training.MessageID"
+            required="true"
+            value="SenderRefID"/>
+          <RangeInput
+            editable="true"
+            id="ExternalSystemResponseType"
+            label="displaykey.Training.ExternalSystemResponseType"
+            required="true"
+            value="ExternalSystemResponseType"
+            valueRange="getArrayofExternalSystemResponseTypes()">
+            <PostOnChange/>
+          </RangeInput>
+          <RangeInput
+            available="ExternalSystemResponseType == &quot;2: Negative Acknowledgement (error)&quot;"
+            editable="true"
+            id="ErrorCategory"
+            label="displaykey.Training.ErrorCategory"
+            required="ExternalSystemResponseType == &quot;2: Negative Acknowledgement (error)&quot;"
+            value="ErrorCategory"
+            valueRange="getArrayofErrorCategories() ">
+            <PostOnChange/>
+          </RangeInput>
+          <Input
+            available="Destination == &quot;Vendor Recommendation&quot; and ExternalSystemResponseType == &quot;1: Positive Acknowledgement&quot;"
+            editable="true"
+            id="VendorProfileCode"
+            label="displaykey.Training.VendorProfileCode"
+            required="Destination == &quot;Vendor Recommendation&quot; and ExternalSystemResponseType == &quot;1: Positive Acknowledgement&quot;"
+            value="VendorProfileCode"/>
+          <ButtonInput
+            action="ResultString = trainingapp.demo.messageack.MessageAckPage.processAcknowledgement(Destination, SenderRefID, ExternalSystemResponseType, ErrorCategory, VendorProfileCode)"
+            id="SendReply"
+            value="displaykey.Training.SendResponse"/>
+          <Input
+            id="Results"
+            label="displaykey.Training.Results"
+            value="ResultString"/>
+        </InputColumn>
+      </DetailViewPanel>
+    </Screen>
+    <Code><![CDATA[/* This function is used to populate the Destination dynamic dropdown.
+*/
+function getArrayofMessageDestinations() : String[] {
+   // list is of messaging destinations
+  return new String[] {"Bank Account Verification", "Vendor Recommendation", "Legal Case Report", "Message Generator", "Safe Ordering Demo", "Student-Defined"}
+  
+}
+
+/* This function is used to populate the ReplyType dynamic dropdown.
+*/
+function getArrayofExternalSystemResponseTypes() : String[] {
+
+  return new String[] {"1: Positive Acknowledgement", "2: Negative Acknowledgement (error)", "3: Duplicate", "4: No Response"}
+
+}
+
+
+/* This function is used to populate the ErrorCode dynamic dropdown.
+*/
+function getArrayofErrorCategories() : String[] {
+
+  return typekey.ErrorCategory.getTypeKeys(false) as java.lang.String[]
+
+}]]></Code>
+  </Page>
+</PCF>

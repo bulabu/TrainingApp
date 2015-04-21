@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<entity
+  xmlns="http://guidewire.com/datamodel"
+  entity="ABContactSpecialistService"
+  desc="ABContactSpecialistService"
+  table="abcontactservice"
+  type="versionable"
+  exportable="true"
+  extendable="true"
+  loadable="false"
+  final="true"
+  subpackage="addressbook">
+  <foreignkey
+    name="ABContact"
+    desc="ABContact"
+    columnName="ABContactID"
+    fkentity="ABContact"
+    nullok="false"
+    getterScriptability="hidden"
+    setterScriptability="hidden"/>
+  <foreignkey
+    name="SpecialistService"
+    desc="SpecialistService"
+    columnName="SpecialistServiceID"
+    fkentity="SpecialistService"
+    nullok="false"
+    getterScriptability="hidden"
+    setterScriptability="hidden"/>
+</entity>

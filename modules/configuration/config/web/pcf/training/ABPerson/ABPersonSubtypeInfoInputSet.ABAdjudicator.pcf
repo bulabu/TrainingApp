@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="pcf.xsd">
+  <InputSet
+    id="ABPersonSubtypeInfoInputSet"
+    mode="ABAdjudicator">
+    <Require
+      name="anABContact"
+      type="ABContact"/>
+    <Label
+      id="LicenseInfo"
+      label="displaykey.Training.LicenseInfo"/>
+    <Input
+      editable="true"
+      id="AdjudicatorLicense"
+      label="displaykey.Training.AdjudicatorLicense"
+      value="(anABContact as ABAdjudicator).AdjudicatorLicense"/>
+    <Input
+      editable="true"
+      id="AdjudicatorDomain"
+      label="displaykey.Training.Domain"
+      value="(anABContact as ABAdjudicator).AdjudicativeDomain"/>
+  </InputSet>
+</PCF>

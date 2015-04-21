@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<plugin
+  name="BillingSystemPlugin"
+  interface="ClientSystemPlugin">
+  <plugin-gosu
+    disabled="true"
+    gosuclass="gw.plugin.integration.StandAloneClientSystemPlugin"/>
+
+  <!-- Live plugin
+    <plugin-gosu
+      gosuclass="gw.plugin.billing.bc800.BCBillingSystemPlugin"/>
+  -->
+</plugin>

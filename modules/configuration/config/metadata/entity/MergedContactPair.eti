@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!-- others -->
+<entity
+  xmlns="http://guidewire.com/datamodel"
+  entity="MergedContactPair"
+  type="versionable"
+  desc="Represents a contacts that was retired and the contact that was kept in a merge."
+  subpackage="addressbook"
+  table="mergedcontactpair">
+  <foreignkey
+    name="KeptContact"
+    desc="The contact kept during a merge."
+    importableagainstexistingobject="false"
+    fkentity="ABContact"
+    getterScriptability="hidden"
+    setterScriptability="hidden"
+    nullok="false"/>
+  <foreignkey
+    name="RetiredContact"
+    desc="The contact retired during a merge."
+    fkentity="ABContact"
+    importableagainstexistingobject="false"
+    getterScriptability="hidden"
+    setterScriptability="hidden"
+    nullok="false"/>
+  <index
+    name="retiredidx"
+    desc="Preserve uniqueness of RetiredContact and aids in looking up the MergedContactPair for a retired contact."
+    unique="true">
+    <indexcol
+      name="RetiredContact"
+      keyposition="1"/>
+  </index>
+</entity>

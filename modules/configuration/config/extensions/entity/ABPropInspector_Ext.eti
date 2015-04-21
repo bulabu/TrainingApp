@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<subtype
+  xmlns="http://guidewire.com/datamodel"
+  entity="ABPropInspector_Ext"
+  supertype="ABPersonVendor">
+  <column
+    name="IsCommercialInspector"
+    nullok="true"
+    type="bit"/>
+  <column
+    name="IsHomeInspector"
+    nullok="true"
+    type="bit"/>
+  <column
+    name="InspectorLicense"
+    nullok="true"
+    type="varchar">
+    <columnParam
+      name="size"
+      value="40"/>
+  </column>
+</subtype>

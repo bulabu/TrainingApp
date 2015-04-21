@@ -1,0 +1,74 @@
+/* TA80_CONF190_Arrays_Lab.docx */
+/* Copy to Gosu ScratchPad */
+/* Assign publicID variable a value for the contact! */
+/* Bank Account entity is associated with specific rules that generate messages.   */
+
+uses com.google.common.base.Strings
+uses gw.transaction.Transaction
+uses ta.QueryUtil
+
+var output : String = ""
+var publicIds : String[] =  {"5", "98"}
+output += "CONF190_Arrays_Lab.gsp \n"
+
+for (publicID in publicIds) {
+    output += createBankAccountsForContact(publicID)
+}
+print(output)
+
+
+function createBankAccountsForContact(publicID: String): String {
+  if (Strings.isNullOrEmpty(publicID)) {
+    return ("You need to assign a value for the publicID variable! \n")
+  } else {
+    // Queries for the desired contact using a help function
+    var targetContact = QueryUtil.findPerson(publicID)
+    if (targetContact == null) {
+      return (publicID + " is not a valid PublicID! \n")
+    } else {
+      Transaction.runWithNewBundle(\aBundle -> {
+        // Adds the read-only targetContact object to the bundle
+        // Makes the targetContact editable
+        targetContact = aBundle.add(targetContact)
+        // Create five bank accounts. Adds each bank account object to the target contact's BankAccounts array.
+        // There are ways to do this without resorting to five separate objects
+        // Technique require a more detailed discussion of bundles and database transactions.
+        var bankAccount1 = new BankAccount()
+        bankAccount1.BankName = "ACME Credit Union"
+        bankAccount1.AccountType = typekey.BankAccountType.TC_SAVINGS
+        bankAccount1.AccountNumber = "164334-45656"
+        bankAccount1.RoutingNumber = "030-122"
+        targetContact.addToBankAccounts(bankAccount1)
+        var bankAccount2 = new BankAccount()
+        bankAccount2.BankName = "ACME Credit Union"
+        bankAccount2.AccountType = typekey.BankAccountType.TC_CHECKING
+        bankAccount2.AccountNumber = "123124-45656"
+        bankAccount2.RoutingNumber = "030-122"
+        targetContact.addToBankAccounts(bankAccount2)
+        if ( publicID != "98" ) {
+            var bankAccount3 = new BankAccount()
+            bankAccount3.BankName = "National Bank"
+            bankAccount3.AccountType = typekey.BankAccountType.TC_SAVINGS
+            bankAccount3.AccountNumber = "1LK124-456"
+            bankAccount3.RoutingNumber = "391-221"
+            targetContact.addToBankAccounts(bankAccount3)
+        }
+        var bankAccount4 = new BankAccount()
+        bankAccount4.BankName = "ACME Visa"
+        bankAccount4.AccountType = typekey.BankAccountType.TC_CHECKING
+        bankAccount4.AccountNumber = "124-456-56"
+        bankAccount4.RoutingNumber = "923-445"
+        targetContact.addToBankAccounts(bankAccount4)
+        var bankAccount5 = new BankAccount()
+        bankAccount5.BankName = "Golden Years Funding"
+        bankAccount5.AccountType = typekey.BankAccountType.TC_OTHER
+        bankAccount5.AccountNumber = "12-9857"
+        bankAccount5.RoutingNumber = "321-556"
+        targetContact.addToBankAccounts(bankAccount5)
+        // The modified targetContact and all bank account objects will be inherently committed to the
+        // database when the execution of runWithNewBundle() is complete
+      }, "su")
+      return(publicID + " is " + targetContact.DisplayName + " bank accounts created. \n")
+    }
+  }
+}

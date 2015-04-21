@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <Page
+    canEdit="true"
+    canVisit="true"
+    id="ABContactNotesPage"
+    title="User.util.getCurrentUser().UseHelperLabels ? displaykey.Training.NotesLVHelper : displaykey.Training.NotesLV">
+    <LocationEntryPoint
+      signature="ABContactNotesPage(anABContact:ABContact)"/>
+    <Variable
+      name="anABContact"
+      type="ABContact"/>
+    <Screen
+      editable="true">
+      <Toolbar/>
+      <ListViewPanel
+        editable="true"
+        id="ABContactNotesLV">
+        <RowIterator
+          canPick="false"
+          editable="true"
+          elementName="CurrentContactNote"
+          hideCheckBoxesIfReadOnly="true"
+          value="anABContact.ContactNotes">
+          <Row>
+            <TextCell
+              id="ContactNoteName"
+              label="displaykey.Training.ContactNote"
+              numEntries="200"
+              value="CurrentContactNote.DisplayName"/>
+            <Cell
+              action="ContactNoteWorksheet.goInWorkspace( CurrentContactNote.ABContact, CurrentContactNote, false)"
+              id="Type"
+              label="displaykey.Training.NoteType"
+              value="CurrentContactNote.ContactNoteType"/>
+            <Cell
+              action="ContactNoteWorksheet.goInWorkspace( CurrentContactNote.ABContact, CurrentContactNote, false)"
+              id="Subject"
+              label="displaykey.Training.Subject"
+              value="CurrentContactNote.Subject"/>
+            <Cell
+              action="ContactNoteWorksheet.goInWorkspace( CurrentContactNote.ABContact, CurrentContactNote, false)"
+              id="CreateDate"
+              label="displaykey.Training.CreatedOn"
+              sortDirection="descending"
+              sortOrder="1"
+              value="CurrentContactNote.CreateTime"
+              visible="false"/>
+          </Row>
+        </RowIterator>
+      </ListViewPanel>
+    </Screen>
+  </Page>
+</PCF>

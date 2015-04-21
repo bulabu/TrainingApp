@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<internaltypelistextension
+  xmlns="http://guidewire.com/typelists"
+  name="CustomHistoryType"
+  desc="Custom history event types, used to add customer-defined events to a contact's history">
+  <typecode
+    name="Contact Removed"
+    desc="Contact Removed"
+    code="contactremoved"/>
+  <typecode
+    name="Contact Merged (Kept)"
+    desc="Contact Merged (Kept)"
+    code="contactmergedkept"/>
+  <typecode
+    name="Contact Merged (Retired)"
+    desc="Contact Merged (Retired)"
+    code="contactmergedretired"/>
+</internaltypelistextension>

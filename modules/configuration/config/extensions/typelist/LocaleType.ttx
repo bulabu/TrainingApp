@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<typelistextension
+  xmlns="http://guidewire.com/typelists"
+  desc="Users' preferred languages"
+  name="LocaleType">
+  <typecode
+    code="en_GB"
+    desc="Great Britain (English)"
+    name="Great Britain (English)"/>
+</typelistextension>

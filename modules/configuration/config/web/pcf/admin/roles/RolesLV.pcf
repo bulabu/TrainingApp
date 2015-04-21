@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <ListViewPanel
+    id="RolesLV">
+    <ExposeIterator
+      flags="Role"
+      valueType="entity.Role"
+      widget="RolesLV"/>
+    <Require
+      name="Roles"
+      type="RoleQuery"/>
+    <RowIterator
+      editable="false"
+      elementName="Role"
+      hasCheckBoxes="true"
+      value="Roles">
+      <ToolbarFlag
+        name="Role"/>
+      <Row>
+        <Cell
+          action="RoleDetailPopup.push(Role)"
+          align="left"
+          id="Name"
+          label="displaykey.Web.Admin.RolesLV.Name"
+          value="Role.Name"/>
+        <Cell
+          align="left"
+          enableSort="false"
+          id="Description"
+          label="displaykey.Web.Admin.RolesLV.Description"
+          value="Role.Description"/>
+      </Row>
+    </RowIterator>
+  </ListViewPanel>
+</PCF>

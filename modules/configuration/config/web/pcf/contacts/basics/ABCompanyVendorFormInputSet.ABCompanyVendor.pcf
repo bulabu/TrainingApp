@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <InputSet
+    id="ABCompanyVendorFormInputSet"
+    mode="ABCompanyVendor|ABAutoRepairShop|ABAutoTowingAgcy|ABLawFirm|ABMedicalCareOrg">
+    <Require
+      name="contact"
+      type="ABContact"/>
+    <InputDivider/>
+    <Label
+      label="displaykey.Web.ContactDetail.TaxInfo"/>
+    <PrivacyInput
+      editable="true"
+      encryptionExpression="(contact as ABCompany).maskTaxId(VALUE)"
+      id="V_EIN"
+      label="displaykey.Web.ContactDetail.Name.TaxID.EIN"
+      required="contact typeis ABCompanyVendor"
+      value="(contact as ABCompany).TaxID"/>
+    <Input
+      editable="true"
+      id="W9received"
+      label="displaykey.Web.ContactDetail.TaxInfo.W9received"
+      value="(contact as ABCompanyVendor).W9received"/>
+    <DateInput
+      editable="true"
+      id="W9receivedDate"
+      label="displaykey.Web.ContactDetail.TaxInfo.W9receivedDate"
+      value="(contact as ABCompanyVendor).W9receivedDate"/>
+    <DateInput
+      editable="true"
+      id="W9ValidFrom"
+      label="displaykey.Web.ContactDetail.TaxInfo.W9ValidFrom"
+      value="(contact as ABCompanyVendor).W9ValidFrom"/>
+    <DateInput
+      editable="true"
+      id="W9ValidTo"
+      label="displaykey.Web.ContactDetail.TaxInfo.W9ValidTo"
+      value="(contact as ABCompanyVendor).W9ValidTo"/>
+  </InputSet>
+</PCF>

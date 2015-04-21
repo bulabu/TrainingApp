@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <Page
+    canEdit="perm.ABContact.edit(contact)"
+    canVisit="perm.ABContact.view(contact)"
+    handlesValidationIssue="(VALUE typeis ABContact) and !VALUE.isNew()"
+    id="ContactDetail"
+    infoBar="ContactInfoBar(contact)"
+    parent="ABContacts()"
+    showUpLink="true"
+    title="displaykey.Web.ContactDetail.Title(contact)"
+    validationParameter="contact">
+    <LocationEntryPoint
+      signature="ContactDetail(contact : ABContact)"/>
+    <Variable
+      name="contact"
+      type="ABContact"/>
+    <ScreenRef
+      def="ABContactDetailScreen(contact, false)"/>
+  </Page>
+</PCF>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="pcf.xsd">
+  <InputSet
+    id="ContactInsightsInputSet">
+    <Require
+      name="anABContact"
+      type="ABContact"/>
+    <Label
+      label="displaykey.Training.KeywordNote"/>
+    <RangeInput
+      editable="true"
+      id="ContactKeyword"
+      label="displaykey.Training.InsightScore"
+      value="anABContact.Score"
+      valueRange="showRange()"
+      visible="!(anABContact typeis ABPlace)"/>
+    <BooleanRadioInput
+      editable="(anABContact typeis ABPerson)"
+      id="isUpdateScore"
+      label="displaykey.Training.isUpdateScore"
+      value="anABContact.UpdateScore"/>
+    <TextAreaInput
+      editable="true"
+      id="ContactGeneralNotes"
+      label="displaykey.Training.InsightSummary"
+      maxChars="400"
+      numCols="30"
+      numRows="8"
+      value="anABContact.Notes"/>
+    <Code><![CDATA[function showRange() : Array {
+  var insightScoreValues : Array = {0,10,20,30,40,50,60,70,80,90,100}
+  return insightScoreValues
+}
+]]></Code>
+  </InputSet>
+</PCF>

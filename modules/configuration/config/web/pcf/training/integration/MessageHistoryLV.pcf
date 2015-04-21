@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <ListViewPanel
+    id="MessageHistoryLV">
+    <ExposeIterator
+      valueType="entity.MessageHistory"
+      widget="MessageHistoryLV"/>
+    <RowIterator
+      checkBoxVisible="true"
+      editable="false"
+      elementName="currentMessageHistory"
+      hasCheckBoxes="true"
+      value="allMessages()">
+      <IteratorSort
+        sortBy="currentMessageHistory.CreationTime"
+        sortOrder="2"/>
+      <IteratorSort
+        sortBy="currentMessageHistory.Status"
+        sortOrder="1"/>
+      <Row>
+        <Cell
+          id="ID"
+          label="displaykey.Training.MsgID"
+          value="currentMessageHistory.ID"/>
+        <DateCell
+          dateFormat="short"
+          id="CreationTime"
+          label="displaykey.Training.CreationTime"
+          timeFormat="short"
+          value="currentMessageHistory.CreationTime"/>
+        <Cell
+          enableSort="false"
+          id="TriggeringEntity"
+          label="displaykey.Training.TriggeringEntity"
+          value="getObjectNameFromMessage(currentMessageHistory)"/>
+        <Cell
+          id="EventName"
+          label="displaykey.Training.EventName"
+          value="currentMessageHistory.EventName"/>
+        <Cell
+          id="Destination"
+          label="displaykey.Training.Destination"
+          value="currentMessageHistory.DestinationID"/>
+        <Cell
+          id="SenderRefID"
+          label="displaykey.Training.SenderRefID"
+          value="currentMessageHistory.SenderRefID"/>
+        <TextCell
+          id="ErrorDescription"
+          label="displaykey.Training.ErrorCategory"
+          value="currentMessageHistory.ErrorCategory"/>
+        <Cell
+          enableSort="false"
+          id="Status"
+          label="displaykey.Training.Status"
+          value="getStatusStringFromStatusInt(currentMessageHistory.Status)"/>
+        <Cell
+          id="DuplicateCount"
+          label="&quot;Dup. Count&quot;"
+          value="currentMessageHistory.DuplicateCount"
+          visible="displayDupCountColumn()"/>
+      </Row>
+    </RowIterator>
+    <Code><![CDATA[function allMessages() : gw.api.database.IQueryBeanResult<entity.MessageHistory> {
+  var queryObj = gw.api.database.Query.make(MessageHistory)
+  return queryObj.select()
+}
+
+function getObjectNameFromMessage (aMessage : MessageHistory) : String {
+    var typeString = aMessage.MessageRoot.IntrinsicType.toString()
+    // In this case, intrinsic type starts with "entity.". The next line strips this off.
+    typeString = (gw.api.util.StringUtil.substring(typeString,7,typeString.length))  
+    var returnString = typeString + "(" + aMessage.MessageRoot.ID + ")"
+    return returnString
+}
+
+function getDestinationNameFromID(ID : int) : String {
+  switch (ID) {
+    case 80:
+      return "ABContact AutoSync Broadcast (80)"
+    case 65:
+      return "email (65)"
+    case 13:
+      return "Bank Account Verification (13)"
+    case 14:
+      return "Vendor Recommendation (14)"
+    case 15:
+      return "Legal Case Report Request (15)"
+    case 20:
+      return "Safe Ordering Demo (20)"
+    case 21:
+      return "Message Generator (21)"
+    default:
+      var returnString = "Student-Defined Destination (" + (ID as java.lang.String).trim() + ")"
+      return returnString
+  }
+}
+  
+function getStatusStringFromStatusInt(Status : int) : String {
+  switch (Status) {
+    case 10:
+      return "Acknowledged (10)"
+    case 11:
+      return "Error cleared (11)"
+    case 12:
+      return "Error retried (12)"
+    case 13:
+      return "Skipped (13)"
+    default:
+      return "Unknown" 
+  }
+}
+
+function displayDupCountColumn() : boolean {
+  var queryObj = gw.api.database.Query.make(MessageHistory)
+  var resultSet = queryObj.select()
+  for (currentMessage in resultSet) {
+    if (currentMessage.DuplicateCount > 0) {
+      // found at least one message with a duplicate count, so
+      // immediately return true
+      return true
+    }
+  }
+  // no messages with a duplicate count were found, return false
+  return false
+}
+]]></Code>
+  </ListViewPanel>
+</PCF>

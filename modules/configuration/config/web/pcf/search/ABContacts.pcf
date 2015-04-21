@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <LocationGroup
+    canVisit="perm.ABContact.viewsearch"
+    id="ABContacts"
+    menuActions="ContactsMenuActions()"
+    title="displaykey.Web.TabBar.Contacts">
+    <LocationEntryPoint
+      signature="ABContacts()"/>
+    <LocationRef
+      label="displaykey.Web.Contacts.Search"
+      location="ABContactSearch()"
+      shortcut="H"/>
+  </LocationGroup>
+</PCF>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<subtype
+  xmlns="http://guidewire.com/datamodel"
+  entity="ABPersonVendor"
+  desc="Contact type representing vendors that are people."
+  displayName="Vendor (Person)"
+  final="false"
+  subpackage="addressbook"
+  supertype="ABPerson"/>

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<plugin
+  name="IABContactScoringPlugin">
+  <plugin-gosu
+    disabled="true"
+    gosuclass="gw.plugin.spm.impl.ABContactScoringPlugin"/>
+</plugin>

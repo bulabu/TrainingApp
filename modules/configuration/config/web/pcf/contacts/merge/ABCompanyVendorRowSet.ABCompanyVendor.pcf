@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <RowSet
+    id="ABCompanyVendorRowSet"
+    mode="ABCompanyVendor|ABAutoRepairShop|ABAutoTowingAgcy|ABLawFirm|ABMedicalCareOrg">
+    <Require
+      name="contact"
+      type="ABCompany"/>
+    <Require
+      name="duplicate"
+      type="ABCompany"/>
+    <Require
+      name="merged"
+      type="ABCompany"/>
+    <Variable
+      initialValue="{contact, duplicate, merged}"
+      name="contacts"
+      type="ABCompany[]"/>
+    <Row>
+      <Cell
+        bold="true"
+        colspan="4"
+        id="vendorInfo"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.VendorInfo"/>
+    </Row>
+    <Row>
+      <Cell
+        id="preferredVendorLabel"
+        value="displaykey.Web.ContactDetail.AdditionalInfo.IsPreferredVendor"/>
+      <CellIterator
+        elementName="aContact"
+        id="preferredVendor"
+        value="contacts">
+        <Cell
+          editable="aContact == merged and perm.ABContact.createpreferred"
+          id="preferredVendor"
+          value="(aContact as ABCompanyVendor).Preferred"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        bold="true"
+        colspan="4"
+        id="taxInfo"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.TaxInfo"/>
+    </Row>
+    <Row>
+      <Cell
+        id="w9ReceivedLabel"
+        value="displaykey.Web.ContactDetail.TaxInfo.W9received"/>
+      <CellIterator
+        elementName="aContact"
+        id="w9Received"
+        value="contacts">
+        <Cell
+          editable="aContact == merged"
+          id="w9Received"
+          value="aContact.W9Received"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="w9ReceivedDateLabel"
+        value="displaykey.Web.ContactDetail.TaxInfo.W9receivedDate"/>
+      <CellIterator
+        elementName="aContact"
+        id="w9ReceivedDate"
+        value="contacts">
+        <DateCell
+          editable="aContact == merged"
+          id="w9ReceivedDate"
+          value="aContact.W9ReceivedDate"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="w9ValidFromLabel"
+        value="displaykey.Web.ContactDetail.TaxInfo.W9ValidFrom"/>
+      <CellIterator
+        elementName="aContact"
+        id="w9ValidFromDate"
+        value="contacts">
+        <DateCell
+          editable="aContact == merged"
+          id="w9ValidFrom"
+          value="aContact.W9ValidFrom"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="w9ValidToLabel"
+        value="displaykey.Web.ContactDetail.TaxInfo.W9ValidTo"/>
+      <CellIterator
+        elementName="aContact"
+        id="w9ValidToDate"
+        value="contacts">
+        <DateCell
+          editable="aContact == merged"
+          id="w9ValidTo"
+          value="aContact.W9ValidTo"/>
+      </CellIterator>
+    </Row>
+  </RowSet>
+</PCF>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <DetailViewPanel
+    id="ImportWizard_UploadDV">
+    <Require
+      name="ImportDataInfo"
+      type="admin.ImportDataInfo"/>
+    <InputColumn>
+      <Label
+        label="displaykey.Web.Admin.ImportWizard.UploadDV.Message"/>
+      <Input
+        editable="true"
+        id="File"
+        labelAbove="true"
+        validationExpression="ImportDataInfo.File != null ? null : displaykey.Web.Admin.ImportWizard.UploadDV.FileNotSpecifiedMessage"
+        value="ImportDataInfo.File"/>
+      <Label
+        label="displaykey.Web.Admin.ImportWizard.UploadDV.NoConflictsMessage"
+        visible="ImportDataInfo.File != null and ImportDataInfo.NumConflicts == 0"/>
+      <Label
+        label="displaykey.Web.Admin.ImportWizard.UploadDV.ConflictsMessage( ImportDataInfo.NumConflicts)"
+        visible="ImportDataInfo.NumConflicts &gt; 0"/>
+      <RangeInput
+        editable="true"
+        id="Resolution"
+        label="displaykey.Web.Admin.ImportWizard.UploadDV.ResolutionStrategy"
+        value="ImportDataInfo.ResolutionStrategy"
+        valueRange="ImportDataInfo.ResolutionOptions"
+        visible="ImportDataInfo.NumConflicts &gt; 0">
+        <PostOnChange/>
+      </RangeInput>
+    </InputColumn>
+  </DetailViewPanel>
+</PCF>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="pcf.xsd">
+  <InputSet
+    id="ABPersonSubtypeInfoInputSet"
+    mode="ABAttorney">
+    <Require
+      name="anABContact"
+      type="ABContact"/>
+    <Label
+      id="LicenseInfo"
+      label="displaykey.Training.LicenseInfo"/>
+    <Input
+      editable="true"
+      id="LawLicense"
+      label="displaykey.Training.LawLicense"
+      value="(anABContact as ABAttorney).LicenseNumber"/>
+    <Input
+      editable="true"
+      id="Specialty"
+      label="displaykey.Training.Specialty"
+      value="(anABContact as ABAttorney).AttorneySpecialty"/>
+  </InputSet>
+</PCF>

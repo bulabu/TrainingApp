@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../pcf.xsd">
+  <TabBar
+    id="TabBar">
+    <Tab
+      action="ABContacts.go()"
+      id="SearchTab"
+      label="displaykey.Training.Search"
+      shortcut="O"
+      visible="perm.ABContact.viewsearch"/>
+    <Tab
+      action="ContactTabForward.go()"
+      id="ContactTab"
+      label="displaykey.Training.Contact">
+      <MenuItemIterator
+        elementName="viewedContact"
+        value="trainingapp.base.RecentlyViewedContactUtil.lastViewedContactList(User.util.getCurrentUser())">
+        <MenuItem
+          action="ABContactLG.go(viewedContact)"
+          id="ViewedContactMenuItem"
+          label="viewedContact.DisplayName"/>
+      </MenuItemIterator>
+    </Tab>
+    <Tab
+      action="AdminForward.go()"
+      id="AdminTab"
+      label="displaykey.Web.TabBar.Admin"
+      shortcut="M"
+      visible="perm.User.view"/>
+    <TabBarUnsavedWork
+      id="UnsavedWorkTabBarLink"/>
+    <TabBarLink
+      id="LanguageTabBarLink"
+      label="displaykey.Regional.RegionalSettings"
+      visible="util.LocaleUtil.canSwitchLanguage() || util.LocaleUtil.canSwitchLocale()">
+      <MenuItem
+        id="languageSwitcher"
+        label="displaykey.Regional.Languages"
+        visible="util.LocaleUtil.canSwitchLanguage()">
+        <MenuItemIterator
+          elementName="lang"
+          value="util.LocaleUtil.getAllLanguages() as LanguageType[]">
+          <MenuItem
+            action="gw.api.admin.BaseAdminUtil.setCurrentUsersLanguage(lang)"
+            available="util.LocaleUtil.getCurrentUserLanguage() != lang"
+            checked="util.LocaleUtil.getCurrentLanguageType() == lang"
+            hideIfDisabled="false"
+            id="langs"
+            label="util.LocaleUtil.getLanguageLabel(lang)"
+            visible="true"/>
+        </MenuItemIterator>
+      </MenuItem>
+      <MenuItem
+        id="localeSwitcher"
+        label="displaykey.Regional.Locales"
+        visible="util.LocaleUtil.canSwitchLocale()">
+        <MenuItemIterator
+          elementName="locale"
+          value="util.LocaleUtil.getAllLocales() as LocaleType[]">
+          <MenuItem
+            action="gw.api.admin.BaseAdminUtil.setCurrentUsersLocale(locale)"
+            available="util.LocaleUtil.getCurrentUserLocale() != locale"
+            checked="util.LocaleUtil.getCurrentLocaleType() == locale"
+            hideIfDisabled="false"
+            id="locales"
+            label="util.LocaleUtil.getLocaleLabel(locale)"
+            visible="true"/>
+        </MenuItemIterator>
+      </MenuItem>
+    </TabBarLink>
+    <!-- <TabBarLink
+      action="Help.push()"
+      id="HelpTabBarLink"
+      label="displaykey.Web.TabBar.Help"/> -->
+    <TabBarLink
+      action="ExampleListExitPoint.push()"
+      id="ExampleListTabBarLink"
+      label="displaykey.Training.ExampleList"/>
+    <TabBarLink
+      action="javascript:gw.app.popupAboutWindow();"
+      id="AboutTabBarLink"
+      label="displaykey.Web.TabBar.About"/>
+    <TabBarLink
+      action="UserPreferencesWorksheet.goInWorkspace()"
+      id="PrefsTabBarLink"
+      label="displaykey.Web.TabBar.Prefs"/>
+    <TabBarLink
+      action="javascript:gw.app.clearBrowserState()"
+      id="ClearBrowserStateTabBarLink"
+      label="displaykey.Web.TabBar.ClearBrowserState"/>
+    <TabBarLogout
+      action="logout:*"
+      id="LogoutTabBarLink"
+      label="displaykey.Web.TabBar.Logout(entity.User.util.CurrentUser)"
+      shortcut="Z"/>
+    <HiddenLink
+      action="ProfilerConfigurationPage.push()"
+      id="ProfilerHiddenLink"
+      shortcut="ShiftP"/>
+    <HiddenLink
+      action="InternalTools.go()"
+      id="InternalToolsHiddenLink"
+      shortcut="ShiftT"/>
+  </TabBar>
+</PCF>

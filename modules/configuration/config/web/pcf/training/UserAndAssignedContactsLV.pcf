@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <ListViewPanel
+    id="UserAndAssignedContactsLV">
+    <RowIterator
+      editable="false"
+      elementName="aUser"
+      value="trainingapp.base.AssignedUserUtil.findAllContactManagers()">
+      <Row>
+        <Cell
+          id="UserName"
+          label="displaykey.Training.User"
+          value="aUser.DisplayName"/>
+        <Cell
+          id="Department"
+          label="displaykey.Training.Department"
+          value="aUser.Department"/>
+        <Cell
+          id="NumberOfContacts"
+          label="displaykey.Training.AssignedABContacts"
+          value="trainingapp.base.AssignedUserUtil.countAssignedContacts(aUser)"/>
+      </Row>
+    </RowIterator>
+  </ListViewPanel>
+</PCF>

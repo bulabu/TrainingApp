@@ -1,0 +1,106 @@
+/**
+ *  This is a Gosu ScratchPad file that manipulates the strongly typed XML file known as
+ *  "exampleStrongTyped.xml"
+ *  The xml file is located in the same directory as this file.
+ *  The xsd is in modules/configuration/gsrc/trainingapp/demo/xsd.
+ */
+
+uses gw.xml.XmlElement
+uses java.io.File
+
+uses javax.xml.namespace.QName
+uses java.io.FileWriter
+uses java.io.BufferedWriter
+uses trainingapp.demo.xsd.examplestrongtyped.ExampleStrongTyped
+
+/* Parsing a strongly-typed XML file */
+var filePathInput = "C:/Guidewire/TrainingApp/modules/configuration/config/examples/xml/exampleStrongTyped.xml"
+var filePathOutput = "C:/Guidewire/TrainingApp/modules/configuration/config/examples/xml/exampleStrongTyped_Modified.xml"
+var file = new File(filePathInput)
+if (file.exists()) {
+  try {
+    var xml= ExampleStrongTyped.parse(file)
+
+    /* print XML File */
+    //xml.print()
+
+    /* XSD properties on XML elements */
+    print(xml.Database[0].Name)
+    print(xml.Param.Count)
+
+    print("QName:      " + xml.$QName)
+    print("Namespace:  " + xml.$Namespace)
+    print("Local part: " + xml.$QName.LocalPart)
+
+    print(xml.$Children[0].QName)
+    print(xml.$Children[9].QName)
+    print(xml.$Children[0].Children[1].QName)
+
+     /* Conditions for XML Elements */
+    // Returns array of XML elements where condition is met
+    print(xml.$Children.where(\el -> el.QName.LocalPart == "database"))
+    // Returns first XML elements where condition is met
+    print(xml.$Children.firstWhere(\el -> el.QName.LocalPart == "database"))
+    // Returns the one XML element where condition is met, or an exception if
+    // no element or many elements meet the condition
+    print(xml.$Children.singleWhere(\el -> el.QName.LocalPart == "database"))
+
+    /* Working with XmlElement properties */
+    print("QName:      " + xml.$QName)
+    print("---------------------------------------")
+    var dbElement = xml.$Children.singleWhere(\el -> el.QName.LocalPart == "database")
+    print("Attributes: " + dbElement.AttributeNames)
+    print("---------------------------------------")
+    for (attrib in dbElement.AttributeNames) {
+      print(attrib + ": " + dbElement.getAttributeSimpleValue(attrib))
+    }
+    print(xml.$Children[0].QName)
+    print(xml.$Children[0].Text)
+    print(xml.$Children[0].Children)
+    print("----------------------")
+    print(xml.$Children[9].QName)
+    print(xml.$Children[9].Text)
+    print(xml.$Children[9].Children)
+
+    /* Modifying an existing XmlElement */
+    print("Original value: " + dbElement.getAttributeSimpleValue("autoupgrade"))
+    dbElement.setAttributeValue("autoupgrade", "false")
+    print("Current value: " + dbElement.getAttributeValue("autoupgrade"))
+
+    /* Creating new, valid XmlElements */
+    var security = new XmlElement(new QName("http://www.w3.org/2001/XMLSchema", "security"))
+    security.setAttributeValue("sessiontimeoutsecs", "10700")
+    xml.addChild(security)
+
+    /**
+     *  Exceptions
+     *  The following code involves XML that is not compliant with the XSD
+     *  If you uncomment the code, it will throw an exception.
+     */
+    /* START OF BAD XSD CODE */
+//   var claimSystem = new XmlElement(new QName("http://guidewire.com/config", "claimSystem"))
+//   claimSystem.setAttributeValue("URL", "http://localhost:8880/ab/ContactManager.do")
+//   xml.addChild(claimSystem)
+//
+//   var outputFilePath2 = "modules/configuration/config/examples/xml/exampleStrongTypedModified2.xml"
+//   var outputFile2 = new BufferedWriter(new FileWriter(new File(outputFilePath2)))
+//   outputFile2.write(xml.asUTFString())
+//   outputFile2.close()
+//   print("XML file written")
+    /* END OF BAD XSD CODE */
+
+    /* Exporting XML */
+    var outputWriter = new BufferedWriter(new FileWriter(new File(filePathOutput)))
+    outputWriter.write(xml.asUTFString())
+    outputWriter.close()
+    print("XML file written and exported")
+
+  } catch (e) {
+    print("Exception caught:" + e.Cause)
+    //throw (e)// Comment out to see catch exception
+  }
+}
+
+
+
+

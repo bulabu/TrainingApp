@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="pcf.xsd">
+  <Worksheet
+    canEdit="true"
+    canVisit="true"
+    id="ContactNoteWorksheet"
+    startInEditMode="true"
+    tabLabel="isNewNote ? displaykey.Training.NewNote : displaykey.Training.EditNote"
+    title="isNewNote ? displaykey.Training.NewNote : displaykey.Training.EditNote">
+    <LocationEntryPoint
+      signature="ContactNoteWorksheet(anABContact:ABContact, isNewNote:boolean)"/>
+    <LocationEntryPoint
+      signature="ContactNoteWorksheet(anABContact:ABContact, aContactNote:ContactNote, isNewNote: boolean)"/>
+    <Scope
+      location="ABContactLG(anABContact)"/>
+    <Variable
+      name="anABContact"
+      type="ABContact"/>
+    <Variable
+      initialValue="anABContact.addContactNote()"
+      name="aContactNote"
+      type="ContactNote"/>
+    <Variable
+      name="isNewNote"
+      type="boolean"/>
+    <Screen>
+      <Toolbar>
+        <EditButtons/>
+      </Toolbar>
+      <DetailViewPanel
+        editable="true"
+        id="ContactNoteDV">
+        <InputColumn>
+          <TypeKeyInput
+            editable="true"
+            id="ContactNoteType"
+            label="displaykey.Training.NoteType"
+            value="aContactNote.ContactNoteType"/>
+          <BooleanRadioInput
+            editable="true"
+            id="Confidential"
+            label="displaykey.Training.Confidential"
+            value="aContactNote.IsConfidential"/>
+          <TextInput
+            editable="true"
+            id="Subject"
+            label="displaykey.Training.Subject"
+            value="aContactNote.Subject"/>
+          <TextAreaInput
+            editable="true"
+            id="Body"
+            label="displaykey.Training.Body"
+            numRows="3"
+            value="aContactNote.Body"/>
+        </InputColumn>
+      </DetailViewPanel>
+    </Screen>
+  </Worksheet>
+</PCF>

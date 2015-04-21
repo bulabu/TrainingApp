@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <InputSet
+    id="ABCompanyVendorSpecialtyInputSet"
+    mode="ABAutoRepairShop">
+    <Require
+      name="contact"
+      type="ABContact"/>
+    <Input
+      editable="true"
+      id="BusinessLicense"
+      label="displaykey.Web.ContactDetail.AutoRepairShop.BusinessLicense"
+      value="(contact as ABAutoRepairShop).AutoRepairLicense"/>
+  </InputSet>
+</PCF>

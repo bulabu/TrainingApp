@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="pcf.xsd">
+  <ListViewPanel
+    id="FlagEntriesLV">
+    <Require
+      name="anABContact"
+      type="ABContact"/>
+    <RowIterator
+      editable="false"
+      elementName="currentFlagEntry"
+      pageSize="7"
+      value="anABContact.FlagEntries">
+      <IteratorSort
+        sortBy="currentFlagEntry.FlagDate"
+        sortDirection="descending"
+        sortOrder="1"/>
+      <Row>
+        <Cell
+          icon="&quot;flag_blue.png&quot;"
+          id="OpenEntry"
+          showHeaderIcon="false"
+          value="currentFlagEntry.IsOpen"/>
+        <ButtonCell
+          action="FlagEntryPopup.push(currentFlagEntry)"
+          align="center"
+          hideIfDisabled="false"
+          id="ViewButton"
+          label="displaykey.Training.View"
+          value="popupButtonText(currentFlagEntry)"/>
+        <Cell
+          id="FlagDate"
+          label="displaykey.Training.DateFlagged"
+          value="currentFlagEntry.FlagDate"/>
+        <Cell
+          id="Reason"
+          label="displaykey.Training.Reason"
+          value="currentFlagEntry.Reason"
+          wrap="true"/>
+        <Cell
+          id="UnflagDate"
+          label="displaykey.Training.DateUnflagged"
+          value="currentFlagEntry.UnflagDate"/>
+      </Row>
+    </RowIterator>
+    <Code><![CDATA[
+/* This function returns the label to display on button for FlagEntriesLV.
+*/
+function popupButtonText(aFlagEntry : FlagEntry) : String {
+  var buttonText = displaykey.Training.View         
+  if (aFlagEntry.IsEditable) { 
+    buttonText = displaykey.Training.ViewEdit 
+  }
+  return buttonText
+}
+    ]]></Code>
+  </ListViewPanel>
+</PCF>

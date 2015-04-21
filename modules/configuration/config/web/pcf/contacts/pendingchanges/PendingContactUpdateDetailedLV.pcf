@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <ListViewPanel
+    id="PendingContactUpdateDetailedLV">
+    <ExposeIterator
+      flags="PendingContactUpdate"
+      valueType="entity.PendingContactUpdateView"
+      widget="PendingContactUpdateDetailedLV"/>
+    <RowIterator
+      editable="false"
+      elementName="pendingContactUpdateView"
+      pageSize="10"
+      value="gw.web.PendingChangesWebUtil.getPendingUpdates()">
+      <ToolbarFlag
+        name="PendingContactUpdate"/>
+      <Row>
+        <Cell
+          action="web.contact.ABContactUtil.viewContact(true, pendingContactUpdateView.PendingContactUpdate.ABContact, CurrentLocation)"
+          id="Contact"
+          label="displaykey.Web.Contacts.PendingChanges.LVColumns.Contact"
+          printWidth="0.1"
+          sortOrder="1"
+          value="pendingContactUpdateView.ABContactName"/>
+        <Cell
+          id="RequestingUser"
+          label="displaykey.Web.Contacts.PendingChanges.LVColumns.RequestingUser"
+          printWidth="0.1"
+          sortOrder="2"
+          value="pendingContactUpdateView.RequestingUser"/>
+        <Cell
+          id="RelatedTo"
+          label="displaykey.Web.Contacts.PendingChanges.LVColumns.RelatedTo"
+          printWidth="0.1"
+          value="pendingContactUpdateView.RelatedTo"/>
+      </Row>
+    </RowIterator>
+  </ListViewPanel>
+</PCF>

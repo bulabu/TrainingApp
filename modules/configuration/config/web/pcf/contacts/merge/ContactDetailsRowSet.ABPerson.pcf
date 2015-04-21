@@ -1,0 +1,429 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <RowSet
+    id="ContactDetailsRowSet"
+    mode="ABPerson|ABPersonVendor|ABAdjudicator|ABUserContact|ABDoctor|ABAttorney|ABPolicyPerson">
+    <Require
+      name="keptContact"
+      type="ABContact"/>
+    <Require
+      name="retiredContact"
+      type="ABContact"/>
+    <Require
+      name="mergedContact"
+      type="ABContact"/>
+    <Require
+      name="addressDataHolder"
+      type="gw.web.merge.MergeContactsAddressHolder"/>
+    <Require
+      name="phoneHolder"
+      type="gw.web.merge.MergeContactsPhoneHolder"/>
+    <Variable
+      initialValue="keptContact as ABPerson"
+      name="keptPerson"/>
+    <Variable
+      initialValue="retiredContact as ABPerson"
+      name="retiredPerson"/>
+    <Variable
+      initialValue="mergedContact as ABPerson"
+      name="mergedPerson"/>
+    <Variable
+      initialValue="{keptPerson, retiredPerson, mergedPerson}"
+      name="persons"
+      type="ABPerson[]"/>
+    <Row>
+      <Cell
+        bold="true"
+        colspan="4"
+        id="person"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.Person"/>
+    </Row>
+    <Row>
+      <Cell
+        id="firstNameLabel"
+        value="displaykey.Web.ContactDetail.Name.FirstName"/>
+      <CellIterator
+        elementName="aContact"
+        id="firstName"
+        value="persons">
+        <Cell
+          editable="aContact == mergedPerson"
+          id="firstName"
+          value="aContact.FirstName"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="middleNameLabel"
+        value="displaykey.Web.ContactDetail.Name.MiddleName"/>
+      <CellIterator
+        elementName="aContact"
+        id="middleName"
+        value="persons">
+        <Cell
+          editable="aContact == mergedPerson"
+          id="middleName"
+          value="aContact.MiddleName"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="lastNameLabel"
+        value="displaykey.Web.ContactDetail.Name.LastName"/>
+      <CellIterator
+        elementName="aContact"
+        id="lastName"
+        value="persons">
+        <Cell
+          editable="aContact == mergedPerson"
+          id="lastName"
+          value="aContact.LastName"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="prefixLabel"
+        value="displaykey.Web.ContactDetail.Name.Prefix"/>
+      <CellIterator
+        elementName="aContact"
+        id="prefix"
+        value="persons">
+        <TypeKeyCell
+          editable="aContact == mergedPerson"
+          id="prefix"
+          value="aContact.Prefix"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="suffixLabel"
+        value="displaykey.Web.ContactDetail.Name.Suffix"/>
+      <CellIterator
+        elementName="aContact"
+        id="suffix"
+        value="persons">
+        <TypeKeyCell
+          editable="aContact == mergedPerson"
+          id="suffix"
+          value="aContact.Suffix"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="formerNameLabel"
+        value="displaykey.Web.ContactDetail.Name.FormerName"/>
+      <CellIterator
+        elementName="aContact"
+        id="formerName"
+        value="persons">
+        <Cell
+          editable="aContact == mergedPerson"
+          id="formerName"
+          value="aContact.FormerName"/>
+      </CellIterator>
+    </Row>
+    <RowSetRef
+      def="ContactTagRowSet(keptContact, retiredContact, mergedContact)"
+      id="tag"/>
+    <Row>
+      <Cell
+        align="left"
+        bold="true"
+        colspan="4"
+        id="phone"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.Phone"/>
+    </Row>
+    <Row>
+      <Cell
+        id="WorkPhoneLabel"
+        value="displaykey.Web.ContactDetail.Phone.Work"/>
+      <Cell
+        id="keptWorkPhone"
+        value="gw.web.merge.MergeContactsWebUtil.Instance.contactPhoneDisplay(keptContact, ABContact#WorkPhone, false)"/>
+      <Cell
+        id="retiredWorkPhone"
+        value="gw.web.merge.MergeContactsWebUtil.Instance.contactPhoneDisplay(retiredContact, ABContact#WorkPhone, false)"/>
+      <RangeCell
+        editable="true"
+        id="mergedWorkPhone"
+        required="true"
+        value="phoneHolder.KeptWorkPhone"
+        valueRange="phoneHolder.collectPhones(PhoneType.TC_WORK)"/>
+      <!-- <ButtonCell
+        action="PhoneSelectionPopup.push(keptContact, retiredContact, mergedContact, PhoneType.TC_WORK)"
+        id="mergedWorkPhone"
+        value="gw.web.merge.MergeContactsWebUtil.Instance.contactPhoneDisplay(mergedContact, ABContact#WorkPhone, true)"/> -->
+    </Row>
+    <Row>
+      <Cell
+        id="HomePhoneLabel"
+        value="displaykey.Web.ContactDetail.Phone.Home"/>
+      <Cell
+        id="keptHomePhone"
+        value="gw.web.merge.MergeContactsWebUtil.Instance.contactPhoneDisplay(keptContact, ABContact#HomePhone, false)"/>
+      <Cell
+        id="retiredHomePhone"
+        value="gw.web.merge.MergeContactsWebUtil.Instance.contactPhoneDisplay(retiredContact, ABContact#HomePhone, false)"/>
+      <RangeCell
+        editable="true"
+        id="mergedHomePhone"
+        required="true"
+        value="phoneHolder.KeptHomePhone"
+        valueRange="phoneHolder.collectPhones(PhoneType.TC_HOME)"/>
+      <!-- <ButtonCell
+        action="PhoneSelectionPopup.push(keptContact, retiredContact, mergedContact, PhoneType.TC_HOME)"
+        id="mergedHomePhone"
+        value="gw.web.merge.MergeContactsWebUtil.Instance.contactPhoneDisplay(mergedContact, ABContact#HomePhone, true)"/> -->
+    </Row>
+    <Row>
+      <Cell
+        id="MobilePhoneLabel"
+        value="displaykey.Web.ContactDetail.Phone.Cell"/>
+      <Cell
+        id="keptCellPhone"
+        value="gw.web.merge.MergeContactsWebUtil.Instance.contactPhoneDisplay(keptContact, ABPerson#CellPhone, false)"/>
+      <Cell
+        id="retiredCellPhone"
+        value="gw.web.merge.MergeContactsWebUtil.Instance.contactPhoneDisplay(retiredContact, ABPerson#CellPhone, false)"/>
+      <RangeCell
+        editable="true"
+        id="mergedCellPhone"
+        required="true"
+        value="phoneHolder.KeptCellPhone"
+        valueRange="phoneHolder.collectPhones(PhoneType.TC_CELL)"/>
+      <!-- <ButtonCell
+        action="PhoneSelectionPopup.push(keptContact, retiredContact, mergedContact, PhoneType.TC_CELL)"
+        id="mergedCellPhone"
+        value="gw.web.merge.MergeContactsWebUtil.Instance.contactPhoneDisplay(mergedContact, ABPerson#CellPhone, true)"/> -->
+    </Row>
+    <Row>
+      <Cell
+        id="FaxPhoneLabel"
+        value="displaykey.Web.ContactDetail.Phone.Fax"/>
+      <Cell
+        id="keptFaxPhone"
+        value="gw.web.merge.MergeContactsWebUtil.Instance.contactPhoneDisplay(keptContact, ABContact#FaxPhone, false)"/>
+      <Cell
+        id="retiredFaxPhone"
+        value="gw.web.merge.MergeContactsWebUtil.Instance.contactPhoneDisplay(retiredContact, ABContact#FaxPhone, false)"/>
+      <RangeCell
+        editable="true"
+        id="mergedFaxPhone"
+        required="true"
+        value="phoneHolder.KeptFaxPhone"
+        valueRange="phoneHolder.collectPhones(PhoneType.TC_FAX)"/>
+      <!-- <ButtonCell
+        action="PhoneSelectionPopup.push(keptContact, retiredContact, mergedContact, PhoneType.TC_FAX)"
+        id="mergedFaxPhone"
+        value="gw.web.merge.MergeContactsWebUtil.Instance.contactPhoneDisplay(mergedContact, ABContact#FaxPhone, true)"/> -->
+    </Row>
+    <Row>
+      <Cell
+        id="primaryPhoneLabel"
+        value="displaykey.Web.ContactDetail.Phone.PrimaryPhone"/>
+      <CellIterator
+        elementName="aContact"
+        id="primaryPhone"
+        value="persons">
+        <TypeKeyCell
+          editable="aContact == mergedPerson"
+          id="primaryPhone"
+          value="aContact.PrimaryPhone"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        bold="true"
+        colspan="4"
+        id="email"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.Email"/>
+    </Row>
+    <Row>
+      <Cell
+        id="primaryEmailLabel"
+        value="displaykey.Web.ContactDetail.Email.Primary"/>
+      <CellIterator
+        elementName="aContact"
+        id="primaryEmail"
+        value="persons">
+        <Cell
+          editable="aContact == mergedPerson"
+          id="primaryEmail"
+          value="aContact.EmailAddress1"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="alternateEmailLabel"
+        value="displaykey.Web.ContactDetail.Email.Secondary"/>
+      <CellIterator
+        elementName="aContact"
+        id="alternateEmail"
+        value="persons">
+        <Cell
+          editable="aContact == mergedPerson"
+          id="alternateEmail"
+          value="aContact.EmailAddress2"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        bold="true"
+        colspan="4"
+        id="additionalInfo"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.GeneralInfo"/>
+    </Row>
+    <Row>
+      <Cell
+        id="taxIdLabel"
+        value="displaykey.Web.ContactDetail.AdditionalInfo.TaxID"/>
+      <CellIterator
+        elementName="aContact"
+        id="taxId"
+        value="persons">
+        <PrivacyCell
+          editable="aContact == mergedPerson"
+          encryptionExpression="aContact.maskTaxId(VALUE)"
+          id="taxId"
+          value="aContact.TaxID"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="taxFilingStatusLabel"
+        value="displaykey.Web.ContactDetail.AdditionalInfo.TaxFilingStatus"/>
+      <CellIterator
+        elementName="aContact"
+        id="taxFilingStatus"
+        value="persons">
+        <TypeKeyCell
+          editable="aContact == mergedPerson"
+          id="taxFilingStatus"
+          value="aContact.TaxFilingStatus"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="dateOfBirthLabel"
+        value="displaykey.Web.ContactDetail.AdditionalInfo.DateOfBirth"/>
+      <CellIterator
+        elementName="aContact"
+        id="dateOfBirth"
+        value="persons">
+        <DateCell
+          editable="aContact == mergedPerson"
+          id="dateOfBirth"
+          value="aContact.DateOfBirth"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="genderLabel"
+        value="displaykey.Web.ContactDetail.AdditionalInfo.Gender"/>
+      <CellIterator
+        elementName="aContact"
+        id="gender"
+        value="persons">
+        <TypeKeyCell
+          editable="aContact == mergedPerson"
+          id="gender"
+          value="aContact.Gender"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="maritalStatusLabel"
+        value="displaykey.Web.ContactDetail.AdditionalInfo.MaritalStatus"/>
+      <CellIterator
+        elementName="aContact"
+        id="maritalStatus"
+        value="persons">
+        <TypeKeyCell
+          editable="aContact == mergedPerson"
+          id="maritalStatus"
+          value="aContact.MaritalStatus"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="preferredCurrencyLabel"
+        value="displaykey.Web.ContactDetail.PreferredCurrency"/>
+      <CellIterator
+        elementName="aContact"
+        id="preferredCurrency"
+        value="persons">
+        <TypeKeyCell
+          editable="aContact == mergedPerson"
+          id="preferredCurrency"
+          value="aContact.PreferredCurrency"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        bold="true"
+        colspan="4"
+        id="companyInfo"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.Company"/>
+    </Row>
+    <Row>
+      <Cell
+        id="companyOccupationLabel"
+        value="displaykey.Web.ContactDetail.Company.Occupation"/>
+      <CellIterator
+        elementName="aContact"
+        id="companyOccupation"
+        value="persons">
+        <Cell
+          editable="aContact == mergedPerson"
+          id="companyOccupation"
+          value="aContact.Occupation"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        bold="true"
+        colspan="4"
+        id="driversLicense"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.DriversLicense"/>
+    </Row>
+    <Row>
+      <Cell
+        id="driversLicenseNumberLabel"
+        value="displaykey.Web.ContactDetail.DriversLicense.LicenseNumber"/>
+      <CellIterator
+        elementName="aContact"
+        id="driversLicenseNumber"
+        value="persons">
+        <Cell
+          editable="aContact == mergedPerson"
+          id="driversLicenseNumber"
+          value="aContact.LicenseNumber"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="driversLicenseStateLabel"
+        value="displaykey.Web.ContactDetail.DriversLicense.LicenseState"/>
+      <CellIterator
+        elementName="aContact"
+        id="driversLicenseState"
+        value="persons">
+        <TypeKeyCell
+          editable="aContact == mergedPerson"
+          filter="VALUE.hasCategory(JurisdictionType.TC_DRIVING_LIC)"
+          id="driversLicenseState"
+          value="aContact.LicenseState"/>
+      </CellIterator>
+    </Row>
+    <RowSetRef
+      def="NotesRowSet(keptPerson, retiredPerson, mergedPerson)"/>
+    <RowSetRef
+      def="ABPersonVendorRowSet(keptPerson, retiredPerson, mergedPerson)"
+      mode="mergedPerson.Subtype"/>
+    <RowSetRef
+      def="ABPersonAdditionalInfoRowSet(keptPerson, retiredPerson, mergedPerson)"
+      mode="mergedPerson.Subtype"/>
+  </RowSet>
+</PCF>

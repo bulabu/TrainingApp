@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <DetailViewPanel
+    id="UserDetailDV">
+    <Require
+      name="User"
+      type="User"/>
+    <Require
+      name="isNew"
+      type="Boolean"/>
+    <Variable
+      initialValue="Role.finder.allOrderedByName()"
+      name="AllRoles"
+      type="RoleQuery"/>
+    <Variable
+      initialValue="getContact()"
+      name="UserContact"
+      type="UserContact"/>
+    <InputColumn>
+      <Label
+        label="displaykey.Web.Admin.UserDetailDV.Locked"
+        visible="User.AccountLocked"/>
+      <InputSetRef
+        def="UserDetailInputSet(User,new gw.api.name.ABUserNameOwner(new gw.api.name.PersonNameDelegate(User.Contact)))"/>
+      <InputDivider/>
+      <ListViewInput
+        editable="true"
+        label="displaykey.Web.Admin.UserDetailDV.Roles">
+        <Toolbar>
+          <IteratorButtons
+            iterator="UserRolesLV"/>
+        </Toolbar>
+        <ListViewPanel
+          id="UserRolesLV">
+          <RowIterator
+            editable="true"
+            elementName="userRole"
+            hasCheckBoxes="true"
+            hideCheckBoxesIfReadOnly="true"
+            toAdd="user.addToRoles(userRole)"
+            toRemove="user.removeFromRoles(userRole)"
+            value="user.Roles">
+            <Row>
+              <RangeCell
+                editable="true"
+                id="Role"
+                label="displaykey.Web.Admin.UserRoles.Name"
+                required="true"
+                unique="true"
+                value="userRole.Role"
+                valueRange="AllRoles"/>
+              <Cell
+                id="Description"
+                label="displaykey.Web.Admin.UserRoles.Description"
+                value="userRole.Role.Description"
+                width="350">
+                <Reflect
+                  triggerIds="Role"/>
+              </Cell>
+            </Row>
+          </RowIterator>
+        </ListViewPanel>
+      </ListViewInput>
+      <InputDivider/>
+      <ListViewInput
+        def="UserGroupsLV(User)"
+        editable="true"
+        label="displaykey.Web.Admin.UserDetailDV.Groups">
+        <Toolbar>
+          <IteratorButtons
+            iterator="UserGroupsLV.UserGroupsLV"
+            removeShortcut="E"/>
+        </Toolbar>
+      </ListViewInput>
+    </InputColumn>
+    <Code><![CDATA[function getContact() : UserContact {
+  if (User.Contact == null) {
+    User.Contact = new UserContact()
+  }
+  return User.Contact
+}]]></Code>
+  </DetailViewPanel>
+</PCF>

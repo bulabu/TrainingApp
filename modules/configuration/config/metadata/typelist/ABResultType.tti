@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<typelist
+  xmlns="http://guidewire.com/typelists"
+  name="ABResultType"
+  desc="@deprecated (since 8.0.0) Not used by ContactManager.  Describes different types of results that can occur as part of an Address Book link or save."
+  final="true"
+  subpackage="addressbook">
+  <typecode
+    name="Success"
+    desc="Indicates a successful link with the Address Book."
+    code="success"/>
+  <typecode
+    name="Failure Potential Matches Exist"
+    desc="The link failed because no definitive match was found, but potential matches exist."
+    code="failed_pme"/>
+  <typecode
+    name="Failure No Matches Exist"
+    desc="The link failed because no definitive match was found. No potential matches were found either."
+    code="failed_nme"/>
+  <typecode
+    name="Failure Address Book Exception"
+    desc="An exception was thrown by the Address Book"
+    code="failed_se"/>
+  <typecode
+    name="Success Definitive Match Different"
+    desc="Indicates a successful link with the Address Book. However, the definitive match was different."
+    code="success_dmd"
+    retired="true"/>
+  <typecode
+    name="Failure Multiple Different Definitive Matches"
+    desc="The link failed because there were multiple definitive matches that were all different."
+    code="failed_mddm"
+    retired="true"/>
+  <typecode
+    name="Failure Validation Errors"
+    desc="The save failed becuase there were validation errors."
+    code="failed_ve"
+    retired="true"/>
+  <typecode
+    name="Failure Unlinked Related Contacts"
+    desc="The save failed because the contact has unlinked related contacts."
+    code="failed_urc"
+    retired="true"/>
+  <typecode
+    name="Failure Public ID Not Found"
+    desc="The save failed because no Address Book entry with the given public ID was found."
+    code="failed_pinf"
+    retired="true"/>
+  <typecode
+    name="Failure Not In Sync"
+    desc="The save failed because the contact is not in sync with the Address Book."
+    code="failed_nis"
+    retired="true"/>
+</typelist>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <RowSet
+    id="ABCompanyAdditionalInfoRowSet"
+    mode="ABLawFirm">
+    <Require
+      name="contact"
+      type="ABCompany"/>
+    <Require
+      name="duplicate"
+      type="ABCompany"/>
+    <Require
+      name="merged"
+      type="ABCompany"/>
+    <Variable
+      initialValue="{contact, duplicate, merged}"
+      name="contacts"
+      type="ABCompany[]"/>
+    <Row>
+      <Cell
+        bold="true"
+        colspan="4"
+        id="additionalInfo"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.AdditionalInfo"/>
+    </Row>
+    <Row>
+      <Cell
+        id="lawFirmSpecialtyLabel"
+        value="displaykey.Web.ContactDetail.LawFirm.LawFirmSpecialty"/>
+      <CellIterator
+        elementName="aContact"
+        id="lawFirmSpecialty"
+        value="contacts">
+        <TypeKeyCell
+          editable="aContact == merged"
+          id="lawFirmSpecialty"
+          value="(aContact as ABLawFirm).LawFirmSpecialty"/>
+      </CellIterator>
+    </Row>
+  </RowSet>
+</PCF>

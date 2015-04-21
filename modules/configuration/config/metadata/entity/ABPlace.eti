@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<subtype
+  xmlns="http://guidewire.com/datamodel"
+  entity="ABPlace"
+  desc="Generic place."
+  displayName="Place"
+  final="false"
+  subpackage="addressbook"
+  supertype="ABContact"/>

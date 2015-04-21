@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<endpoint
+  name="ChemicalSymbol"
+  wsdl-location="http://localhost:9990/ab/soap/ChemicalElementAPI?wsdl">
+  <settings
+    authentication-type="Http"
+    call-timeout="0">
+    <service
+      override-enable="false"
+      service-name="ChemicalElementAPIService"/>
+    <http-authentication/>
+  </settings>
+</endpoint>

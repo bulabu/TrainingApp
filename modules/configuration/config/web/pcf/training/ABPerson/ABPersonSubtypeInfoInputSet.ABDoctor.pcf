@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="pcf.xsd">
+   <InputSet
+    id="ABPersonSubtypeInfoInputSet"
+    mode="ABDoctor">
+    <Require
+      name="anABContact"
+      type="ABContact"/>
+    <Label
+      id="MedicalSpecialtyLabel"
+      label="displaykey.Training.MedicalSpecialty"/>
+    <TypeKeyInput
+      editable="true"
+      id="DoctorCategory"
+      label="displaykey.Training.Category"
+      value="(anABContact as ABDoctor).Category"/>
+    <TypeKeyInput
+      editable="true"
+      id="DoctorSpecialty"
+      label="displaykey.Training.Specialty"
+      value="(anABContact as ABDoctor).Specialty"/>
+  </InputSet>
+</PCF>

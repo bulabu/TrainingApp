@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <Popup
+    canEdit="perm.ABContact.edit(viewContact)"
+    canVisit="perm.ABContact.view(viewContact)"
+    id="ABContactDetailPopup"
+    infoBar="ContactInfoBar(viewContact)"
+    returnType="ABContact"
+    title="displaykey.Web.ContactDetail.Title(viewContact)">
+    <LocationEntryPoint
+      signature="ABContactDetailPopup(viewContact : ABContact)"/>
+    <Variable
+      name="viewContact"
+      type="ABContact"/>
+    <Variable
+      initialValue="new gw.web.ContactDetailsVendorHelper(viewContact)"
+      name="contactDetailsVendorHelper"
+      type="gw.web.ContactDetailsVendorHelper"/>
+    <ScreenRef
+      def="ABContactDetailScreen(viewContact, true)"/>
+  </Popup>
+</PCF>

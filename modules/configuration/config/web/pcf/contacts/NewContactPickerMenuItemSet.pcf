@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <MenuItemSet
+    id="NewContactPickerMenuItemSet">
+    <Require
+      name="requiredContactType"
+      type="Type"/>
+    <Require
+      name="parentContact"
+      type="ABContact"/>
+    <MenuItem
+      id="NewContactPickerMenuItemSet_NewPersonMenuItem"
+      label="displaykey.Web.NewContactMenu.NewPerson"
+      visible="requiredContactType.isAssignableFrom(entity.ABPerson)">
+      <MenuItem
+        action="NewContactPopup.push(entity.ABAdjudicator, parentContact)"
+        id="NewContactPickerMenuItemSet_AdjudicatorMenuItem"
+        label="displaykey.Web.NewContactMenu.Adjudicator"
+        visible="requiredContactType.isAssignableFrom(entity.ABAdjudicator)"/>
+      <MenuItem
+        action="NewContactPopup.push(entity.ABUserContact, parentContact)"
+        id="NewContactPickerMenuItemSet_UserContactMenuItem"
+        label="displaykey.Web.NewContactMenu.UserContact"
+        visible="requiredContactType.isAssignableFrom(entity.ABUserContact)"/>
+      <MenuItem
+        id="NewContactPickerMenuItemSet_PersonVendorMenuItem"
+        label="displaykey.Web.NewContactMenu.PersonVendor"
+        visible="requiredContactType.isAssignableFrom(entity.ABPersonVendor)">
+        <MenuItem
+          action="NewContactPopup.push(entity.ABAttorney, parentContact)"
+          id="NewContactPickerMenuItemSet_AttorneyMenuItem"
+          label="displaykey.Web.NewContactMenu.Attorney"
+          visible="requiredContactType.isAssignableFrom(entity.ABAttorney)"/>
+        <MenuItem
+          action="NewContactPopup.push(entity.ABDoctor, parentContact)"
+          id="NewContactPickerMenuItemSet_DoctorMenuItem"
+          label="displaykey.Web.NewContactMenu.Doctor"
+          visible="requiredContactType.isAssignableFrom(entity.ABDoctor)"/>
+        <MenuItem
+          action="NewContactPopup.push(entity.ABPersonVendor, parentContact)"
+          id="NewContactPickerMenuItemSet_OtherPersonVendorMenuItem"
+          label="displaykey.Web.NewContactMenu.OtherPersonVendor"
+          visible="requiredContactType.isAssignableFrom(entity.ABPersonVendor)"/>
+      </MenuItem>
+      <MenuItem
+        action="NewContactPopup.push(entity.ABPerson, parentContact)"
+        id="NewContactPickerMenuItemSet_OtherPersonMenuItem"
+        label="displaykey.Web.NewContactMenu.OtherPerson"
+        visible="requiredContactType.isAssignableFrom(entity.ABPerson)"/>
+    </MenuItem>
+    <MenuItem
+      id="NewContactPickerMenuItemSet_NewCompanyMenuItem"
+      label="displaykey.Web.NewContactMenu.NewCompany"
+      visible="requiredContactType.isAssignableFrom(entity.ABCompany)">
+      <MenuItem
+        id="NewContactPickerMenuItemSet_CompanyVendorMenuItem"
+        label="displaykey.Web.NewContactMenu.CompanyVendor"
+        visible="requiredContactType.isAssignableFrom(entity.ABCompanyVendor)">
+        <MenuItem
+          action="NewContactPopup.push(entity.ABAutoRepairShop, parentContact)"
+          id="NewContactPickerMenuItemSet_AutoRepairShopMenuItem"
+          label="displaykey.Web.NewContactMenu.AutoRepairShop"
+          visible="requiredContactType.isAssignableFrom(entity.ABAutoRepairShop)"/>
+        <MenuItem
+          action="NewContactPopup.push(entity.ABAutoTowingAgcy, parentContact)"
+          id="NewContactPickerMenuItemSet_AutoTowingAgcyMenuItem"
+          label="displaykey.Web.NewContactMenu.AutoTowingAgcy"
+          visible="requiredContactType.isAssignableFrom(entity.ABAutoTowingAgcy)"/>
+        <MenuItem
+          action="NewContactPopup.push(entity.ABLawFirm, parentContact)"
+          id="NewContactPickerMenuItemSet_LawFirmMenuItem"
+          label="displaykey.Web.NewContactMenu.LawFirm"
+          visible="requiredContactType.isAssignableFrom(entity.ABLawFirm)"/>
+        <MenuItem
+          action="NewContactPopup.push(entity.ABMedicalCareOrg, parentContact)"
+          id="NewContactPickerMenuItemSet_MedicalCareOrgMenuItem"
+          label="displaykey.Web.NewContactMenu.MedicalCareOrg"
+          visible="requiredContactType.isAssignableFrom(entity.ABMedicalCareOrg)"/>
+        <MenuItem
+          action="NewContactPopup.push(entity.ABCompanyVendor, parentContact)"
+          id="NewContactPickerMenuItemSet_OtherCompanyVendorMenuItem"
+          label="displaykey.Web.NewContactMenu.OtherCompanyVendor"
+          visible="requiredContactType.isAssignableFrom(entity.ABCompanyVendor)"/>
+      </MenuItem>
+      <MenuItem
+        action="NewContactPopup.push(entity.ABCompany, parentContact)"
+        id="NewContactPickerMenuItemSet_OtherCompanyMenuItem"
+        label="displaykey.Web.NewContactMenu.OtherCompany"
+        visible="requiredContactType.isAssignableFrom(entity.ABCompany)"/>
+    </MenuItem>
+    <MenuItem
+      id="NewContactPickerMenuItemSet_NewPlaceMenuItem"
+      label="displaykey.Web.NewContactMenu.NewPlace"
+      visible="requiredContactType.isAssignableFrom(entity.ABPlace)">
+      <MenuItem
+        action="NewContactPopup.push(entity.ABLegalVenue, parentContact)"
+        id="NewContactPickerMenuItemSet_LegalVenueMenuItem"
+        label="displaykey.Web.NewContactMenu.LegalVenue"
+        visible="requiredContactType.isAssignableFrom(entity.ABLegalVenue)"/>
+      <MenuItem
+        action="NewContactPopup.push(entity.ABPlace, parentContact)"
+        id="NewContactPickerMenuItemSet_OtherPlaceMenuItem"
+        label="displaykey.Web.NewContactMenu.OtherPlace"
+        visible="requiredContactType.isAssignableFrom(entity.ABPlace)"/>
+    </MenuItem>
+  </MenuItemSet>
+</PCF>

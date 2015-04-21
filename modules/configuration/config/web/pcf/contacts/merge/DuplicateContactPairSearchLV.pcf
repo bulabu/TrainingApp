@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <ListViewPanel
+    id="DuplicateContactPairSearchLV">
+    <Require
+      name="duplicateContactPairs"
+      type="gw.api.database.IQueryBeanResult&lt;DuplicateContactPair&gt;"/>
+    <ExposeIterator
+      valueType="entity.DuplicateContactPair"
+      widget="DuplicateContactPairSearchLV"/>
+    <RowIterator
+      checkBoxVisible="true"
+      editable="false"
+      elementName="duplicateContactPair"
+      hasCheckBoxes="true"
+      id="duplicateContactPairIterator"
+      value="duplicateContactPairs">
+      <Row>
+        <LinkCell>
+          <Link
+            action="ReviewDuplicateContactsPopup.push(new gw.web.merge.DuplicatePairWrapper(duplicateContactPair))"
+            id="Review"
+            label="displaykey.Web.Contacts.ReviewDuplicateContacts.Review"
+            styleClass="miniButton"
+            visible="not showText(duplicateContactPair)//not(duplicateContactPair.Contact.Subtype != duplicateContactPair.DuplicateContact.Subtype)"/>
+          <Link
+            available="false"
+            id="TypeMismatch"
+            label="getText(duplicateContactPair)"
+            visible="showText(duplicateContactPair)"/>
+        </LinkCell>
+        <Cell
+          align="center"
+          enableSort="false"
+          id="ContactMatchType"
+          label="displaykey.Web.Contacts.MergeContacts.MatchType"
+          sortBy="duplicateContactPair.Exact"
+          value="duplicateContactPair.Exact ? displaykey.Web.Contacts.MergeContacts.Exact : displaykey.Web.Contacts.MergeContacts.Potential"/>
+        <Cell
+          align="center"
+          id="ContactDateDetected"
+          label="displaykey.Web.Contacts.MergeContacts.DateDetected"
+          sortBy="duplicateContactPair.BatchRun.LastRunTime"
+          sortDirection="descending"
+          sortOrder="1"
+          value="duplicateContactPair.BatchRun.LastRunTime.formatDate(gw.i18n.DateTimeFormat.SHORT)"/>
+        <FormatCell
+          id="name"
+          label="displaykey.Web.Contacts.MergeContacts.Name"
+          sortBy="duplicateContactPair.Contact.Keyword"
+          sortOrder="2">
+          <ContentInput>
+            <Link
+              action="web.contact.ABContactUtil.viewContact(true, duplicateContactPair.KeptContact, CurrentLocation)"
+              id="KeptContactNameLink"
+              label="duplicateContactPair.KeptContact.DisplayName"/>
+          </ContentInput>
+          <ContentInput>
+            <Link
+              action="web.contact.ABContactUtil.viewContact(true, duplicateContactPair.RetiredContact, CurrentLocation)"
+              id="RetiredContactNameLink"
+              label="duplicateContactPair.RetiredContact.DisplayName"/>
+          </ContentInput>
+        </FormatCell>
+        <FormatCell
+          id="creation"
+          label="displaykey.Web.Contacts.MergeContacts.CreationStatus"
+          visible="false">
+          <TextInput
+            id="creationStatus"
+            value="duplicateContactPair.KeptContact.CreateStatus"/>
+          <TextInput
+            id="duplicateCreationStatus"
+            value="duplicateContactPair.RetiredContact.CreateStatus"/>
+        </FormatCell>
+        <FormatCell
+          id="address"
+          label="displaykey.Web.Contacts.MergeContacts.Address">
+          <TextInput
+            id="contactAddress"
+            value="duplicateContactPair.KeptContact.PrimaryAddress"/>
+          <TextInput
+            id="duplicateContactAddress"
+            value="duplicateContactPair.RetiredContact.PrimaryAddress"/>
+        </FormatCell>
+        <FormatCell
+          id="phone"
+          label="displaykey.Web.Contacts.MergeContacts.Phone">
+          <TextInput
+            id="contactPhone"
+            value="duplicateContactPair.KeptContact.PrimaryPhoneValue"/>
+          <TextInput
+            id="duplicateContactPhone"
+            value="duplicateContactPair.RetiredContact.PrimaryPhoneValue"/>
+        </FormatCell>
+        <FormatCell
+          id="taxId"
+          label="displaykey.Web.Contacts.MergeContacts.TaxId">
+          <TextInput
+            id="contactTaxId"
+            value="gw.api.privacy.EncryptionMaskExpressions.maskTaxId(duplicateContactPair.Contact.TaxID)"/>
+          <TextInput
+            id="duplicateContactTaxId"
+            value="gw.api.privacy.EncryptionMaskExpressions.maskTaxId(duplicateContactPair.DuplicateContact.TaxID)"/>
+        </FormatCell>
+      </Row>
+    </RowIterator>
+    <Code><![CDATA[uses gw.api.database.Query
+
+function getText(pair : entity.DuplicateContactPair):String{
+  if (pair.KeptContact.Subtype != pair.RetiredContact.Subtype)
+    return displaykey.Web.Contacts.MergeContacts.TypeMismatch
+  if (!queryPending(pair.RetiredContact))
+    return displaykey.Web.Contacts.MergeContacts.RetiredContact + "\n" + displaykey.Web.Contacts.MergeContacts.HasPendingChanges
+  
+  return ""
+}
+
+function showText(pair : entity.DuplicateContactPair):Boolean{
+  if (pair.KeptContact.Subtype != pair.RetiredContact.Subtype or !queryPending(pair.RetiredContact))
+    return true
+  
+  return false
+}
+
+function queryPending (contact : ABContact) : Boolean {
+  var result = new Query<PendingContactUpdate>(PendingContactUpdate).select().where(\ p -> p.ABContact == contact)
+  return result.Empty
+}]]></Code>
+  </ListViewPanel>
+</PCF>

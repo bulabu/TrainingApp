@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <RowSet
+    id="ABPersonAdditionalInfoRowSet"
+    mode="ABDoctor">
+    <Require
+      name="contact"
+      type="ABPerson"/>
+    <Require
+      name="duplicate"
+      type="ABPerson"/>
+    <Require
+      name="merged"
+      type="ABPerson"/>
+    <Variable
+      initialValue="{contact, duplicate, merged}"
+      name="contacts"
+      type="ABPerson[]"/>
+    <Row>
+      <Cell
+        bold="true"
+        colspan="4"
+        id="additionalInfo"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.AdditionalInfo"/>
+    </Row>
+    <Row>
+      <Cell
+        id="medicalLicenseLabel"
+        value="displaykey.Web.ContactDetail.Doctor.MedicalLicense"/>
+      <CellIterator
+        elementName="aContact"
+        id="medicalLicense"
+        value="contacts">
+        <Cell
+          editable="aContact == merged"
+          id="medicalLicense"
+          value="(aContact as ABDoctor).MedicalLicense"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="medicalSpecialtyLabel"
+        value="displaykey.Web.ContactDetail.Doctor.DoctorSpecialty"/>
+      <CellIterator
+        elementName="aContact"
+        id="medicalSpecialty"
+        value="contacts">
+        <TypeKeyCell
+          editable="aContact == merged"
+          id="medicalSpecialty"
+          value="(aContact as ABDoctor).DoctorSpecialty"/>
+      </CellIterator>
+    </Row>
+  </RowSet>
+</PCF>

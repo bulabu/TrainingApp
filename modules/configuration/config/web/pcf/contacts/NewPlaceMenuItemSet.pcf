@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <MenuItemSet
+    id="NewPlaceMenuItemSet">
+    <MenuItem
+      id="ContactsMenuActions_NewPlaceMenuItem"
+      label="displaykey.Web.NewContactMenu.NewPlace"
+      shortcut="W">
+      <MenuItem
+        action="NewContact.go(entity.ABPlace)"
+        id="ContactsMenuActions_OtherPlaceMenuItem"
+        label="displaykey.Training.PlaceGeneric"/>
+      <MenuItem
+        action="NewContact.go(entity.ABLegalVenue)"
+        id="ContactsMenuActions_LegalVenueMenuItem"
+        label="displaykey.Web.NewContactMenu.LegalVenue"/>
+    </MenuItem>
+  </MenuItemSet>
+</PCF>

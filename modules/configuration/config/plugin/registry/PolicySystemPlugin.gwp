@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<plugin
+  name="PolicySystemPlugin"
+  interface="ClientSystemPlugin">
+  <plugin-gosu
+    gosuclass="gw.plugin.integration.StandAloneClientSystemPlugin"/>
+
+<!-- Live plugin
+  <plugin-gosu
+    gosuclass="gw.plugin.policy.pc800.PCPolicySystemPlugin"/>
+-->
+</plugin>

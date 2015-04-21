@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<typelist
+  xmlns="http://guidewire.com/typelists"
+  desc="DoctorSpecialtyType"
+  name="DoctorSpecialtyType">
+  <typecode
+    code="CriticalCareMedicine"
+    desc="Critical Care Medicine"
+    name="Critical Care Medicine">
+    <category
+      code="ImmediateCare"
+      typelist="DoctorCategoryType"/>
+    <category
+      code="LongTermCare"
+      typelist="DoctorCategoryType"/>
+  </typecode>
+  <typecode
+    code="Dentistry"
+    desc="Dentistry/Oral Surgery"
+    name="Dentistry/Oral Surgery">
+    <category
+      code="ImmediateCare"
+      typelist="DoctorCategoryType"/>
+    <category
+      code="Surgery"
+      typelist="DoctorCategoryType"/>
+  </typecode>
+  <typecode
+    code="EmergencyMedicine"
+    desc="Emergency Medicine"
+    name="Emergency Medicine">
+    <category
+      code="ImmediateCare"
+      typelist="DoctorCategoryType"/>
+  </typecode>
+  <typecode
+    code="FootSurgery"
+    desc="Foot Surgery"
+    name="Foot Surgery">
+    <category
+      code="Surgery"
+      typelist="DoctorCategoryType"/>
+  </typecode>
+  <typecode
+    code="GeneralSurgery"
+    desc="General Surgery"
+    name="General Surgery">
+    <category
+      code="Surgery"
+      typelist="DoctorCategoryType"/>
+  </typecode>
+  <typecode
+    code="HandSurgery"
+    desc="Hand Surgery"
+    name="Hand Surgery">
+    <category
+      code="Surgery"
+      typelist="DoctorCategoryType"/>
+  </typecode>
+  <typecode
+    code="Hospitalist"
+    desc="Hospitalist"
+    name="Hospitalist">
+    <category
+      code="ImmediateCare"
+      typelist="DoctorCategoryType"/>
+    <category
+      code="Surgery"
+      typelist="DoctorCategoryType"/>
+  </typecode>
+  <typecode
+    code="InternalMedicine"
+    desc="Internal Medicine"
+    name="Internal Medicine">
+    <category
+      code="GeneralCare"
+      typelist="DoctorCategoryType"/>
+  </typecode>
+  <typecode
+    code="Neurology"
+    desc="Neurology"
+    name="Neurology">
+    <category
+      code="GeneralCare"
+      typelist="DoctorCategoryType"/>
+  </typecode>
+  <typecode
+    code="Orthopaedics"
+    desc="Orthopaedics"
+    name="Orthopaedics">
+    <category
+      code="GeneralCare"
+      typelist="DoctorCategoryType"/>
+  </typecode>
+  <typecode
+    code="PainManagement"
+    desc="Pain Management"
+    name="Pain Management">
+    <category
+      code="LongTermCare"
+      typelist="DoctorCategoryType"/>
+  </typecode>
+  <typecode
+    code="PhysicalRehabilitation"
+    desc="Physical Rehabilitation"
+    name="Physical Rehabilitation">
+    <category
+      code="LongTermCare"
+      typelist="DoctorCategoryType"/>
+  </typecode>
+  <typecode
+    code="Podiatry"
+    desc="Podiatry"
+    name="Podiatry">
+    <category
+      code="GeneralCare"
+      typelist="DoctorCategoryType"/>
+  </typecode>
+  <typecode
+    code="ReconstructiveSurgery"
+    desc="Reconstructive Surgery"
+    name="Reconstructive Surgery">
+    <category
+      code="Surgery"
+      typelist="DoctorCategoryType"/>
+  </typecode>
+  <typecode
+    code="Unspecified"
+    desc="Unspecified"
+    name="Unspecified">
+    <categorylist
+      typelist="DoctorCategoryType"/>
+  </typecode>
+</typelist>

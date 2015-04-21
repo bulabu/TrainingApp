@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <DetailViewPanel
+    id="UserPrefsDV">
+    <Require
+      name="UserSettings"
+      type="UserSettings"/>
+    <Require
+      name="UserBase"
+      type="UserBase"/>
+    <InputColumn>
+      <ConfirmPasswordInput
+        confirmLabel="displaykey.Web.UserPreferences.ConfirmPassword"
+        editable="true"
+        id="Password"
+        label="displaykey.Web.UserPreferences.NewPassword"
+        oldPasswordLabel="displaykey.Web.UserPreferences.OldPassword"
+        requireOldPassword="true"
+        value="UserBase.Credential.Password"/>
+      <InputSetRef
+        def="UserPreferencesInputSet(UserBase)"/>
+      <Input
+        editable="true"
+        id="UseHelperLabels"
+        label="displaykey.Training.UseHelperLabels"
+        value="UserBase.UseHelperLabels"
+        visible="perm.System.useredit"/>
+      <Input
+        editable="true"
+        id="MeasurementSystemPreference"
+        label="displaykey.Training.PreferredSystemOfMeasurement"
+        value="UserBase.MeasurementSystemPreference"/>
+    </InputColumn>
+  </DetailViewPanel>
+</PCF>

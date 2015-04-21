@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <ListViewPanel
+    desc="History of this Contact"
+    id="ContactHistoryLV">
+    <ExposeIterator
+      valueType="entity.ContactHistory"
+      widget="ContactHistoryLV"/>
+    <Require
+      name="contact"
+      type="ABContact"/>
+    <RowIterator
+      editable="false"
+      elementName="contactHistory"
+      value="gw.api.database.Query.make(entity.ContactHistory).compare(&quot;ABContact&quot;, Equals, contact).select()">
+      <ToolbarFilter
+        label="displaykey.Web.ContactHistoryLV.FilterByEventDate"
+        name="DateFilter">
+        <ToolbarFilterOption
+          filter="new web.history.HistoryFilters.Last30Days()"/>
+        <ToolbarFilterOption
+          filter="new web.history.HistoryFilters.Last60Days()"/>
+        <ToolbarFilterOption
+          filter="new web.history.HistoryFilters.Last90Days()"
+          selectOnEnter="true"/>
+        <ToolbarFilterOption
+          filter="new web.history.HistoryFilters.Last120Days()"/>
+        <ToolbarFilterOption
+          filter="new web.history.HistoryFilters.Last180Days()"/>
+        <ToolbarFilterOption
+          filter="new web.history.HistoryFilters.LastYear()"/>
+        <ToolbarFilterOption
+          filter="new web.history.HistoryFilters.Last3Years()"/>
+        <ToolbarFilterOption
+          filter="new web.history.HistoryFilters.All()"/>
+      </ToolbarFilter>
+      <ToolbarFilter
+        label="displaykey.Web.ContactHistoryLV.FilterByEventType"
+        name="HistoryEventTypeFilter">
+        <ToolbarFilterOptionGroup
+          filters="new gw.api.filters.TypeKeyFilterSet( History.Type.TypeInfo.getProperty( &quot;CustomType&quot; ) ).getFilterOptions()"/>
+      </ToolbarFilter>
+      <Row>
+        <TypeKeyCell
+          id="Type"
+          label="displaykey.Web.ContactHistoryLV.Type"
+          value="contactHistory.CustomType"/>
+        <TextCell
+          id="User"
+          label="displaykey.Web.ContactHistoryLV.User"
+          value="getUserName(contactHistory)"/>
+        <Cell
+          id="Reviewer"
+          label="displaykey.Web.ContactHistoryDV.Reviewer"
+          value="getReviewer(contactHistory)"/>
+        <DateCell
+          dateFormat="short"
+          id="Date"
+          label="displaykey.Web.ContactHistoryLV.Date"
+          sortOrder="1"
+          timeFormat="short"
+          value="contactHistory.EventTimestamp"/>
+        <Cell
+          id="Description"
+          label="displaykey.Web.ContactHistoryLV.Description"
+          value="contactHistory.Description"/>
+        <Cell
+          action="ContactHistoryDetailPopup.push(contactHistory)"
+          actionAvailable="contactHistory.TrackedChanges.length &gt; 0"
+          enableSort="false"
+          id="ChangesLink"
+          label="displaykey.Web.ContactHistoryLV.ChangeDetails"
+          value="contactHistory.TrackedChanges.length &gt; 0 ? displaykey.Web.ContactHistoryLV.Changes : null"/>
+      </Row>
+    </RowIterator>
+    <Code><![CDATA[function getUserName(contactHistory : ContactHistory) : String {
+  if (contactHistory.ExternalUpdateApp != null and contactHistory.ExternalUpdateUser != null) {
+    return contactHistory.ExternalUpdateUser + " (" + contactHistory.ExternalUpdateApp.toUpperCase() + ")"
+    
+  } else if (contactHistory.ExternalUpdateUser != null) {
+    return contactHistory.ExternalUpdateUser
+      
+  } else {
+    return contactHistory.User.DisplayName
+  }
+}
+
+function getReviewer(contactHistory : ContactHistory):String{
+  if (contactHistory.ExternalUpdateUser != null and contactHistory.User != null)
+    return contactHistory.User.DisplayName
+  else
+    return ""
+}]]></Code>
+  </ListViewPanel>
+</PCF>

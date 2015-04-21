@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <Page
+    alwaysInEditMode="true"
+    canEdit="true"
+    id="IntegrationMessageSafeOrderingPage"
+    startInEditMode="true"
+    title="displaykey.Training.SafeOrdering">
+    <Variable
+      name="selectedABPerson"
+      type="ABPerson"/>
+    <Variable
+      initialValue="&quot;&quot;"
+      name="newABPersonOccupation"
+      type="String"/>
+    <Variable
+      initialValue="true"
+      name="acknowledgeABPersonMessage"
+      type="boolean"/>
+    <Variable
+      name="selectedUser"
+      type="User"/>
+    <Variable
+      name="newUserJobTitle"
+      type="String"/>
+    <Variable
+      initialValue="true"
+      name="acknowledgeUserMessage"
+      type="boolean"/>
+    <Screen>
+      <DetailViewPanel>
+        <InputColumn>
+          <ContentInput>
+            <Link
+              action="SafeOrderingDemoExitPoint.push()"
+              id="DisplayInstructions"
+              label="displaykey.Training.DisplayInstructions"/>
+          </ContentInput>
+          <Label
+            label="displaykey.Training.SafeOrdering"/>
+          <RangeInput
+            editable="true"
+            id="SelectedABPerson"
+            label="displaykey.Training.SelectABPerson"
+            value="selectedABPerson"
+            valueRange="find (x in ABPerson)"/>
+          <Input
+            editable="true"
+            id="NewABPersonOccupation"
+            label="displaykey.Training.ChangeOccupation"
+            value="newABPersonOccupation">
+            <Reflect
+              triggerIds="SelectedABPerson"
+              value="VALUE.Occupation"/>
+          </Input>
+          <Input
+            editable="true"
+            id="AcknowledgeABPersonMessage"
+            label="displaykey.Training.AcknowledgeMessage"
+            value="acknowledgeABPersonMessage"/>
+          <ButtonInput
+            action="sendABPersonMessage()"
+            id="SendABPersonMessage"
+            label="displaykey.Training.SendMessage"
+            value="displaykey.Training.Send"/>
+          <InputDivider/>
+          <Label
+            label="displaykey.Training.NonSafeOrdering"/>
+          <RangeInput
+            editable="true"
+            id="SelectedABUser"
+            label="displaykey.Training.SelectUser"
+            value="selectedUser"
+            valueRange="find (x in User)"/>
+          <Input
+            editable="true"
+            id="NewUserJobTitle"
+            label="displaykey.Training.ChangeOccupation"
+            value="newUserJobTitle">
+            <Reflect
+              triggerIds="SelectedABPerson"
+              value="VALUE.Occupation"/>
+          </Input>
+          <Input
+            editable="true"
+            id="AcknowledgeUserMessage"
+            label="displaykey.Training.AcknowledgeMessage"
+            value="acknowledgeUserMessage"/>
+          <ButtonInput
+            action="sendUserMessage()"
+            id="SendUserMessage"
+            label="displaykey.Training.SendMessage"
+            value="displaykey.Training.Send"/>
+        </InputColumn>
+      </DetailViewPanel>
+    </Screen>
+    <Code><![CDATA[function sendABPersonMessage() : void {
+   selectedABPerson.Occupation = newABPersonOccupation
+   if (acknowledgeABPersonMessage) {
+      selectedABPerson.addEvent("SafeOrderingDemoWithAck")
+   } else {
+      selectedABPerson.addEvent("SafeOrderingDemoNoAck")
+   }
+   gw.transaction.Transaction.getCurrent().commit()
+}
+
+
+function sendUserMessage() : void {
+   selectedUser.JobTitle = newUserJobTitle
+   if (acknowledgeUserMessage) {
+      selectedUser.addEvent("SafeOrderingDemoWithAck")
+   } else {
+      selectedUser.addEvent("SafeOrderingDemoNoAck")
+   }
+   gw.transaction.Transaction.getCurrent().commit()
+}]]></Code>
+  </Page>
+</PCF>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!-- others -->
+<entity
+  xmlns="http://guidewire.com/datamodel"
+  entity="DuplicateContactPair"
+  type="versionable"
+  desc="Represents a duplicate contact linking to both the original contact and the found duplicate contact."
+  exportable="false"
+  subpackage="contact"
+  platform="false"
+  table="duplicatecontactpair">
+  <foreignkey
+    name="Contact"
+    desc="The original contact."
+    columnName="ContactID"
+    fkentity="ABContact"
+    importableagainstexistingobject="false"
+    nullok="false"/>
+  <foreignkey
+    name="DuplicateContact"
+    desc="The found duplicate contact."
+    columnName="DuplicateContactID"
+    fkentity="ABContact"
+    importableagainstexistingobject="false"
+    nullok="false"/>
+  <foreignkey
+    name="BatchRun"
+    desc="The corresponding batch run where this contact was found."
+    columnName="DuplicateContactBatchRunID"
+    fkentity="DuplicateContactBatchRun"
+    importableagainstexistingobject="false"
+    nullok="false"/>
+  <column
+    name="Exact"
+    type="bit"
+    desc="Flag indicating the found duplicate is an exact match."
+    nullok="false"/>
+</entity>

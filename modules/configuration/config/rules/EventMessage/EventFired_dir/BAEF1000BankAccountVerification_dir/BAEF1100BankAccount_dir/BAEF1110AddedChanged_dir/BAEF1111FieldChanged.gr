@@ -1,0 +1,41 @@
+package rules.EventMessage.EventFired_dir.BAEF1000BankAccountVerification_dir.BAEF1100BankAccount_dir.BAEF1110AddedChanged_dir
+uses acme.ta.messaging.bank.BankAccountDataTemplate
+@gw.rules.RuleName("BAEF1111 - Field Changed")
+internal class BAEF1111FieldChanged {
+  static function doCondition(messageContext : entity.MessageContext) : boolean {
+    
+/*start00rule*/
+return (messageContext.Root as BankAccount).isFieldChanged("BankName") or
+(messageContext.Root as BankAccount).isFieldChanged("RoutingNumber") or
+(messageContext.Root as BankAccount).isFieldChanged("AccountNumber") or
+(messageContext.Root as BankAccount).isFieldChanged("AccountType")
+
+
+/*end00rule*/
+
+  }
+
+  static function doAction(messageContext : entity.MessageContext, actions : gw.rules.Action) {
+
+/*start00rule*/
+print("\n*** Stage 2 -- Generating the message payload ***")
+print("    Event Fired rules: " + actions.Rule.DisplayName )
+//messageContext root must be cast to appropriate type
+var aBankAccount = messageContext.Root as BankAccount
+
+//for checking and savings accounts, use a Gosu template , for others use an GX Model
+if (aBankAccount.AccountType == BankAccountType.TC_CHECKING or aBankAccount.AccountType == BankAccountType.TC_SAVINGS) {
+  var payload = BankAccountDataTemplate.renderToString(aBankAccount.ABContact.PublicID, aBankAccount)
+  var msg = messageContext.createMessage(payload)
+  print("    Using Gosu Template for payload")
+  } else {
+  var xml = new acme.ta.messaging.bank.bankaccountxmlmodel.BankAccount(aBankAccount)
+  var msg = messageContext.createMessage(xml.asUTFString())
+  print("    Using XML model for payload as XML UTF String")
+  }
+  print("    createMessage() called")
+
+/*end00rule*/
+
+  }
+}

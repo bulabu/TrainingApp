@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <DetailViewPanel
+    editable="true"
+    id="DuplicateContactPairSearchDV">
+    <Require
+      name="searchCriteria"
+      type="gw.domain.contact.DuplicateContactSearchCriteria"/>
+    <InputColumn
+      width="370">
+      <Input
+        editable="true"
+        id="Name"
+        label="(gw.api.util.LocaleUtil.CurrentLocaleType == LocaleType.TC_JA_JP) ? displaykey.Web.Contacts.MergeContacts.Search.NamePhonetic : displaykey.Web.Contacts.MergeContacts.Search.Name"
+        value="searchCriteria.Name"/>
+      <RangeInput
+        editable="true"
+        id="MatchType"
+        label="displaykey.Web.Contacts.MergeContacts.Search.MatchType"
+        required="true"
+        sortValueRange="false"
+        value="searchCriteria.MatchType"
+        valueRange="gw.domain.contact.DuplicateContactSearchCriteria.MatchType.AllValuesSorted"/>
+    </InputColumn>
+    <InputColumn>
+      <CheckBoxInput
+        editable="true"
+        id="LastRun"
+        label="displaykey.Web.Contacts.MergeContacts.Search.LastRun"
+        value="searchCriteria.LastRun"/>
+      <DateInput
+        dateFormat="short"
+        editable="true"
+        id="SearchDate"
+        label="displaykey.Web.Contacts.MergeContacts.Search.Date"
+        value="searchCriteria.SearchDate"/>
+    </InputColumn>
+    <InputFooterSection>
+      <InputSetRef
+        def="SearchAndResetInputSet()"/>
+    </InputFooterSection>
+  </DetailViewPanel>
+</PCF>

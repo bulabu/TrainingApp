@@ -1,0 +1,10 @@
+Roles,
+type,data-set,entityid,description,name,carrierinternalrole
+Role,0,rule_admin,Permissions for rule admin,Rule Admin,true
+Role,0,superuser,Superuser with full permissions,Superuser,true
+Role,0,user_admin,Permissions for user admin,User Admin,true
+Role,0,contact_viewer,User with view-only permissions,Contact Viewer,true
+Role,0,contact_manager,User with contact-editing permissions,Contact Manager,true
+Role,0,client_app,Client Application user (should not access via UI),Client Application,true
+Role,0,toolview,Permissions for viewing tools page,Tools View,true
+Role,0,contact_subtype,Permissions to change contact subtype,Contact Subtype Changer,true

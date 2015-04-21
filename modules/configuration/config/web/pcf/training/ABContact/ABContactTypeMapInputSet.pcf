@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="pcf.xsd">
+  <InputSet
+    id="ABContactTypeMapInputSet">
+    <Require
+      name="ABContact"
+      type="ABContact"/>
+    <Label
+      label="displaykey.Training.Map.ABContact"/>
+    <Label
+      label="displaykey.Training.Map.ABCompany"
+      visible="(ABContact typeis ABCompany)"/>
+    <Label
+      label="displaykey.Training.Map.ABPerson"
+      visible="(ABContact typeis ABPerson)"/>
+    <Label
+      label="displaykey.Training.Map.ABPlace"
+      visible="(ABContact typeis ABPlace)"/>
+    <Label
+      label="displaykey.Training.Map.ABAdjudicator"
+      visible="(ABContact typeis ABAdjudicator)"/>
+    <Label
+      label="displaykey.Training.Map.ABLegalVenue"
+      visible="(ABContact typeis ABLegalVenue)"/>
+    <Label
+      label="displaykey.Training.Map.ABCompanyVendor"
+      visible="(ABContact typeis ABCompanyVendor)"/>
+    <Label
+      label="displaykey.Training.Map.ABPersonVendor"
+      visible="(ABContact typeis ABPersonVendor)"/>
+    <Label
+      label="displaykey.Training.Map.ABPolicyCompany"
+      visible="(ABContact typeis ABPolicyCompany)"/>
+    <Label
+      label="displaykey.Training.Map.ABPolicyPerson"
+      visible="(ABContact typeis ABPolicyPerson)"/>
+    <Label
+      label="displaykey.Training.Map.ABUserContact"
+      visible="(ABContact typeis ABUserContact)"/>
+    <Label
+      label="displaykey.Training.Map.ABAutoRepairShop"
+      visible="(ABContact typeis ABAutoRepairShop)"/>
+    <Label
+      label="displaykey.Training.Map.ABAutoTowingAgcy"
+      visible="(ABContact typeis ABAutoTowingAgcy)"/>
+    <Label
+      label="displaykey.Training.Map.ABLawFirm"
+      visible="(ABContact typeis ABLawFirm)"/>
+    <Label
+      label="displaykey.Training.Map.ABMedicalCareOrg"
+      visible="(ABContact typeis ABMedicalCareOrg)"/>
+    <Label
+      label="displaykey.Training.Map.ABAttorney"
+      visible="(ABContact typeis ABAttorney)"/>
+    <Label
+      label="displaykey.Training.Map.ABDoctor"
+      visible="(ABContact typeis ABDoctor)"/>
+  </InputSet>
+</PCF>

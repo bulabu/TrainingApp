@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <DetailViewPanel
+    id="GroupDetailDV">
+    <Require
+      name="Group"
+      type="Group"/>
+    <InputColumn>
+      <Input
+        editable="true"
+        hideIfReadOnly="true"
+        id="Name"
+        label="(gw.api.util.LocaleUtil.CurrentLocaleType == LocaleType.TC_JA_JP) ? displaykey.Web.Admin.GroupDetail.BasicDV.NamePhonetic : displaykey.Web.Admin.GroupDetail.BasicDV.Name"
+        required="true"
+        value="Group.Name"/>
+      <Input
+        id="NameReadOnly"
+        label="displaykey.Web.Admin.GroupDetail.BasicDV.Name"
+        value="Group"
+        visible="not gw.api.util.LocationUtil.isCurrentLocationEditable()"/>
+      <Input
+        editable="true"
+        hideIfReadOnly="true"
+        id="NameKanji"
+        label="displaykey.Web.Admin.GroupDetail.BasicDV.Name"
+        required="false"
+        value="Group.NameKanji"
+        visible="gw.api.util.LocaleUtil.CurrentLocaleType == LocaleType.TC_JA_JP"/>
+      <TypeKeyInput
+        editable="true"
+        id="Type"
+        label="displaykey.Web.Admin.GroupDetail.BasicDV.Type"
+        required="true"
+        value="Group.GroupType"/>
+      <GroupInput
+        action="GroupDetailPopup.push(Group.Parent)"
+        editable="true"
+        id="Parent"
+        label="displaykey.Web.Admin.GroupDetail.BasicDV.Parent"
+        required="true"
+        searchLocation="GroupSearchPopup.push(Group)"
+        selectLocation="OrganizationGroupTreePopup.push(Group.makeOrganizationSelection(), Group)"
+        value="Group.Parent"
+        visible="Group.Parent != null"/>
+      <UserInput
+        action="UserDetailPopup.push(Group.Supervisor)"
+        editable="true"
+        id="Supervisor"
+        label="displaykey.Web.Admin.GroupDetail.BasicDV.Supervisor"
+        required="true"
+        value="Group.Supervisor"/>
+      <ListViewInput
+        def="GroupUsersLV(Group)"
+        editable="true"
+        label="displaykey.Web.Admin.GroupDetail.BasicDV.Users">
+        <Toolbar>
+          <IteratorButtons
+            iterator="GroupUsersLV.GroupUsersLV"/>
+        </Toolbar>
+      </ListViewInput>
+    </InputColumn>
+  </DetailViewPanel>
+</PCF>

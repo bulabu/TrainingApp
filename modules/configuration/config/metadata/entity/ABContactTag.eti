@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<entity
+  xmlns="http://guidewire.com/datamodel"
+  entity="ABContactTag"
+  desc="ABContactTag"
+  table="abcontacttag"
+  type="versionable"
+  exportable="true"
+  extendable="true"
+  final="true"
+  subpackage="addressbook">
+  <implementsEntity
+    name="ABLinkable"/>
+  <typekey
+    name="Type"
+    desc="Type of this ContactTag."
+    nullok="false"
+    typelist="ContactTagType"/>
+  <foreignkey
+    name="ABContact"
+    desc="ABContact"
+    columnName="ABContactID"
+    fkentity="ABContact"
+    nullok="false"
+    setterScriptability="hidden"/>
+  <index
+    name="abcontacttagtype"
+    desc="Enforce that ABContact has at most one ABContactTag of any specific type"
+    unique="true">
+    <indexcol
+      name="ABContactID"
+      keyposition="1"/>
+    <indexcol
+      name="Type"
+      keyposition="2"/>
+  </index>
+</entity>

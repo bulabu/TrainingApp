@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <ListViewPanel
+    id="MessageLV">
+    <ExposeIterator
+      valueType="entity.Message"
+      widget="MessageIterator"/>
+    <RowIterator
+      checkBoxVisible="true"
+      editable="true"
+      elementName="currentMessage"
+      hasCheckBoxes="true"
+      id="MessageIterator"
+      value="allMessages()">
+      <IteratorSort
+        sortBy="currentMessage.CreationTime"
+        sortDirection="descending"
+        sortOrder="2"/>
+      <IteratorSort
+        sortBy="currentMessage.Status"
+        sortOrder="1"/>
+      <Row>
+        <Cell
+          id="ID"
+          label="displaykey.Training.MsgID"
+          value="currentMessage.ID"/>
+        <DateCell
+          dateFormat="short"
+          id="CreationTime"
+          label="displaykey.Training.CreationTime"
+          timeFormat="short"
+          value="currentMessage.CreationTime"/>
+        <Cell
+          enableSort="false"
+          id="TriggeringEntity"
+          label="displaykey.Training.TriggeringEntity"
+          value="getObjectNameFromMessage(currentMessage)"/>
+        <Cell
+          id="EventName"
+          label="displaykey.Training.EventName"
+          value="currentMessage.EventName"/>
+        <Cell
+          id="Destination"
+          label="displaykey.Training.Destination"
+          value="currentMessage.DestinationID"/>
+        <Cell
+          id="SenderRefID"
+          label="displaykey.Training.SenderRefID"
+          value="currentMessage.SenderRefID"/>
+        <Cell
+          enableSort="false"
+          id="Status"
+          label="displaykey.Training.Status"
+          value="getStatusStringFromStatusInt(currentMessage.Status)"/>
+        <TextCell
+          id="ErrorDescription"
+          label="displaykey.Training.ErrorCategory"
+          value="currentMessage.ErrorCategory"/>
+        <Cell
+          align="center"
+          id="RetryCount"
+          label="displaykey.Training.Retries"
+          value="currentMessage.RetryCount"/>
+        <DateCell
+          dateFormat="short"
+          id="RetryTime"
+          label="&quot;Retry Time&quot;"
+          timeFormat="short"
+          value="currentMessage.RetryTime"
+          visible="displayRetryTimeColumn()"/>
+      </Row>
+    </RowIterator>
+    <Code><![CDATA[function allMessages() : gw.api.database.IQueryBeanResult<entity.Message> {
+  var queryObj = gw.api.database.Query.make(Message)
+  return queryObj.select()
+}
+
+function getObjectNameFromMessage (aMessage : Message) : String {
+    var typeString = aMessage.MessageRoot.IntrinsicType.toString()
+    // In this case, intrinsic type starts with "entity.". The next line strips this off.
+    typeString = (gw.api.util.StringUtil.substring(typeString,7,typeString.length))  
+    var returnString = typeString + "(" + aMessage.MessageRoot.ID + ")"
+    return returnString
+}
+
+function getDestinationNameFromID(ID : int) : String {
+  switch (ID) {
+    case 80:
+      return "ABContact AutoSync Broadcast (80)"
+    case 65:
+      return "email (65)"
+    case 13:
+      return "Bank Account Verification (13)"
+    case 14:
+      return "Vendor Recommendation (14)"
+    case 15:
+      return "Legal Case Report Request (15)"
+    case 20:
+      return "Safe Ordering Demo (20)"
+    case 21:
+      return "Message Generator (21)"
+    default:
+      var returnString = "Student-Defined Destination (" + (ID as java.lang.String) + ")"
+      return returnString
+  }
+}
+  
+function getStatusStringFromStatusInt(Status : int) : String {
+  // The strings used for the statuses below come from the Data Dictionary entry for the
+  // Message entity - specifically the description of the Status field
+  switch (Status) {
+    case 1:
+      return "Pending send (1)"
+    case 2:
+      return "Pending acknowledged (2)"
+    case 4:
+      return "Retryable error (4)"
+    default:
+      return "Unknown"
+  }
+}
+
+function displayRetryTimeColumn() : boolean {
+  var queryObj = gw.api.database.Query.make(Message)
+  var resultSet = queryObj.select()
+  for (currentMessage in resultSet) {
+    if (currentMessage.RetryTime != null) {
+      // found at least one message with a retry time, so
+      // immediately return true
+      return true
+    }
+  }
+  // no messages with a retry time were found, return false
+  return false
+}]]></Code>
+  </ListViewPanel>
+</PCF>

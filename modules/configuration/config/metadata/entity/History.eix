@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<internalExtension
+  xmlns="http://guidewire.com/datamodel"
+  entityName="History">
+  <description>Events in the contact audit trail.</description>
+  <array
+    name="TrackedChanges"
+    desc="Tracked changes."
+    arrayentity="TrackedChange"
+    owner="true"/>
+</internalExtension>

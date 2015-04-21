@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<plugin
+  interface="MessageRequest"
+  name="LegalReportRequest">
+  <plugin-gosu
+    gosuclass="acme.ta.messaging.legalreport.LegalReportRequest"/>
+</plugin>

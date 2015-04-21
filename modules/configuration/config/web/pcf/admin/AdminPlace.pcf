@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <Page
+    canVisit="perm.User.view"
+    id="AdminPlace"
+    parent="Admin()"
+    title="displaykey.Web.Admin.AdminPlace.Title">
+    <Screen
+      id="AdminPlaceScreen">
+      <Toolbar/>
+      <Verbatim
+        label="displaykey.Web.Admin.AdminPlace.StartMessage"/>
+    </Screen>
+  </Page>
+</PCF>

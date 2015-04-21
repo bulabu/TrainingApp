@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <DetailViewPanel
+    id="UserSearchDV">
+    <Require
+      name="SearchCriteria"
+      type="UserSearchCriteria"/>
+    <InputColumn>
+      <Input
+        editable="true"
+        id="Username"
+        label="displaykey.Web.UserSearch.Username"
+        value="SearchCriteria.Username"/>
+      <Input
+        editable="true"
+        id="FirstName"
+        label="(gw.api.util.LocaleUtil.CurrentLocaleType == LocaleType.TC_JA_JP) ? displaykey.Web.UserSearch.FirstNamePhonetic : displaykey.Web.UserSearch.FirstName"
+        value="SearchCriteria.Contact.FirstName"/>
+      <Input
+        editable="true"
+        id="FirstNameKanji"
+        label="displaykey.Web.UserSearch.FirstName"
+        value="SearchCriteria.Contact.FirstNameKanji"
+        visible="gw.api.util.LocaleUtil.CurrentLocaleType == LocaleType.TC_JA_JP"/>
+      <Input
+        editable="true"
+        id="LastName"
+        label="(gw.api.util.LocaleUtil.CurrentLocaleType == LocaleType.TC_JA_JP) ? displaykey.Web.UserSearch.LastNamePhonetic : displaykey.Web.UserSearch.LastName"
+        value="SearchCriteria.Contact.Keyword"/>
+      <Input
+        editable="true"
+        id="LastNameKanji"
+        label="displaykey.Web.UserSearch.LastName"
+        value="SearchCriteria.Contact.KeywordKanji"
+        visible="gw.api.util.LocaleUtil.CurrentLocaleType == LocaleType.TC_JA_JP"/>
+      <Label
+        label="displaykey.Web.UserGroupFields.Search.AdditionalRestrictions"/>
+      <InputDivider/>
+      <RangeInput
+        editable="true"
+        id="Role"
+        label="displaykey.Web.UserSearch.Role"
+        value="SearchCriteria.Role"
+        valueRange="SearchCriteria.getAllRoles()"/>
+    </InputColumn>
+    <InputColumn>
+      <Label
+        label="displaykey.Web.ContactSearch.Location"/>
+      <InputSetRef
+        def="AdminUserSearchInputSet(SearchCriteria)"/>
+    </InputColumn>
+    <InputFooterSection>
+      <InputSetRef
+        def="SearchAndResetInputSet()"/>
+    </InputFooterSection>
+  </DetailViewPanel>
+</PCF>

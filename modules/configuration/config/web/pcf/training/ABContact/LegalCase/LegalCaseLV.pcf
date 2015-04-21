@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../../pcf.xsd">
+  <ListViewPanel
+    editable="false"
+    id="LegalCaseLV">
+    <Require
+      name="anABContact"
+      type="ABContact"/>
+    <RowIterator
+      editable="false"
+      elementName="currentLegalCase"
+      value="anABContact.LegalCases">
+      <Row>
+        <Cell
+          id="Plaintiff"
+          label="displaykey.Training.Date"
+          value="currentLegalCase.FileDate"/>
+        <Cell
+          id="Date"
+          label="displaykey.Training.Plaintiff"
+          value="currentLegalCase.Plaintiff"/>
+        <Cell
+          id="Type"
+          label="displaykey.Training.Type"
+          value="currentLegalCase.CaseType"/>
+        <Cell
+          id="Status"
+          label="displaykey.Training.Status"
+          value="currentLegalCase.Status"/>
+      </Row>
+    </RowIterator>
+  </ListViewPanel>
+</PCF>

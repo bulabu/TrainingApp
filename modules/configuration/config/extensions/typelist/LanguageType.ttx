@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<typelistextension
+  xmlns="http://guidewire.com/typelists"
+  desc="Users' preferred languages"
+  name="LanguageType">
+  <typecode
+    code="en_US"
+    desc="English (US)"
+    name="English (US)"
+    priority="1"/>
+<!-- BEGIN :: TrainingApp 8.0.2 -->
+  <typecode
+    code="ja_JP"
+    desc="Japanese"
+    name="Japanese"
+    priority="2"/>
+<!-- END :: TrainingApp 8.0.2 -->
+</typelistextension>

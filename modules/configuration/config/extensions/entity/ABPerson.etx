@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension xmlns="http://guidewire.com/datamodel" entityName="ABPerson">
+  <!-- KanjiIndexDefinition: Uncomment if you use kanji name fields for Japanese.
+
+  <index name="FindDupeNameK">
+    <indexcol keyposition="1" name="LastNameKanji"/>
+    <indexcol keyposition="2" name="FirstNameKanji"/>
+    <indexcol keyposition="3" name="Subtype"/>
+    <indexcol keyposition="4" name="Retired"/>
+  </index>
+  <index desc="Index to speed up Search on KeywordKanji or KeywordKanji and FirstNameKanji with City and State" name="ABPersonKWFNCSK" unique="true">
+    <indexcol keyposition="1" name="KeywordKanji"/>
+    <indexcol keyposition="2" name="FirstNameKanji"/>
+    <indexcol keyposition="3" name="CityKanjiDenorm"/>
+    <indexcol keyposition="4" name="StateDenorm"/>
+    <indexcol keyposition="5" name="Subtype"/>
+    <indexcol keyposition="6" name="Retired"/>
+    <indexcol keyposition="7" name="Id"/>
+  </index>
+  <index desc="Speed up searching on Contact address for PostalCode search actions" name="ABPersonKWFNPCK" unique="true">
+    <indexcol keyposition="1" name="KeywordKanji"/>
+    <indexcol keyposition="2" name="FirstNameKanji"/>
+    <indexcol keyposition="3" name="PostalCodeDenorm"/>
+    <indexcol keyposition="4" name="Subtype"/>
+    <indexcol keyposition="5" name="Retired"/>
+    <indexcol keyposition="6" name="Id"/>
+  </index>
+
+  -->
+
+</extension>

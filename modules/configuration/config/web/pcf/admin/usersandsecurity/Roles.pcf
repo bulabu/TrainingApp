@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <Page
+    canVisit="perm.Role.view"
+    id="Roles"
+    title="displaykey.Web.Admin.Roles">
+    <Variable
+      initialValue="Role.finder.allOrderedByName()"
+      name="AllRoles"
+      type="RoleQuery"/>
+    <Screen
+      id="RolesScreen">
+      <TitleBar
+        appendListViewPaging="true"
+        title="displaykey.Web.Admin.Roles"/>
+      <Toolbar>
+        <ToolbarButton
+          action="NewRole.go()"
+          id="Roles_AddRoleButton"
+          label="displaykey.Web.Admin.AddRole"
+          shortcut="R"/>
+        <CheckedValuesToolbarButton
+          allCheckedRowsAction="gw.api.admin.BaseAdminUtil.deleteRoles(CheckedValues)"
+          confirmMessage="displaykey.Web.Admin.Roles.DeleteConfirm"
+          flags="any Role"
+          id="Roles_DeleteButton"
+          iterator="RolesLV.RolesLV"
+          label="displaykey.Button.Delete"
+          shortcut="L"
+          visible="perm.Role.delete"/>
+      </Toolbar>
+      <PanelRef
+        def="RolesLV(AllRoles)"/>
+    </Screen>
+  </Page>
+</PCF>

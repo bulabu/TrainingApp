@@ -1,0 +1,1 @@
+Examples is a directory containing training materials. There is not an examples directory in base configurations of Guidewire applications.

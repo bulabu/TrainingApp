@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <ListViewPanel
+    id="ExchangeRateLV">
+    <RowIterator
+      editable="false"
+      elementName="currentExchangeRate"
+      pageSize="25"
+      value="queryExchangeRates()">
+      <Row>
+        <DateCell
+          dateFormat="short"
+          id="RetrievedOn"
+          label="displaykey.Training.RetrievedOn"
+          timeFormat="short"
+          value="currentExchangeRate.CreateTime"/>
+        <Cell
+          id="BaseCurrency"
+          label="displaykey.Training.BaseCurrency"
+          value="currentExchangeRate.BaseCurrency"/>
+        <Cell
+          id="PriceCurrency"
+          label="displaykey.Training.PriceCurrency"
+          value="currentExchangeRate.PriceCurrency"/>
+        <Cell
+          enableSort="false"
+          id="Rate"
+          label="displaykey.Training.Rate"
+          value="currentExchangeRate.Rate"/>
+      </Row>
+    </RowIterator>
+    <Code><![CDATA[function queryExchangeRates () : gw.api.database.IQueryBeanResult<entity.ExchangeRate> {
+  
+  var rateSetQuery = gw.api.database.Query.make(ExchangeRateSet)
+  var rateSetResult = rateSetQuery.select()
+  var mostRecentSet = rateSetResult.orderByDescending(\row->row.CreateTime).FirstResult.ID  
+
+  var rateQuery = gw.api.database.Query.make(ExchangeRate)
+  rateQuery.compare("ExchangeRateSet", Equals, mostRecentSet)
+  var rateQueryResult = rateQuery.select()
+  rateQueryResult.thenBy(\row->row.BaseCurrency)
+  rateQueryResult.thenBy(\row->row.PriceCurrency)
+  return rateQueryResult
+}]]></Code>
+  </ListViewPanel>
+</PCF>

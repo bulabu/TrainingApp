@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <Screen
+    id="UserDetailScreen">
+    <Require
+      name="user"
+      type="User"/>
+    <Require
+      name="isNew"
+      type="boolean"/>
+    <Toolbar>
+      <EditButtons/>
+      <ToolbarDivider
+        hideIfEditable="true"/>
+      <ToolbarButton
+        action="web.admin.UserUtil.delete(user); AdminForward.go()"
+        confirmMessage="displaykey.Web.Admin.User.Delete.Warning"
+        hideIfEditable="true"
+        id="UserDetailScreen_DeleteButtonButton"
+        label="displaykey.Web.Admin.User.DeleteButton"
+        shortcut="L"
+        visible="user.SafeToDelete and perm.User.delete"/>
+    </Toolbar>
+    <CardViewPanel>
+      <Card
+        id="BasicsCard"
+        title="displaykey.Web.UserDetail.Basics"
+        visible="perm.User.view">
+        <PanelRef
+          def="UserDetailDV(user, isNew)"/>
+      </Card>
+      <Card
+        id="ProfileCard"
+        title="displaykey.Web.UserDetail.Profile"
+        visible="perm.User.view">
+        <PanelRef
+          def="UserProfileDV(user)"/>
+      </Card>
+      <Card
+        id="RegionsCard"
+        shortcut="R"
+        title="displaykey.Web.UserDetail.Regions"
+        visible="perm.User.view">
+        <PanelRef
+          def="UserRegionLV(user)">
+          <Toolbar>
+            <IteratorButtons
+              iterator="UserRegionLV.UserRegionLV"
+              removeShortcut="E"/>
+          </Toolbar>
+        </PanelRef>
+      </Card>
+    </CardViewPanel>
+  </Screen>
+</PCF>

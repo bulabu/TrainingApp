@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <ListViewPanel
+    desc="List of Services"
+    id="VendorServicesLV">
+    <Require
+      name="contact"
+      type="ABContact"/>
+    <Require
+      name="contactDetailsVendorHelper"
+      type="gw.web.ContactDetailsVendorHelper"/>
+    <Require
+      name="showInactiveService"
+      type="boolean"/>
+    <RowIterator
+      editable="true"
+      elementName="serviceRow"
+      hideCheckBoxesIfReadOnly="true"
+      pageSize="0"
+      value="contactDetailsVendorHelper.getRows(CurrentLocation.InEditMode)">
+      <ToolbarFlag
+        name="relationship"/>
+      <Row
+        visible="showInactiveService ? true : serviceRow.Service.Active">
+        <CheckBoxCell
+          editable="true"
+          hideIfReadOnly="true"
+          id="contactHasServiceCheckbox"
+          label="&quot; &quot;"
+          value="serviceRow.ContactHasService"/>
+        <TextCell
+          fontColor="serviceRow.Service.Active ? &quot;&quot; : &quot;Gray&quot; "
+          id="ServiceNameCell0"
+          label="displaykey.Web.ContactDetail.Services.Category"
+          value="serviceRow.getServiceNamePart(0)"/>
+        <TextCell
+          fontColor="serviceRow.Service.Active ? &quot;&quot; : &quot;Gray&quot; "
+          id="ServiceNameCell1"
+          label="displaykey.Web.ContactDetail.Services.SubCategory"
+          value="serviceRow.getServiceNamePart(1)"/>
+        <TextCell
+          fontColor="serviceRow.Service.Active ? &quot;&quot; : &quot;Gray&quot; "
+          id="ServiceNameCell2"
+          label="displaykey.Web.ContactDetail.Services.ServiceType"
+          value="serviceRow.getServiceNamePart(2)"/>
+      </Row>
+    </RowIterator>
+  </ListViewPanel>
+</PCF>

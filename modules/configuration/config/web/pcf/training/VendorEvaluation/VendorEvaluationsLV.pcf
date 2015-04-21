@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <ListViewPanel
+    id="VendorEvaluationsLV">
+    <Require
+      name="anABContact"
+      type="ABContact"/>
+    <ExposeIterator
+      valueType="entity.VendorEvaluation"
+      widget="VendorEvaluationsLV"/>
+    <RowIterator
+      editable="true"
+      elementName="currentVendorEvaluation"
+      pickLocation="VendorEvaluationPopup.push(true)"
+      toAdd="anABContact.addToVendorEvaluations( currentVendorEvaluation )"
+      toRemove="anABContact.removeFromVendorEvaluations( currentVendorEvaluation )"
+      value="anABContact.VendorEvaluations">
+      <Row>
+        <Cell
+          action="VendorEvaluationPopup.push(currentVendorEvaluation, CurrentLocation.InEditMode)"
+          id="EvaluationDate"
+          label="displaykey.Training.EvaluationDate"
+          value="currentVendorEvaluation.EvaluationDate"/>
+        <Cell
+          action="VendorEvaluationPopup.push(currentVendorEvaluation, CurrentLocation.InEditMode)"
+          id="Evaluator"
+          label="displaykey.Training.Evaluator"
+          value="currentVendorEvaluation.Evaluator"/>
+        <Cell
+          action="VendorEvaluationPopup.push(currentVendorEvaluation, CurrentLocation.InEditMode)"
+          align="right"
+          id="Score"
+          label="displaykey.Training.TotalScore"
+          value="currentVendorEvaluation.TotalScore"/>
+      </Row>
+    </RowIterator>
+  </ListViewPanel>
+</PCF>

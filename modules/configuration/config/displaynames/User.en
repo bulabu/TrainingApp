@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Entity
+  name="User">
+  <Columns>
+    <DisplayNameColumn
+      beanPath="User.Contact"
+      displayName="true"
+      name="Contact"
+      sortOrder="0"/>
+    <Column
+      beanPath="User.VacationStatus"
+      name="VacationStatus"/>
+  </Columns>
+  <DisplayName><![CDATA[if (VacationStatus == typekey.VacationStatusType.TC_ATWORK) {
+  return Contact
+}	else {
+  return Contact + " (" + VacationStatus.DisplayName + ")"
+}
+
+// TODO: CurrDev  Update for 8.0.2
+]]></DisplayName>
+</Entity>

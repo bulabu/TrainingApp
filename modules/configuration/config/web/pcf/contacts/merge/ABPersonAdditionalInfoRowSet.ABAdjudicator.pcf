@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <RowSet
+    id="ABPersonAdditionalInfoRowSet"
+    mode="ABAdjudicator">
+    <Require
+      name="contact"
+      type="ABPerson"/>
+    <Require
+      name="duplicate"
+      type="ABPerson"/>
+    <Require
+      name="merged"
+      type="ABPerson"/>
+    <Variable
+      initialValue="{contact, duplicate, merged}"
+      name="contacts"
+      type="ABPerson[]"/>
+    <Row>
+      <Cell
+        bold="true"
+        colspan="4"
+        id="additionalInfo"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.AdditionalInfo"/>
+    </Row>
+    <Row>
+      <Cell
+        id="adjudicatorLicenseLabel"
+        value="displaykey.Web.ContactDetail.Adjudicator.AdjudicatorLicense"/>
+      <CellIterator
+        elementName="aContact"
+        id="adjudicatorLicense"
+        value="contacts">
+        <Cell
+          editable="aContact == merged"
+          id="adjudicatorLicense"
+          value="(aContact as ABAdjudicator).AdjudicatorLicense"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="adjudicatorDomainLabel"
+        value="displaykey.Web.ContactDetail.Adjudicator.AdjudicativeDomain"/>
+      <CellIterator
+        elementName="aContact"
+        id="adjudicatorDomain"
+        value="contacts">
+        <TypeKeyCell
+          editable="aContact == merged"
+          id="adjudicatorDomain"
+          value="(aContact as ABAdjudicator).AdjudicativeDomain"/>
+      </CellIterator>
+    </Row>
+  </RowSet>
+</PCF>

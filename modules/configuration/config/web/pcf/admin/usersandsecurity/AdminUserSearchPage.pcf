@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <Page
+    canVisit="perm.Group.viewtree"
+    countsAsWork="false"
+    id="AdminUserSearchPage"
+    title="displaykey.Web.Admin.UsersAndSecurity.UserSearch">
+    <LocationEntryPoint
+      signature="AdminUserSearchPage()"/>
+    <Variable
+      initialValue="new gw.api.contact.ProximitySearchPageHelper()"
+      name="psph"/>
+    <Screen
+      id="UserSearchScreen">
+      <SearchPanel
+        criteriaName="SearchCriteria"
+        resultsName="searchResults"
+        search="new gw.api.name.UserSearchNameOwner(SearchCriteria.Contact).clearNonvisibleFields(); return SearchCriteria.performSearchByProximity(CurrentLocation, psph)"
+        searchCriteria="new UserSearchCriteria()"
+        searchResultsType="UserQuery">
+        <PanelRef
+          def="UserSearchDV(SearchCriteria)"/>
+        <PanelRef
+          def="UserSearchResultsLV(searchResults, false, SearchCriteria, false)">
+          <TitleBar
+            appendListViewPaging="true"
+            title="displaykey.Web.Search.Results"/>
+          <Toolbar/>
+        </PanelRef>
+      </SearchPanel>
+    </Screen>
+  </Page>
+</PCF>

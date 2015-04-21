@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="pcf.xsd">
+  <LocationGroup
+    id="Utilities"
+    title="displaykey.Web.Admin.Utilities">
+    <LocationRef
+      label="displaykey.Web.Admin.ImportTab"
+      location="ImportWizard()"
+      shortcut="I"/>
+    <LocationRef
+      label="displaykey.Web.Admin.ExportTab"
+      location="ExportData()"
+      shortcut="E"/>
+    <LocationRef
+      location="ScriptParametersPage()"/>
+  </LocationGroup>
+</PCF>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<plugin
+  name="GeocodePlugin">
+  <plugin-gosu
+    disabled="true"
+    gosuclass="gw.plugin.geocode.impl.BingMapsPlugin">
+    <param
+      name="applicationKey"
+      value=""/>
+    <param
+      name="geocodeDirectionsCulture"
+      value=""/>
+    <param
+      name="imageryCulture"
+      value=""/>
+    <param
+      name="mapUrlWidth"
+      value=""/>
+    <param
+      name="mapUrlHeight"
+      value=""/>
+  </plugin-gosu>
+</plugin>

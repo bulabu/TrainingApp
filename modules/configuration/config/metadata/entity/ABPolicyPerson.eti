@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<subtype
+  xmlns="http://guidewire.com/datamodel"
+  entity="ABPolicyPerson"
+  desc="Contact type representing policy entities that are people."
+  displayName="Policy Person"
+  final="false"
+  supertype="ABPerson"
+  subpackage="addressbook"/>

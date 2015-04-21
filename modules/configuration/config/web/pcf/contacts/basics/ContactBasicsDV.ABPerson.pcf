@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <DetailViewPanel
+    id="ContactBasicsDV"
+    mode="ABPerson|ABPersonVendor|ABAdjudicator|ABUserContact|ABDoctor|ABAttorney|ABPolicyPerson">
+    <Require
+      name="contact"
+      type="ABContact"/>
+    <Variable
+      initialValue="contact.CategoryScores != null and contact.CategoryScores.length &gt; 0"
+      name="hasCategoryScores"
+      type="Boolean"/>
+    <InputColumn>
+      <Label
+        label="contact.getSubtype().DisplayName"/>
+      <InputSetRef
+        def="GlobalPersonNameInputSet(new gw.api.name.ContactNameOwner(new gw.api.name.ABPersonNameDelegate(contact as ABPerson)))"
+        mode="gw.api.name.NameLocaleSettings.PCFMode"/>
+      <InputDivider/>
+      <InputSetRef
+        def="PrimaryAddressInputSet(contact as ABPerson)"/>
+      <InputDivider/>
+      <InputSet
+        id="notVendor"
+        visible="!isVendor(contact)">
+        <Label
+          label="displaykey.Web.ContactDetail.Phone"/>
+        <InputSetRef
+          def="GlobalPhoneInputSet(new gw.api.phone.StandardPhoneOwner(new gw.api.phone.ContactPhoneDelegate(contact,ABPerson#WorkPhone), displaykey.Web.ContactDetail.Phone.Work, false))"
+          editable="true"
+          id="Work"/>
+        <InputSetRef
+          def="GlobalPhoneInputSet(new gw.api.phone.StandardPhoneOwner(new gw.api.phone.ContactPhoneDelegate(contact,ABPerson#HomePhone), displaykey.Web.ContactDetail.Phone.Home, false))"
+          editable="true"
+          id="Home"/>
+        <InputSetRef
+          def="GlobalPhoneInputSet(new gw.api.phone.StandardPhoneOwner(new gw.api.phone.ContactPhoneDelegate(contact, ABPerson#CellPhone), displaykey.Web.ContactDetail.Phone.Cell, false))"
+          editable="true"
+          id="Cell"/>
+      <InputSetRef
+          def="GlobalPhoneInputSet(new gw.api.phone.StandardPhoneOwner(new gw.api.phone.ContactPhoneDelegate(contact, ABContact#FaxPhone), displaykey.Web.ContactDetail.Phone.Fax, false))"
+          editable="true"
+          id="Fax"/>
+      <TypeKeyInput
+        editable="true"
+          id="PrimaryPhone"
+          label="displaykey.Web.ContactDetail.Phone.PrimaryPhone"
+          validationExpression="                 if ((contact as ABPerson).PrimaryPhone == null or                     ((contact as ABPerson).PrimaryPhone == &quot;work&quot; and (contact as ABPerson).WorkPhone != null) or                     ((contact as ABPerson).PrimaryPhone == &quot;home&quot; and (contact as ABPerson).HomePhone != null) or                     ((contact as ABPerson).PrimaryPhone == &quot;mobile&quot; and (contact as ABPerson).CellPhone != null)) {                   return null;                 } else {                   return displaykey.Web.ContactDetail.Phone.PrimaryPhone.Error;                 }"
+          value="(contact as ABPerson).PrimaryPhone"/>
+      </InputSet>
+    </InputColumn>
+    <InputColumn>
+      <Label
+        label="displaykey.Web.ContactDetail.Email"/>
+      <TextInput
+        editable="true"
+        formatType="email"
+        id="Primary"
+        label="displaykey.Web.ContactDetail.Email.Primary"
+        value="(contact as ABPerson).EmailAddress1"/>
+      <InputDivider/>
+      <InputSet
+        visible="isPersonOnly(contact)">
+      <Label
+          label="displaykey.Web.ContactDetail.TaxInfo"/>
+      <TypeKeyInput
+        editable="true"
+        id="Currency"
+        label="displaykey.Web.ContactDetail.PreferredCurrency"
+        value="(contact as ABPerson).PreferredCurrency"
+        visible="gw.api.util.CurrencyUtil.isMultiCurrencyMode()"/>
+      </InputSet>
+      <InputSet
+        visible="isPersonOnly(contact)">
+        <PrivacyInput
+          editable="true"
+          encryptionExpression="(contact as ABPerson).maskTaxId(VALUE)"
+          id="TaxID"
+          label="displaykey.Web.ContactDetail.AdditionalInfo.TaxID"
+          required="contact typeis ABPersonVendor"
+          value="(contact as ABPerson).TaxID"/>
+      </InputSet>
+      <InputSet
+        visible="isPersonOnly(contact)">
+        <TypeKeyInput
+          editable="true"
+          id="TaxFilingStatus"
+          label="displaykey.Web.ContactDetail.AdditionalInfo.TaxFilingStatus"
+          value="(contact as ABPerson).TaxFilingStatus"/>
+        <DateInput
+          editable="true"
+          id="DateOfBirth"
+          label="displaykey.Web.ContactDetail.AdditionalInfo.DateOfBirth"
+          value="(contact as ABPerson).DateOfBirth"/>
+        <TypeKeyInput
+          editable="true"
+          id="Gender"
+          label="displaykey.Web.ContactDetail.AdditionalInfo.Gender"
+          value="(contact as ABPerson).Gender"/>
+        <TypeKeyInput
+          editable="true"
+          id="MaritalStatus"
+          label="displaykey.Web.ContactDetail.AdditionalInfo.MaritalStatus"
+          value="(contact as ABPerson).MaritalStatus"/>
+        <TextInput
+          editable="true"
+          id="FormerName"
+          label="displaykey.Web.ContactDetail.Name.FormerName"
+          numCols="17"
+          value="(contact as ABPerson).FormerName"/>
+      </InputSet>
+      <InputSet
+        visible="isPersonOnly(contact)">
+        <InputDivider/>
+        <Label
+          label="displaykey.Web.ContactDetail.Company"/>
+        <Input
+          editable="true"
+          id="EmployeeID"
+          label="displaykey.Training.EmployeeNumber"
+          required="contact typeis ABUserContact"
+          value="(contact as ABUserContact).EmployeeNumber"
+          visible="contact typeis ABUserContact"/>
+        <Input
+          editable="true"
+          id="Occupation"
+          label="displaykey.Web.ContactDetail.Company.Occupation"
+          value="(contact as ABPerson).Occupation"/>
+      </InputSet>
+      <InputSet
+        visible="isPersonOnly(contact) or isAdjudicator(contact)">
+        <ABContactInput
+          editable="true"
+          id="Organization"
+          label="displaykey.Web.ContactDetail.Company.Organization"
+          parentContact="contact"
+          value="(contact as ABPerson).Employer"/>
+      </InputSet>
+      <InputDivider/>
+      <InputSet
+        visible="isPersonOnly(contact)">
+        <Label
+          label="displaykey.Web.ContactDetail.DriversLicense"/>
+        <Input
+          editable="true"
+          id="LicenseNumber"
+          label="displaykey.Web.ContactDetail.DriversLicense.LicenseNumber"
+          value="(contact as ABPerson).LicenseNumber"/>
+        <TypeKeyInput
+          editable="true"
+          filter="VALUE.hasCategory(JurisdictionType.TC_DRIVING_LIC)"
+          id="LicenseState"
+          label="displaykey.Web.ContactDetail.DriversLicense.LicenseState"
+          value="(contact as ABPerson).LicenseState"/>
+        <InputDivider/>
+      </InputSet>
+      <TextAreaInput
+        boldLabel="true"
+        editable="true"
+        id="Notes"
+        label="displaykey.Web.ContactDetail.Notes"
+        numRows="3"
+        value="(contact as ABPerson).Notes"/>
+    </InputColumn>
+    <Code><![CDATA[function isVendor(aContact : ABContact) : boolean {
+      return aContact typeis ABPersonVendor;
+      }
+
+      function isAdjudicator(aContact : ABContact) : boolean {
+      return aContact typeis ABAdjudicator;
+      }
+
+      function isPersonOnly(aContact : ABContact) : boolean {
+      
+        return true
+      }
+
+      function isPolicyPerson(aContact : ABContact) : boolean {
+      return aContact typeis ABPolicyPerson;
+      }]]></Code>
+  </DetailViewPanel>
+</PCF>

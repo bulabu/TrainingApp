@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!-- others -->
+<entity
+  xmlns="http://guidewire.com/datamodel"
+  entity="ABContactContact"
+  type="versionable"
+  desc="The purpose of this table is to avoid a self-referencing foreign key on abcontact, and to allow contacts to     relate to one another in different ways."
+  exportable="false"
+  subpackage="addressbook"
+  platform="false"
+  table="abcontactcontact">
+  <implementsEntity
+    name="CommonContactContact"/>
+  <implementsEntity
+    name="Validatable"/>
+  <implementsEntity
+    name="ABLinkable"/>
+  <foreignkey
+    name="SrcABContact"
+    desc="First contact in the relationship."
+    columnName="SrcABContactID"
+    fkentity="ABContact"
+    importableagainstexistingobject="false"
+    nullok="false"/>
+  <foreignkey
+    name="RelABContact"
+    desc="Second contact in the relationship."
+    columnName="RelABContactID"
+    fkentity="ABContact"
+    importableagainstexistingobject="false"
+    nullok="false"/>
+  <typekey
+    name="Rel"
+    typelist="ContactRel"
+    desc="Role"
+    nullok="false"/>
+  <index
+    name="abcontactcontact1"
+    unique="true">
+    <indexcol
+      name="SrcABContactID"
+      keyposition="1"/>
+    <indexcol
+      name="RelABContactID"
+      keyposition="2"/>
+    <indexcol
+      name="Rel"
+      keyposition="3"/>
+  </index>
+  <index
+    name="abccclinkid"
+    desc="Preserve uniqueness of LinkID"
+    unique="true">
+    <indexcol
+      name="LinkID"
+      keyposition="1"/>
+  </index>
+  <dbcheckbuilder
+    className="com.guidewire.ab.domain.addressbook.dbchecks.ABContactRelationshipConstraintsDBCheckBuilder"/>
+</entity>

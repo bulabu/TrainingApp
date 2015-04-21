@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<entity
+  xmlns="http://guidewire.com/datamodel"
+  entity="ABContactScoringWorkItem"
+  type="keyable"
+  desc="Queue of ABContacts to be scored. This is a system-internal entity."
+  ignoreForEvents="true"
+  subpackage="addressbook"
+  loadable="false"
+  platform="false"
+  table="abcscoringworkitem">
+  <implementsEntity
+    name="WorkItem"/>
+  <fulldescription>Queue of ABContacts to be scored for Service Provider Management. Work items are recorded as the ID value of ABContact entities. This is a system-internal entity.
+    </fulldescription>
+  <foreignkey
+    name="ABContact"
+    desc="ABContact to be scored."
+    columnName="ABContactID"
+    fkentity="ABContact"
+    nullok="false"/>
+</entity>

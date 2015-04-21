@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<database-config xmlns="http://guidewire.com/database-config">
+  <!-- H2 (meant for demo/quickstart use only!) -->
+  <database name="TrainingAppDatabase" dbtype="h2" autoupgrade="true">
+    <dbcp-connection-pool jdbc-url="jdbc:h2:file:/Guidewire/TrainingApp/db/ta;auto_server=true"/>
+    <!--<dbcp-connection-pool jdbc-url="jdbc:h2:tcp://localhost:9092//Guidewire/TrainingApp/db/ta;auto_server=true"/>-->
+  </database>
+  <!-- H2 database in memory (this means that when the process ends, so does the data! -->
+  <!--<database name="TrainingAppDatabase" dbtype="h2" autoupgrade="true" env="h2mem">-->
+    <!--<dbcp-connection-pool jdbc-url="jdbc:h2:mem:ta"/>-->
+  <!--</database>-->
+  
+  <!-- Oracle
+  <database name="ContactManagerDatabase" dbtype="oracle" autoupgrade="false">
+    <dbcp-connection-pool jdbc-url="jdbc:oracle:thin:<USER>/<PASSWORD>@<HOSTNAME>:<PORT>:<ORACLE_SID>"/>
+    <upgrade collectstorageinstrumentation="false">
+      <ora-db-ddl>
+        <tablespaces admin="AB_OP" index="AB_INDEX" op="AB_OP" staging="AB_STAGING" typelist="AB_OP" lob="AB_LOB">
+      </ora-db-ddl>
+      <versiontriggers dbmsperfinfothreshold="600"/>
+    </upgrade>
+  </database>
+-->
+
+  <!-- SQL Server
+  <database name="TrainingAppDatabase" dbtype="sqlserver" autoupgrade="false">
+    <dbcp-connection-pool jdbc-url="jdbc:sqlserver://<HOSTNAME>:<PORT>;DatabaseName=<DBNAME>;User=<USER>;Password=<PASSWORD>"/>
+    <upgrade collectstorageinstrumentation="false">
+      <versiontriggers dbmsperfinfothreshold="600" />
+    </upgrade>
+  </database>
+    -->
+
+  <!-- SQL Server with filegroups
+  <database name="ContactManagerDatabase" dbtype="sqlserver" autoupgrade="true">
+    <dbcp-connection-pool
+        jdbc-url="jdbc:sqlserver://<HOSTNAME>:<PORT>;DatabaseName=<DBNAME>;User=<USER>;Password=<PASSWORD>"/>
+    <upgrade collectstorageinstrumentation="false">
+      <versiontriggers dbmsperfinfothreshold="600"/>
+      <mssql-db-ddl>
+        <mssql-filegroups admin="ADMINFG" index="INDEXFG" op="OPFG" staging="STAGINGFG" typelist="TYPELISTFG" lob="LOBSFG"/>
+      </mssql-db-ddl>
+    </upgrade>
+  </database>
+-->
+
+  <!--DB2 Database
+  <database name="ExampleCenterDatabase" dbtype="db2" autoupgrade="true">
+    <dbcp-connection-pool jdbc-url="jdbc:db2://<HOSTNAME>:<PORT-NUMBER>/<DBNAME>:user=<USER>;password=<PASSWORD>">
+      <reset-tool-params db2-instance="<INSTANCE>" system-username="<SYSTEM-USERNAME>"
+                         system-password="<SYSTEM-PASSWORD>"/>
+    </dbcp-connection-pool>
+    <upgrade collectstorageinstrumentation="false">
+      <db2-db-ddl>
+        <tablespaces admin="AB_ADMIN" index="AB_INDEX" op="AB_OP" staging="AB_STAGING" typelist="AB_TYPELIST"
+                     lob="AB_LOB"/>
+      </db2-db-ddl>
+    </upgrade>
+  </database>
+-->
+</database-config>

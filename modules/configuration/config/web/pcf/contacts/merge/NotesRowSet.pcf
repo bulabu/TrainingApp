@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <RowSet
+    id="NotesRowSet">
+    <Require
+      name="contact"
+      type="ABContact"/>
+    <Require
+      name="duplicate"
+      type="ABContact"/>
+    <Require
+      name="merged"
+      type="ABContact"/>
+    <Variable
+      initialValue="{contact, duplicate, merged}"
+      name="contacts"
+      type="ABContact[]"/>
+    <Row>
+      <Cell
+        bold="true"
+        colspan="4"
+        id="notes"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.Notes"/>
+    </Row>
+    <Row>
+      <Cell
+        id="workPhoneLabel"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.Notes"/>
+      <CellIterator
+        elementName="aContact"
+        id="workPhone"
+        value="contacts">
+        <TextAreaCell
+          editable="aContact == merged"
+          id="notes"
+          numRows="3"
+          value="aContact.Notes"/>
+      </CellIterator>
+    </Row>
+  </RowSet>
+</PCF>

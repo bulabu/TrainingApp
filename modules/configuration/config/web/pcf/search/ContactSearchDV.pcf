@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <DetailViewPanel
+    id="ContactSearchDV">
+    <Require
+      name="requiredContactType"
+      type="Type"/>
+    <Require
+      name="SearchCriteria"
+      type="ABContactSearchCriteria"/>
+    <Require
+      name="proximitySearchPageHelper"
+      type="contact.ProximitySearchPageHelper"/>
+    <Require
+      name="searchSpec"
+      type="gw.api.webservice.addressbook.contactapi.ABContactSearchSpecWithoutPaging"/>
+    <InputColumn>
+      <RangeInput
+        editable="true"
+        id="ContactSubtype"
+        label="displaykey.Web.ContactSearch.Person.ContactSubtype"
+        required="true"
+        value="SearchCriteria.ContactSubtype"
+        valueRange="SearchCriteria.getAvailableSubtypes(requiredContactType)">
+        <PostOnChange
+          onChange="gw.api.util.SearchUtil.resetResultOnly()"
+          target="ContactSearchDV"/>
+      </RangeInput>
+      <InputSetRef
+        def="GlobalPersonNameInputSet(new gw.api.name.SearchNameOwner(SearchCriteria, isPerson(SearchCriteria)))"
+        mode="gw.api.name.NameLocaleSettings.PCFMode"
+        visible="isPerson(SearchCriteria)"/>
+      <InputSetRef
+        def="GlobalContactNameInputSet(new gw.api.name.SearchNameOwner(SearchCriteria, not isPerson(SearchCriteria)))"
+        mode="gw.api.name.NameLocaleSettings.PCFMode"
+        visible="not isPerson(SearchCriteria)"/>
+      <InputSet
+        visible="isCompany(SearchCriteria) or (isPerson(SearchCriteria) and !isUserContact(SearchCriteria) and !isAdjudicator(SearchCriteria))">
+        <Input
+          editable="true"
+          id="TaxID"
+          label="displaykey.Web.ContactSearch.Company.TaxID"
+          value="SearchCriteria.TaxID"/>
+      </InputSet>
+      <InputSet
+        visible="isPerson(SearchCriteria) and !(isPersonVendor(SearchCriteria) or isUserContact(SearchCriteria))">
+        <Input
+          editable="true"
+          id="OrganizationName"
+          label="displaykey.Web.ContactSearch.OrganizationName"
+          value="SearchCriteria.OrganizationName"/>
+      </InputSet>
+      <InputSet
+        visible="isAttorney(SearchCriteria)">
+        <TypeKeyInput
+          editable="true"
+          id="AttorneySpecialty"
+          label="displaykey.Web.ContactSearch.AttorneySpecialty"
+          value="SearchCriteria.AttorneySpecialty"/>
+      </InputSet>
+      <InputSet
+        visible="isDoctor(SearchCriteria)">
+        <TypeKeyInput
+          editable="true"
+          id="DoctorSpecialty"
+          label="displaykey.Web.ContactSearch.DoctorSpecialty"
+          value="SearchCriteria.DoctorSpecialty"/>
+      </InputSet>
+      <InputSet
+        visible="isAdjudicator(SearchCriteria)">
+        <TypeKeyInput
+          editable="true"
+          id="AdjudicativeDomain"
+          label="displaykey.Web.ContactSearch.AdjudicativeDomain"
+          value="SearchCriteria.AdjudicativeDomain"/>
+      </InputSet>
+      <InputSet
+        visible="isMedicalCareOrg(SearchCriteria)">
+        <TypeKeyInput
+          editable="true"
+          id="MedicalSpecialty"
+          label="displaykey.Web.ContactSearch.MedicalSpecialty"
+          value="SearchCriteria.MedicalOrgSpecialty"/>
+      </InputSet>
+      <InputSet
+        visible="isLawFirm(SearchCriteria)">
+        <TypeKeyInput
+          editable="true"
+          id="LawFirmSpecialty"
+          label="displaykey.Web.ContactSearch.LawFirmSpecialty"
+          value="SearchCriteria.LawFirmSpecialty"/>
+      </InputSet>
+      <InputSet
+        visible="isUserContact(SearchCriteria)">
+        <Input
+          editable="true"
+          id="EmployeeNumber"
+          label="displaykey.Web.ContactSearch.EmployeeNumber"
+          value="SearchCriteria.EmployeeNumber"/>
+      </InputSet>
+      <InputSet
+        visible="isVendor(SearchCriteria)">
+        <BooleanRadioInput
+          editable="true"
+          id="PreferredVendors"
+          label="displaykey.Web.ContactSearch.Company.PreferredVendors"
+          value="SearchCriteria.PreferredVendors"/>
+      </InputSet>
+      <RangeInput
+        editable="true"
+        id="MinimumScore"
+        label="displaykey.Web.Reviews.MinimumScore"
+        value="SearchCriteria.Score"
+        valueRange="scoreRange()"/>
+      <!-- <RangeInput
+        editable="true"
+        id="Tags"
+        label="displaykey.Web.ContactDetail.Tags"
+        numRows="3"
+        value="SearchCriteria.TagTypes"
+        valueRange="ContactTagType.getTypeKeys(false)"/> -->
+      <!-- <BooleanRadioInput
+        editable="true"
+        falseLabel="displaykey.Java.Select.Any"
+        id="AllTagsRequired"
+        label="displaykey.Web.ContactDetail.TagsRequired"
+        trueLabel="displaykey.Java.Select.All"
+        value="SearchCriteria.AllTagsRequired"/> -->
+      <!-- <TypeKeyInput
+        editable="true"
+        id="VendorAvailability"
+        label="displaykey.Web.ContactDetail.VendorAvailability"
+        value="SearchCriteria.VendorAvailability"/> -->
+      <!-- <BooleanRadioInput
+        editable="true"
+        id="IncludePendingCreates"
+        label="displaykey.Web.ContactSearch.IncludePendingCreates"
+        value="searchSpec.IncludePendingCreates"/> -->
+    </InputColumn>
+    <InputColumn>
+      <Label
+        label="displaykey.Web.ContactSearch.Location"/>
+      <InputSetRef
+        def="AddressSearchInputSet(SearchCriteria)"/>
+    </InputColumn>
+    <InputColumn>
+      <InputSetRef
+        def="ContactSearchProximityInputSet(SearchCriteria, proximitySearchPageHelper)"
+        visible="proximitySearchPageHelper.useGeocodeUIinAddressBook()"/>
+    </InputColumn>
+    <InputFooterSection>
+      <InputSetRef
+        def="SearchAndResetInputSet()"/>
+    </InputFooterSection>
+    <Code><![CDATA[function isAdjudicator(c : ABContactSearchCriteria) : boolean { return entity.ABAdjudicator.Type.isAssignableFrom(c.ContactSubtypeType )}
+      function isAttorney(c : ABContactSearchCriteria) : boolean { return entity.ABAttorney.Type.isAssignableFrom(c.ContactSubtypeType )}
+      function isCompany(c : ABContactSearchCriteria) : boolean { return entity.ABCompany.Type.isAssignableFrom(c.ContactSubtypeType )}
+      function isDoctor(c : ABContactSearchCriteria) : boolean { return entity.ABDoctor.Type.isAssignableFrom(c.ContactSubtypeType )}
+      function isLawFirm(c : ABContactSearchCriteria) : boolean { return entity.ABLawFirm.Type.isAssignableFrom(c.ContactSubtypeType )}
+      function isMedicalCareOrg(c : ABContactSearchCriteria) : boolean { return entity.ABMedicalCareOrg.Type.isAssignableFrom( c.ContactSubtypeType )}
+      function isPerson(c : ABContactSearchCriteria) : boolean { return entity.ABPerson.Type.isAssignableFrom( c.ContactSubtypeType )}
+      function isPersonVendor(c : ABContactSearchCriteria) : boolean { return entity.ABPersonVendor.Type.isAssignableFrom(c.ContactSubtypeType )}
+      function isPlace(c : ABContactSearchCriteria) : boolean { return entity.ABPlace.Type.isAssignableFrom( c.ContactSubtypeType )}
+      function isUserContact(c : ABContactSearchCriteria) : boolean { return entity.ABUserContact.Type.isAssignableFrom(c.ContactSubtypeType )}
+      function isVendor(c: ABContactSearchCriteria) : boolean { return (entity.ABCompanyVendor.Type.isAssignableFrom(c.ContactSubtypeType ) 
+                                                                or entity.ABPersonVendor.Type.isAssignableFrom( c.ContactSubtypeType )) }
+      function scoreRange() : String[] {
+        return new String[]{ "0", "10", "20", "30", "40", "50", "60", "70", "80", "90"};
+      }
+      function getCountryCode(country : Country) : String {
+        if (country == null) {
+          return gw.api.admin.BaseAdminUtil.getDefaultCountry().Code;
+        }
+        return country.Code;
+      }]]></Code>
+  </DetailViewPanel>
+</PCF>

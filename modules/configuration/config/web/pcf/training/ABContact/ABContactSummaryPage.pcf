@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <Page
+    afterCommit="// label to use if UseHelperLabels is false"
+    canEdit="true"
+    id="ABContactSummaryPage"
+    title="User.util.getCurrentUser().UseHelperLabels ? displaykey.Training.SummaryDVHelper : displaykey.Training.SummaryDV">
+    <LocationEntryPoint
+      signature="ABContactSummaryPage(anABContact:ABContact)"/>
+    <Variable
+      name="anABContact"
+      type="ABContact"/>
+    <Screen
+      id="ABContactSummaryScreen">
+      <Toolbar>
+        <EditButtons/>
+        <ToolbarButton
+          action="trainingapp.base.AssignedUserUtil.selectLeastBusyUser(anABContact)"
+          available="CurrentLocation.InEditMode"
+          id="SuggestLeastBusyUserButton"
+          label="displaykey.Training.SuggestLeastBusyUser"/>
+      </Toolbar>
+      <ListViewPanel>
+        <Row>
+          <Cell
+            id="a2"/>
+        </Row>
+      </ListViewPanel>
+      <PanelRef
+        def="ABContactSummaryDV(anABContact)"/>
+    </Screen>
+  </Page>
+</PCF>

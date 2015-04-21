@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <RowSet
+    id="ContactDetailsRowSet"
+    mode="ABCompany|ABCompanyVendor|ABMedicalCareOrg|ABAutoRepairShop|ABAutoTowingAgcy|ABLawFirm|ABPolicyCompany">
+    <Require
+      name="keptContact"
+      type="ABContact"/>
+    <Require
+      name="retiredContact"
+      type="ABContact"/>
+    <Require
+      name="mergedContact"
+      type="ABContact"/>
+    <Require
+      name="addressDataHolder"
+      type="gw.web.merge.MergeContactsAddressHolder"/>
+    <Require
+      name="phoneHolder"
+      type="gw.web.merge.MergeContactsPhoneHolder"/>
+    <Variable
+      initialValue="keptContact as ABCompany"
+      name="keptCompany"/>
+    <Variable
+      initialValue="retiredContact as ABCompany"
+      name="retiredCompany"/>
+    <Variable
+      initialValue="(mergedContact as ABCompany)"
+      name="mergedCompany"/>
+    <Variable
+      initialValue="{keptCompany, retiredCompany, mergedCompany}"
+      name="companies"
+      type="ABCompany[]"/>
+    <Row>
+      <Cell
+        bold="true"
+        colspan="4"
+        id="keptCompany"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.Company"/>
+    </Row>
+    <Row>
+      <Cell
+        id="nameLabel"
+        value="displaykey.Web.ContactDetail.Name.OrganizationName"/>
+      <CellIterator
+        elementName="aContact"
+        id="name"
+        value="companies">
+        <Cell
+          editable="aContact == mergedCompany"
+          id="name"
+          value="aContact.Name"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="taxIdLabel"
+        value="displaykey.Web.ContactDetail.Name.TaxID.EIN"/>
+      <CellIterator
+        elementName="aContact"
+        id="taxId"
+        value="companies">
+        <PrivacyCell
+          editable="aContact == mergedCompany"
+          encryptionExpression="aContact.maskTaxId(VALUE)"
+          id="taxId"
+          value="aContact.TaxID"/>
+      </CellIterator>
+    </Row>
+    <RowSetRef
+      def="ContactTagRowSet(keptContact, retiredContact, mergedContact)"
+      id="tag"/>
+    <RowSetRef
+      def="ContactInfoRowSet(keptContact, retiredContact, mergedContact, phoneHolder)"/>
+    <RowSetRef
+      def="NotesRowSet(keptContact, retiredContact, mergedContact)"/>
+    <RowSetRef
+      def="ABCompanyVendorRowSet(keptCompany, retiredCompany, mergedCompany)"
+      mode="mergedCompany.Subtype"/>
+    <RowSetRef
+      def="ABCompanyAdditionalInfoRowSet(keptCompany, retiredCompany, mergedCompany)"
+      mode="mergedCompany.Subtype"/>
+  </RowSet>
+</PCF>

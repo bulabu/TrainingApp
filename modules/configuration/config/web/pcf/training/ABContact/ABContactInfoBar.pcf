@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="pcf.xsd">
+  <InfoBar
+    id="ABContactInfoBar">
+    <Require
+      name="anABContact"
+      type="ABContact"/>
+    <InfoBarElement
+      icon="displaykey.Training.FlagIcon"
+      id="FlagIcon"
+      visible="anABContact.IsFlagged"/>
+    <InfoBarElement
+      icon="displaykey.Training.ABPersonIcon"
+      id="ABPersonIcon"
+      visible="anABContact typeis ABPerson"/>
+    <InfoBarElement
+      icon="displaykey.Training.ABCompanyIcon"
+      id="ABCompanyIcon"
+      visible="anABContact typeis ABCompany"/>
+    <InfoBarElement
+      icon="displaykey.Training.ABPlaceIcon"
+      id="ABPlaceIcon"
+      visible="anABContact typeis ABPlace"/>
+    <InfoBarElement
+      id="Name"
+      label="displaykey.Training.TypeWithColon(anABContact.Subtype.DisplayName)"
+      value="anABContact.DisplayName"/>
+  </InfoBar>
+</PCF>

@@ -1,0 +1,101 @@
+/**
+ *  This is a Gosu Scratchpad file that manipulates the untyped XML file,
+ *  exampleUntyped.xml.  Both files are in the same directory.
+ */
+
+uses gw.xml.XmlElement
+uses java.io.File
+
+uses javax.xml.namespace.QName
+uses java.io.FileWriter
+uses java.io.BufferedWriter
+
+/* Parsing a untyped XML file */
+var filePathInput = "C:/Guidewire/TrainingApp/modules/configuration/config/examples/xml/exampleUntyped.xml"
+var filePathOutput = "C:/Guidewire/TrainingApp/modules/configuration/config/examples/xml/exampleUntyped_Modified.xml"
+var file = new File(filePathInput)
+if (file.exists()) {
+  try {
+    var xml = XmlElement.parse(file)
+
+    /* print XML File */
+    xml.print()
+
+    /* Accessing element properties */
+    print ("QName:      " + xml.QName)
+    print ("Namespace:  " + xml.QName.NamespaceURI)
+    print ("Local part: " + xml.QName.LocalPart)
+
+     /* Accessing children by index */
+    print (xml.QName)
+    print (xml.Children[0].QName)
+    print (xml.Children[1].QName)
+    print (xml.Children[1].Children[1].QName)
+
+    /* Accessing children by name */
+    print ("Text of database element: " +
+        xml.getChild(new QName("http://guidewire.com/config", "database")).Text)
+    print ("Number of param elements in file: " +
+        xml.getChildren(new QName("http://guidewire.com/config", "param")).Count)
+
+    /* where() conditions for XML Elements */
+    // Returns array of XML elements where condition is met
+    print(xml.Children.where(\el -> el.QName.LocalPart == "database"))
+    // Returns first XML elements where condition is met
+    print(xml.Children.firstWhere(\el -> el.QName.LocalPart == "database"))
+    // Returns the one XML element where condition is met, or an exception if
+    // no element or many elements meet the condition
+    print(xml.Children.singleWhere(\el -> el.QName.LocalPart == "database"))
+
+    /* Accessing attributes and values */
+    var dbElement = xml.Children.singleWhere(\ el -> el.QName.LocalPart == "database")
+    print("Attributes: " + dbElement.AttributeNames)
+    print("---------------------------------------")
+    for (attrib in dbElement.AttributeNames) {
+      print(attrib + ": " + dbElement.getAttributeSimpleValue(attrib))
+    }
+
+    print(xml.Children[0].QName)
+    print(xml.Children[0].Text)
+    print(xml.Children[0].Children)
+    print("----------------------")
+    print(xml.Children[1].QName)
+    print(xml.Children[1].Text)
+    print(xml.Children[1].Children)
+
+    /* Modifying an existing XmlElement */
+    print("Original value: " + dbElement.getAttributeSimpleValue("autoupgrade"))
+    dbElement.setAttributeValue("autoupgrade", "false")
+    print("Current value: " + dbElement.getAttributeValue("autoupgrade"))
+
+    /* Creating new XmlElements */
+    var claimSystem = new XmlElement(new QName("http://guidewire.com/config", "claimSystem"))
+    claimSystem.setAttributeValue("URL", "http://localhost:8880/ab/ContactManager.do")
+
+    var claimSystemUser = new XmlElement(new QName("http://guidewire.com/config", "param"))
+    claimSystemUser.setAttributeValue("name", "user")
+    claimSystemUser.setAttributeValue("value", "su")
+
+    var claimSystemPassword = new XmlElement(new QName("http://guidewire.com/config", "param"))
+    claimSystemPassword.setAttributeValue("name", "password")
+    claimSystemPassword.setAttributeValue("value", "gw")
+
+    claimSystem.addChild(claimSystemUser)
+    claimSystem.addChild(claimSystemPassword)
+    xml.addChild(claimSystem)
+
+    /* Exporting XML */var outputWriter = new BufferedWriter(new FileWriter(new File(filePathOutput)))
+    outputWriter.write(xml.asUTFString())
+    outputWriter.close()
+    print("XML file written and exported")
+  } catch (e) {
+    print("Exception caught:" + e.Message.toString())
+    //throw (e)// Comment out to see catch exception
+  }
+}
+
+
+
+
+
+// TODO : CurrDev Copy to 8.0.x

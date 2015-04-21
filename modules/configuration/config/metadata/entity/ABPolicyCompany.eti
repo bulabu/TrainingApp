@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- PolicyCenter Policy Holder types -->
+<subtype
+  xmlns="http://guidewire.com/datamodel"
+  entity="ABPolicyCompany"
+  desc="Contact type representing policy entities that are companies."
+  displayName="Policy Company"
+  final="false"
+  subpackage="addressbook"
+  supertype="ABCompany"/>

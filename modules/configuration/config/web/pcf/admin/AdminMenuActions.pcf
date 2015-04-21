@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <MenuActions
+    id="AdminMenuActions">
+    <MenuItem
+      action="NewUser.go()"
+      id="AdminMenuActions_NewUserMenuItem"
+      label="displaykey.Web.Admin.Menu.NewUser"
+      shortcut="S"/>
+    <MenuItem
+      action="NewGroup.go()"
+      id="AdminMenuActions_NewGroup"
+      label="displaykey.Web.Admin.NewGroup"
+      shortcut="G"/>
+    <!-- CurrDev: Load Sample Data for TrainingApp -->
+    <MenuItem
+      action="trainingapp.base.SampleDataUtil.loadTrainingAppSampleData()"
+      id="LoadTrainingAppSampleDataMenuItem"
+      label="displaykey.Training.LoadTrainingAppSampleData"/>
+    <!-- <MenuItem
+      action="BuildNotesExitPoint.push()"
+      id="BuildNotesExitPoint"
+      label="displaykey.Training.DisplayBuildNotes"/> -->
+  </MenuActions>
+</PCF>

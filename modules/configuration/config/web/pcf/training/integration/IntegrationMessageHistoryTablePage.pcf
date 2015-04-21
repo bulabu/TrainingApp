@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <Page
+    id="IntegrationMessageHistoryTablePage"
+    title="displaykey.Training.MessageHistoryTable">
+    <Screen>
+      <DetailViewPanel>
+        <InputColumn>
+          <Label
+            label="displaykey.Training.WarningMessageHistoryTable"/>
+          <Label
+            label="displaykey.Training.MessageCount(allMessageCount())"/>
+        </InputColumn>
+      </DetailViewPanel>
+      <PanelRef
+        def="MessageHistoryLV()">
+        <Toolbar>
+          <CheckedValuesToolbarButton
+            checkedRowAction="deleteSelectedMessageHistory(CheckedValue)"
+            confirmMessage="displaykey.Training.AreYouSureMessageHistory"
+            id="DeleteSelectedMessageHistoryButton"
+            iterator="MessageHistoryLV.MessageHistoryLV"
+            label="displaykey.Training.DeleteSelectedMessageHistories"/>
+        </Toolbar>
+      </PanelRef>
+    </Screen>
+    <Code><![CDATA[function allMessageCount() : int {
+  var queryObj = gw.api.database.Query.make(MessageHistory)
+  return queryObj.select().Count
+}
+
+function deleteSelectedMessageHistory(aMessageHistory : MessageHistory) : void {
+  gw.transaction.Transaction.runWithNewBundle( \ newBundle -> {aMessageHistory.remove()} )
+} // end deleteSelectedMessageHistory]]></Code>
+  </Page>
+</PCF>

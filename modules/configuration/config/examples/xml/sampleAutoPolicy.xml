@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<PASPolicy xmlns="http://guidewire.com/ab/gx/external.pas.paspersonalautopolicymodel">
+  <EffectiveFrom>2011-05-28T15:02:27.772-07:00</EffectiveFrom>
+  <EffectiveTo>2012-05-28T15:02:27.772-07:00</EffectiveTo>
+  <EndorsementForms>
+    <Entry>
+      <Description>Aggregate Limits</Description>
+      <FormNumber>AgL-315</FormNumber>
+    </Entry>
+    <Entry>
+      <Description>Limits for Underinsursed Motorists</Description>
+      <FormNumber>UnderIM-34-221</FormNumber>
+    </Entry>
+  </EndorsementForms>
+  <Persons>
+    <Entry>
+      <First>Anna</First>
+      <Last>Williams</Last>
+      <PASAddress>
+        <PublicID>ab:1</PublicID>
+      </PASAddress>
+      <PolicyRoles>
+        <Entry>
+          <PolicyRole>insured</PolicyRole>
+        </Entry>
+      </PolicyRoles>
+      <SSN>000-00-0001</SSN>
+    </Entry>
+  </Persons>
+  <PolicyCoverages>
+    <Entry>
+      <CoverageName>Uninsured Motorist - Property Damage</CoverageName>
+    </Entry>
+    <Entry>
+      <CoverageName>Liability - Bodily Injury and Property Damage</CoverageName>
+    </Entry>
+    <Entry>
+      <CoverageName>Uninsured Motorist - Bodily Injury</CoverageName>
+    </Entry>
+  </PolicyCoverages>
+  <PolicyHolder>Anna Williams</PolicyHolder>
+  <PolicyNumber>PA-000001</PolicyNumber>
+  <PolicyType>Personal Auto</PolicyType>
+  <PrimaryAddress>
+    <City>Fargo</City>
+    <PostalCode>58103</PostalCode>
+    <State>ND</State>
+    <StreetLine1>6417 S. Beach Street</StreetLine1>
+  </PrimaryAddress>
+  <PublicID>ab:2</PublicID>
+  <Vehicles>
+    <Entry>
+      <Color>Green</Color>
+      <Make>Toyota</Make>
+      <Model>Prius</Model>
+      <VehicleCoverages>
+        <Entry>
+          <CoverageName>Towing</CoverageName>
+        </Entry>
+        <Entry>
+          <CoverageName>Collision</CoverageName>
+          <Deductible>1000</Deductible>
+        </Entry>
+        <Entry>
+          <CoverageName>Comprehensive</CoverageName>
+          <Deductible>1000</Deductible>
+        </Entry>
+      </VehicleCoverages>
+      <VIN>R43BWA670NS1CZ4Q5</VIN>
+      <Year>1997</Year>
+    </Entry>
+    <Entry>
+      <Color>White</Color>
+      <Make>Mazda</Make>
+      <Model>MX-5 Miata</Model>
+      <VehicleCoverages>
+        <Entry>
+          <CoverageName>Towing</CoverageName>
+        </Entry>
+        <Entry>
+          <CoverageName>Comprehensive</CoverageName>
+          <Deductible>1000</Deductible>
+        </Entry>
+        <Entry>
+          <CoverageName>Collision</CoverageName>
+          <Deductible>1000</Deductible>
+        </Entry>
+      </VehicleCoverages>
+      <VIN>FHJM3ASPL93MN6F7U</VIN>
+      <Year>2007</Year>
+    </Entry>
+  </Vehicles>
+</PASPolicy>

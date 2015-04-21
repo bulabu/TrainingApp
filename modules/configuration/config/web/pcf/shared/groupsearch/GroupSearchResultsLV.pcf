@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <ListViewPanel
+    id="GroupSearchResultsLV">
+    <Require
+      name="GroupList"
+      type="GroupQuery"/>
+    <RowIterator
+      editable="false"
+      elementName="Group"
+      value="GroupList">
+      <Row>
+        <Cell
+          action="GroupDetailPopup.push(Group)"
+          id="Name"
+          label="displaykey.Web.Admin.GroupSearchResults.Name"
+          sortBy="Group.Name"
+          sortOrder="1"
+          value="Group"/>
+        <Cell
+          id="ParentGroup"
+          label="displaykey.Web.Admin.GroupSearchResults.ParentGroup"
+          sortBy="Group.Parent.Name"
+          value="Group.Parent"/>
+        <TypeKeyCell
+          id="Type"
+          label="displaykey.Web.Admin.GroupSearchResults.Type"
+          value="Group.GroupType"/>
+      </Row>
+    </RowIterator>
+  </ListViewPanel>
+</PCF>

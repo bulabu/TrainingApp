@@ -1,0 +1,57 @@
+package rules.Preupdate.AddressPreupdate_dir
+
+@gw.rules.RuleName("Contact Primary Address Edited History Event")
+internal class ContactPrimaryAddressEditedHistoryEvent {
+  static function doCondition(address : entity.Address) : boolean {
+    
+/*start00rule*/
+return !address.New
+and address.Primary and address.ABContact != null and !address.ABContact.New
+and (address.ChangedFields.contains("AddressLine1")
+or address.ChangedFields.contains("AddressLine2")
+or address.ChangedFields.contains("AddressLine1Kanji")
+or address.ChangedFields.contains("AddressLine2Kanji")
+or address.ChangedFields.contains("AddressLine3")
+or address.ChangedFields.contains("City")
+or address.ChangedFields.contains("CityKanji")
+or address.ChangedFields.contains("County")
+or address.ChangedFields.contains("State")
+or address.ChangedFields.contains("PostalCode")
+or address.ChangedFields.contains("Country")
+or address.ChangedFields.contains("CEDEX")
+or address.ChangedFields.contains("CEDEXBureau")
+or address.ChangedFields.contains("AddressType")
+or address.ChangedFields.contains("ValidUntil")
+or address.ChangedFields.contains("Description"))
+
+/*end00rule*/
+
+  }
+
+  static function doAction(address : entity.Address, actions : gw.rules.Action) {
+
+/*start00rule*/
+var history = address.addHistory(CustomHistoryType.TC_PRIMARYADDRESSUPDATED, displaykey.Rules.Preupdate.Address.AddressUpdated.Primary)
+var fieldsToTrack = new java.util.HashMap<String, String>()
+              {"AddressLine1" -> "Web.AddressBook.AddressInputSet.Address1", 
+               "AddressLine1Kanji" -> "Web.AddressBook.AddressInputSet.Address1Kanji", 
+               "AddressLine2" -> "Web.AddressBook.AddressInputSet.Address2", 
+               "AddressLine2Kanji" -> "Web.AddressBook.AddressInputSet.Address2Kanji", 
+               "AddressLine3" -> "Web.AddressBook.AddressInputSet.Address3", 
+               "City"         -> "Web.AddressBook.AddressInputSet.City", 
+               "CityKanji"         -> "Web.AddressBook.AddressInputSet.CityKanji", 
+               "County"       -> "Web.AddressBook.AddressInputSet.County",
+               "State"        -> "Web.AddressBook.AddressInputSet.State", 
+               "Province"   -> "Web.AddressBook.AddressInputSet.Province", 
+               "Prefecture"   -> "Web.AddressBook.AddressInputSet.Prefecture", 
+               "Postcode"   -> "Web.AddressBook.AddressInputSet.PostalCode", 
+               "ZIP"   -> "Web.AddressBook.AddressInputSet.Postcode", 
+               "PostalCode"   -> "Web.AddressBook.AddressInputSet.PostalCode", 
+               "Country"      -> "Web.AddressBook.AddressInputSet.Country", 
+               "CEDEX"   -> "Web.AddressBook.AddressInputSet.CEDEX", 
+               "CEDEXBureau"      -> "Web.AddressBook.AddressInputSet.CEDEXBureau", 
+               "AddressType"  -> "Address.Base.AddressType"}
+history.createTrackedChanges(address, fieldsToTrack)
+/*end00rule*/
+  }
+}

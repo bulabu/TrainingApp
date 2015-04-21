@@ -1,0 +1,30 @@
+uses trainingapp.demo.gosu.BundleExamples
+uses java.util.Date
+uses gw.transaction.Transaction
+
+var date =  Date.Yesterday
+var date1 = Date.Today
+var date2 = Date.Tomorrow
+var date3 = Date.CurrentDate.addDays(30)
+var date4 = Date.CurrentDate.addDays(90)
+
+var person = ta.QueryUtil.findPerson("ab:1")
+var company = ta.QueryUtil.findCompany("ab:61")
+var name = company.Name
+var key = company.ID
+
+var output = ""
+output += "\n setInspectionDateByPublicID: " + BundleExamples.setInspectionDateByPublicID(company.PublicID, date)
+output += "\n setInspectionDateByName: " + BundleExamples.setInspectionDateByName(name,date1)
+output += "\n setInspectionDateByEmployee: " +BundleExamples.setInspectionDateByEmployee(person, date2)
+
+/* requires current bundle, so create one with runWithNewBundle() */
+Transaction.runWithNewBundle(\bundle ->{
+    output +=  "\n setInspectionDateByLoadBean: " + BundleExamples.setInspectionDateByLoadBean(key, date3)
+
+},"su")
+
+/* requires service context with user credential, commented out for scratchpad */
+//output +=  "\n setInspectionDateWithBundle \n" + BundleExamples.setInspectionDateWithBundle(company, date4)
+
+print(output)

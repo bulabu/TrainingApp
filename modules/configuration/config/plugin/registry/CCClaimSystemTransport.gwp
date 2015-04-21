@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<plugin
+  interface="MessageTransport"
+  name="CCClaimSystemTransport">
+  <plugin-gosu
+    disabled="true"
+    gosuclass="gw.plugin.integration.InitializableClientSystemTransport">
+      <param name="PluginName" value="ClaimSystemPlugin"/>
+  </plugin-gosu>
+</plugin>

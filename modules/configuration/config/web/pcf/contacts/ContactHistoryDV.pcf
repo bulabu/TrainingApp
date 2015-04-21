@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <DetailViewPanel
+    id="ContactHistoryDV">
+    <Require
+      name="history"
+      type="ContactHistory"/>
+    <InputColumn>
+      <DateInput
+        dateFormat="short"
+        id="Date"
+        label="displaykey.Web.ContactHistoryDV.Date"
+        timeFormat="short"
+        value="history.EventTimestamp"/>
+      <Input
+        id="User"
+        label="displaykey.Web.ContactHistoryDV.User"
+        value="getUserName()"/>
+      <Input
+        id="Reviewer"
+        label="displaykey.Web.ContactHistoryDV.Reviewer"
+        value="history.User"
+        visible="history.ExternalUpdateUser != null"/>
+      <TypeKeyInput
+        id="Type"
+        label="displaykey.Web.ContactHistoryDV.Type"
+        value="history.CustomType"/>
+      <Input
+        id="Description"
+        label="displaykey.Web.ContactHistoryDV.Description"
+        value="history.Description"/>
+    </InputColumn>
+    <Code><![CDATA[function getUserName() : String {
+  if (history.ExternalUpdateApp != null and history.ExternalUpdateUser != null) {
+    return history.ExternalUpdateUser + " (" + history.ExternalUpdateApp.toUpperCase() + ")"
+    
+  } else if (history.ExternalUpdateUser != null) {
+    return history.ExternalUpdateUser
+      
+  } else {
+    return history.User.DisplayName
+  }
+}]]></Code>
+  </DetailViewPanel>
+</PCF>

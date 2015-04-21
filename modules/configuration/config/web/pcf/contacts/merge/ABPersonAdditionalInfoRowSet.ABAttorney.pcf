@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <RowSet
+    id="ABPersonAdditionalInfoRowSet"
+    mode="ABAttorney">
+    <Require
+      name="contact"
+      type="ABPerson"/>
+    <Require
+      name="duplicate"
+      type="ABPerson"/>
+    <Require
+      name="merged"
+      type="ABPerson"/>
+    <Variable
+      initialValue="{contact, duplicate, merged}"
+      name="contacts"
+      type="ABPerson[]"/>
+    <Row>
+      <Cell
+        bold="true"
+        colspan="4"
+        id="additionalInfo"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.AdditionalInfo"/>
+    </Row>
+    <Row>
+      <Cell
+        id="attorneyLicenseLabel"
+        value="displaykey.Web.ContactDetail.Attorney.AttorneyLicense"/>
+      <CellIterator
+        elementName="aContact"
+        id="attorneyLicense"
+        value="contacts">
+        <Cell
+          editable="aContact == merged"
+          id="attorneyLicense"
+          value="(aContact as ABAttorney).AttorneyLicense"/>
+      </CellIterator>
+    </Row>
+    <Row>
+      <Cell
+        id="attorneySpecialtyLabel"
+        value="displaykey.Web.ContactDetail.Attorney.AttorneySpecialty"/>
+      <CellIterator
+        elementName="aContact"
+        id="attorneySpecialty"
+        value="contacts">
+        <TypeKeyCell
+          editable="aContact == merged"
+          id="attorneySpecialty"
+          value="(aContact as ABAttorney).AttorneySpecialty"/>
+      </CellIterator>
+    </Row>
+  </RowSet>
+</PCF>

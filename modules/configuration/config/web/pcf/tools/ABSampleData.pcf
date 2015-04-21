@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <Page
+    canEdit="false"
+    canVisit="tools.InternalTools.isTabVisible() and tools.InternalTools.isEnabled()"
+    id="ABSampleData"
+    title="displaykey.Web.ABSampleData.Title">
+    <Screen>
+      <Variable
+        initialValue="&quot;&quot;"
+        name="result"
+        type="String"/>
+      <PanelRef
+        def="ServerToolsDisclaimerDV()">
+        <Verbatim
+          id="SampleDataImportResult"
+          label="result"/>
+        <DetailViewPanel>
+          <InputColumn>
+            <PreFormattedTextInput
+              id="Spacer1"
+              value="&quot;&quot;"/>
+            <ButtonInput
+              action="result = new gw.command.ImportSampleData().import() + &quot;:\t&quot; + (new java.util.Date().toString())"
+              id="LoadSampleDataButton"
+              labelAbove="true"
+              value="displaykey.Web.ABSampleData.Load"/>
+            <PreFormattedTextInput
+              id="Spacer2"
+              value="&quot;&quot;"/>
+            <ButtonInput
+              action="result = new gw.command.ImportSampleData().importDuplicateContacts() + &quot;:\t&quot; + (new java.util.Date().toString())"
+              id="LoadDuplicateContactSampleData"
+              labelAbove="true"
+              value="displaykey.Web.ABDuplicateContactSampleData.Load"/>
+          </InputColumn>
+        </DetailViewPanel>
+      </PanelRef>
+    </Screen>
+  </Page>
+</PCF>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<extension xmlns="http://guidewire.com/datamodel" entityName="Contact">
+  <column-override name="EmailAddress1">
+    <columnParam name="validator" value="Email"/>
+  </column-override>
+  <column-override name="EmailAddress2">
+    <columnParam name="validator" value="Email"/>
+  </column-override>
+</extension>

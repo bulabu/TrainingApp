@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <DetailViewPanel
+    id="NewGroupDetailDV">
+    <Require
+      name="Group"
+      type="Group"/>
+    <InputColumn>
+      <Input
+        editable="true"
+        id="Name"
+        label="(gw.api.util.LocaleUtil.CurrentLocaleType == LocaleType.TC_JA_JP) ? displaykey.Web.Admin.GroupDetail.BasicDV.NamePhonetic : displaykey.Web.Admin.GroupDetail.BasicDV.Name"
+        required="true"
+        value="Group.Name"/>
+      <Input
+        editable="true"
+        id="NameKanji"
+        label="displaykey.Web.Admin.GroupDetail.BasicDV.Name"
+        value="Group.NameKanji"
+        visible="gw.api.util.LocaleUtil.CurrentLocaleType == LocaleType.TC_JA_JP"/>
+      <TypeKeyInput
+        editable="true"
+        id="Type"
+        label="displaykey.Web.Admin.GroupDetail.BasicDV.Type"
+        required="true"
+        value="Group.GroupType"/>
+      <GroupInput
+        editable="true"
+        id="Parent"
+        label="displaykey.Web.Admin.GroupDetail.BasicDV.Parent"
+        required="true"
+        selectLocation="OrganizationGroupTreePopup.push(Group.makeOrganizationSelection())"
+        value="Group.Parent"
+        visible="true"/>
+      <UserInput
+        editable="true"
+        id="Supervisor"
+        label="displaykey.Web.Admin.GroupDetail.BasicDV.Supervisor"
+        required="true"
+        value="Group.Supervisor"/>
+      <ListViewInput
+        def="GroupUsersLV(Group)"
+        editable="true"
+        label="displaykey.Web.Admin.GroupDetail.BasicDV.Users">
+        <Toolbar>
+          <IteratorButtons
+            iterator="GroupUsersLV.GroupUsersLV"/>
+        </Toolbar>
+      </ListViewInput>
+      <ListViewInput
+        boldLabel="true"
+        def="LocalizedValuesLV(Group, { &quot;Name&quot; }, { displaykey.Web.Admin.GroupDetail.BasicDV.Name })"
+        editable="true"
+        label="displaykey.Web.Admin.LocalizedValuesDV.Localization"
+        labelAbove="true"
+        visible="LanguageType.getTypeKeys(false).Count &gt; 1">
+        <Toolbar
+          visible="false">
+          <IteratorButtons
+            iterator="LocalizedValuesLV.LocalizedFields"/>
+        </Toolbar>
+      </ListViewInput>
+    </InputColumn>
+  </DetailViewPanel>
+</PCF>

@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <Popup
+    canEdit="true"
+    id="RejectChangePopup"
+    startInEditMode="true"
+    title="displaykey.Web.Contacts.PendingChanges.RejectChangePopup.Title">
+    <LocationEntryPoint
+      signature="RejectChangePopup(contactChange : PendingContactChange)"/>
+    <Variable
+      name="contactChange"
+      type="PendingContactChange"/>
+    <Screen
+      id="RejectScreen">
+      <Toolbar>
+        <ToolbarButton
+          action="gw.api.web.contact.PendingContactChangeUtil.rejectChange(contactChange, CurrentLocation)"
+          id="ToolbarButton"
+          label="displaykey.Web.Contacts.PendingChanges.RejectChangePopup.Reject"/>
+        <EditButtons
+          editVisible="false"
+          updateVisible="false"/>
+      </Toolbar>
+      <DetailViewPanel
+        id="RejectReasonDV">
+        <!-- <Require
+          name="contactChange"
+          type="PendingContactChange"/> -->
+        <InputColumn>
+          <TypeKeyInput
+            editable="true"
+            filter="gw.web.PendingChangesWebUtil.rejectionResolutionFilter(VALUES)"
+            id="RejectReason"
+            label="displaykey.Web.Contacts.PendingChanges.RejectChangePopup.RejectReasonCode"
+            required="true"
+            value="contactChange.Resolution"/>
+          <TextAreaInput
+            editable="true"
+            id="RejectReasonText"
+            label="displaykey.Web.Contacts.PendingChanges.RejectChangePopup.RejectReasonText"
+            numCols="60"
+            numRows="8"
+            value="contactChange.ResolutionReasonText"/>
+        </InputColumn>
+      </DetailViewPanel>
+    </Screen>
+  </Popup>
+</PCF>

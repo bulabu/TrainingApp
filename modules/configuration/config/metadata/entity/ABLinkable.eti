@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<delegate
+  xmlns="http://guidewire.com/datamodel"
+  name="ABLinkable"
+  subpackage="addressbook">
+  <column
+    name="LinkID"
+    type="varchar"
+    desc="Represents the ID used by client applications to link with the Address Book."
+    default="GW_RESERVED"
+    nullok="false">
+    <columnParam
+      name="size"
+      value="30"/>
+  </column>
+  <index name="linkid" unique="true">
+      <indexcol keyposition="1" name="LinkID"/>
+  </index>
+</delegate>

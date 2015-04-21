@@ -1,0 +1,41 @@
+package rules.Preupdate.AddressPreupdate_dir
+
+@gw.rules.RuleName("Contact Primary Address Added History Event")
+internal class ContactPrimaryAddressAddedHistoryEvent {
+  static function doCondition(address : entity.Address) : boolean {
+    
+/*start00rule*/
+return address.New
+and address.Primary 
+and address.ABContact != null 
+/*end00rule*/
+
+  }
+
+  static function doAction(address : entity.Address, actions : gw.rules.Action) {
+
+/*start00rule*/
+var history = address.addHistory(CustomHistoryType.TC_PRIMARYADDRESSADDED, displaykey.Rules.Preupdate.Address.AddressAdded.Primary)
+var fieldsToTrack = new java.util.HashMap<String, String>()
+              {"AddressLine1" -> "Web.AddressBook.AddressInputSet.Address1", 
+               "AddressLine1Kanji" -> "Web.AddressBook.AddressInputSet.Address1Kanji", 
+               "AddressLine2" -> "Web.AddressBook.AddressInputSet.Address2", 
+               "AddressLine2Kanji" -> "Web.AddressBook.AddressInputSet.Address2Kanji", 
+               "AddressLine3" -> "Web.AddressBook.AddressInputSet.Address3", 
+               "City"         -> "Web.AddressBook.AddressInputSet.City", 
+               "CityKanji"         -> "Web.AddressBook.AddressInputSet.CityKanji", 
+               "County"       -> "Web.AddressBook.AddressInputSet.County", 
+               "State"        -> "Web.AddressBook.AddressInputSet.State", 
+               "Province"   -> "Web.AddressBook.AddressInputSet.Province", 
+               "Prefecture"   -> "Web.AddressBook.AddressInputSet.Prefecture", 
+               "Postcode"   -> "Web.AddressBook.AddressInputSet.PostalCode", 
+               "ZIP"   -> "Web.AddressBook.AddressInputSet.Postcode", 
+               "PostalCode"   -> "Web.AddressBook.AddressInputSet.PostalCode", 
+               "Country"      -> "Web.AddressBook.AddressInputSet.Country", 
+               "CEDEX"   -> "Web.AddressBook.AddressInputSet.CEDEX", 
+               "CEDEXBureau"      -> "Web.AddressBook.AddressInputSet.CEDEXBureau", 
+               "AddressType"  -> "Address.Base.AddressType"}
+history.createTrackedChangesNoRestrict(address, fieldsToTrack)
+/*end00rule*/
+  }
+}

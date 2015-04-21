@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <InputSet
+    id="ContactSearchProximityInputSet">
+    <Require
+      name="SearchCriteria"
+      type="ABContactSearchCriteria"/>
+    <Require
+      name="proximitySearchPageHelper"
+      type="contact.ProximitySearchPageHelper"/>
+    <Variable
+      initialValue="gw.util.Geocode.setDefaultSearchRange(proximitySearchPageHelper, SearchCriteria)"
+      name="pspRange"/>
+    <Expose
+      widget="globalAddressContainer"/>
+    <Label
+      label="displaykey.Web.AddressBook.Search.ProximitySearch"/>
+    <RangeInput
+      editable="true"
+      id="ProximitySearchType"
+      label="displaykey.Web.AddressBook.Search.ProximitySearch.Radius"
+      optionLabel="VALUE.getLabel()"
+      sortValueRange="false"
+      value="SearchCriteria.ProximitySearchParameters"
+      valueRange="pspRange"
+      valueWidth="229"/>
+    <InputSetRef
+      def="GlobalAddressInputSet(new gw.api.address.SearchProximityAddressOwner(SearchCriteria.ProximitySearchCenter))"
+      id="globalAddressContainer"
+      mode="gw.api.address.AddressCountrySettings.getSettings(SearchCriteria.ProximitySearchCenter.Country).PCFMode"
+      widgets="globalAddressContainer"/>
+  </InputSet>
+</PCF>

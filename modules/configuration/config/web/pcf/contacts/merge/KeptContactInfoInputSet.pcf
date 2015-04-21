@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <InputSet
+    id="KeptContactInfoInputSet">
+    <Require
+      name="contact"
+      type="ABContact"/>
+    <Input
+      boldValue="true"
+      id="KeptContactLabel"
+      value="displaykey.Web.Contacts.ReviewDuplicateContacts.KeptContactUpdate(contact.UpdateTime.formatDate(gw.i18n.DateTimeFormat.SHORT))"/>
+  </InputSet>
+</PCF>

@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <InputSet
+    id="ABPersonVendorInputSet"
+    mode="ABPersonVendor|ABAttorney|ABDoctor">
+    <Require
+      name="person"
+      type="ABPerson"/>
+    <BooleanRadioInput
+      editable="perm.ABContact.createpreferred"
+      id="IsPreferredVendor"
+      label="displaykey.Web.ContactDetail.AdditionalInfo.IsPreferredVendor"
+      value="(person as ABPersonVendor).Preferred"/>
+    <InputDivider/>
+    <Label
+      label="displaykey.Web.ContactDetail.ContactInfo"/>
+    <ABContactInput
+      editable="true"
+      forceContactSubtype="entity.ABPerson"
+      id="PrimaryContact"
+      label="displaykey.Web.ContactDetail.PrimaryContact"
+      newContactMenu="NewPersonOnlyPickerMenuItemSet"
+      parentContact="person"
+      value="person.PrimaryContact"/>
+    <InputSetRef
+      def="GlobalPhoneInputSet(new gw.api.phone.StandardPhoneOwner(new gw.api.phone.ContactPhoneDelegate(person, ABContact#WorkPhone), displaykey.Web.ContactDetail.Phone.Work, false))"
+      editable="true"
+      id="Work"/>
+    <InputSetRef
+      def="GlobalPhoneInputSet(new gw.api.phone.StandardPhoneOwner(new gw.api.phone.ContactPhoneDelegate(person, ABPerson#FaxPhone), displaykey.Web.ContactDetail.Phone.Fax, false))"
+      editable="true"
+      id="Fax"/>
+    <TextInput
+      editable="true"
+      formatType="email"
+      id="Email1"
+      label="displaykey.Web.ContactDetail.Email.Primary"
+      value="person.EmailAddress1"/>
+    <TextInput
+      editable="true"
+      formatType="email"
+      id="Email2"
+      label="displaykey.Web.ContactDetail.Email.Secondary"
+      value="person.EmailAddress2"/>
+    <InputDivider/>
+    <Label
+      label="displaykey.Web.ContactDetail.TaxInfo"/>
+    <PrivacyInput
+      editable="true"
+      encryptionExpression="person.maskTaxId(VALUE)"
+      id="SSN"
+      label="displaykey.Web.ContactDetail.Name.TaxID.SSN"
+      required="person typeis ABPersonVendor"
+      value="person.TaxID"/>
+    <Input
+      editable="true"
+      id="W9received"
+      label="displaykey.Web.ContactDetail.TaxInfo.W9received"
+      value="(person as ABPersonVendor).W9received"/>
+    <DateInput
+      editable="true"
+      id="W9receivedDate"
+      label="displaykey.Web.ContactDetail.TaxInfo.W9receivedDate"
+      value="(person as ABPersonVendor).W9receivedDate"/>
+    <DateInput
+      editable="true"
+      id="W9ValidFrom"
+      label="displaykey.Web.ContactDetail.TaxInfo.W9ValidFrom"
+      value="(person as ABPersonVendor).W9ValidFrom"/>
+    <DateInput
+      editable="true"
+      id="W9ValidTo"
+      label="displaykey.Web.ContactDetail.TaxInfo.W9ValidTo"
+      value="(person as ABPersonVendor).W9ValidTo"/>
+  </InputSet>
+</PCF>

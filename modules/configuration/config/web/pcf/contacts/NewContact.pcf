@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pcf.xsd">
+  <Page
+    afterCancel="ABContactSearch.go()"
+    afterCommit="ABContactLG.go(contact)"
+    afterEnter="contact.addDefaultTagToNewContact()"
+    canEdit="true"
+    canVisit="perm.ABContact.create(ContactType)"
+    id="NewContact"
+    parent="ABContacts()"
+    startInEditMode="true"
+    title="gw.api.contact.NewContactUtil.getDisplayKeyForContactSubtype(ContactType.RelativeName)">
+    <LocationEntryPoint
+      signature="NewContact(ContactType : Type)"/>
+    <Variable
+      initialValue="new web.contact.NewABContactHelper()"
+      name="PageHelper"/>
+    <Variable
+      name="ContactType"
+      type="Type"/>
+    <Variable
+      initialValue="PageHelper.newABContact(ContactType)"
+      name="contact"
+      type="ABContact"/>
+    <ScreenRef
+      def="ABContactDetailScreen(contact, false)"/>
+  </Page>
+</PCF>

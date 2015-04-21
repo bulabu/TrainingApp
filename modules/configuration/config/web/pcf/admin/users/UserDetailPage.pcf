@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <Page
+    canEdit="perm.User.edit"
+    canVisit="perm.User.view"
+    id="UserDetailPage"
+    parent="Admin()"
+    title="displaykey.Web.Admin.UserDetail(user.DisplayName)">
+    <LocationEntryPoint
+      signature="UserDetailPage(user : UserBase)"/>
+    <Variable
+      name="user"
+      type="UserBase"/>
+    <ScreenRef
+      def="UserDetailScreen(User, false)"/>
+  </Page>
+</PCF>

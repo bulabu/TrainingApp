@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <RowSet
+    id="ABCompanyAdditionalInfoRowSet"
+    mode="ABMedicalCareOrg">
+    <Require
+      name="contact"
+      type="ABCompany"/>
+    <Require
+      name="duplicate"
+      type="ABCompany"/>
+    <Require
+      name="merged"
+      type="ABCompany"/>
+    <Variable
+      initialValue="{contact, duplicate, merged}"
+      name="contacts"
+      type="ABCompany[]"/>
+    <Row>
+      <Cell
+        bold="true"
+        colspan="4"
+        id="additionalInfo"
+        value="displaykey.Web.Contacts.ReviewDuplicateContacts.AdditionalInfo"/>
+    </Row>
+    <Row>
+      <Cell
+        id="medicalSpecialtyLabel"
+        value="displaykey.Web.ContactDetail.MedicalCareOrg.MedicalSpecialty"/>
+      <CellIterator
+        elementName="aContact"
+        id="medicalSpecialty"
+        value="contacts">
+        <TypeKeyCell
+          editable="aContact == merged"
+          id="medicalSpecialty"
+          value="(aContact as ABMedicalCareOrg).MedicalOrgSpecialty"/>
+      </CellIterator>
+    </Row>
+  </RowSet>
+</PCF>

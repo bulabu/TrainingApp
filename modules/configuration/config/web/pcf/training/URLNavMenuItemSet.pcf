@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="pcf.xsd">
+  <MenuItemSet
+    id="URLNavMenuItemSet">
+    <MenuItem
+      id="GoToGuidewire"
+      label="displaykey.Training.GoToGuidewire">
+      <MenuItem
+        action="javascript:void window.open('http://www.guidewire.com');"
+        id="NavigateJavascript"
+        label="displaykey.Training.GoToGuidewireJavascript"/>
+      <MenuItem
+        action="GuidewireExitPoint.push()"
+        id="NavigateExitPoint"
+        label="displaykey.Training.GoToGuidewireExitPoint"/>
+    </MenuItem>
+  </MenuItemSet>
+</PCF>

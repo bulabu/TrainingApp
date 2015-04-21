@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<subtype
+  xmlns="http://guidewire.com/datamodel"
+  entity="ABCompany"
+  desc="Generic organization."
+  displayName="Company"
+  final="false"
+  subpackage="addressbook"
+  supertype="ABContact"/>

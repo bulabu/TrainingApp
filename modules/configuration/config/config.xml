@@ -1,0 +1,529 @@
+<?xml version="1.0"?>
+
+<config xmlns="http://guidewire.com/config">
+
+  <!--
+  ==============================================================================
+    ContactManager Parameters
+  ==============================================================================
+  -->
+
+  <!-- The maximum number of search results before the UI warning appears.
+       Shared with CC
+  -->
+  <param name="MaxContactSearchResults" value="300"/>
+
+  <!-- The max number of duplicate contacts to be registered as duplicates by
+    com.guidewire.ab.domain.contact.DuplicateContactsFinderWorkQueue.
+    If more than this max number of duplicates are found for a given contact,
+    DuplicateContactsFinderWorkQueue will not register any duplicates for that contact,
+    but instead will log the contact's LinkID.
+  -->
+  <param name="MaxDuplicateContactsFinderWorkQueueResults" value="1000"/>
+
+  <!--
+     Indicates whether the search for duplicate contacts should widen and not use subtype specific logic.
+     This parameter applies only to searches for duplicate contacts performed by the find duplicates batch
+     process. It does not set general searching behavior in FindDuplicatesPlugin.  Defaults to true.
+  -->
+  <param name="DuplicateContactsWideSearch" value="true"/>
+
+  <!--
+    This value controls the maximum number of specialist services that can be specified in a search for
+    contacts in CM. The value is limited by the database configuration being used, if too many are being
+    used the database can run out of resources processing the IN clauses in the query.
+  -->
+  <param name="MaxNumberServicesInSearchQuery" value="20"/>
+
+  <!--
+    The duplicate contacts batch process acts on contacts created or modified after the last
+    time it was run AND after the date specified by this parameter.  This makes it possible to avoid processing
+    every contact in the database the first time the batch process run.  For example, if contacts are imported
+    into the database on 8/21/2011 and this parameter is set to "08/22/2011 12:00 AM", those contacts will
+    not be processed by the batch process unless they're later modified.
+    Expected format: mm/dd/yyyy hh:mm am
+  -->
+  <!-- This is an optional parameter. When present, must contain valid value.
+    <param name="DuplicateContactsEarliestModificationDate" value=""/>
+  -->
+
+  <!-- The name of the method in "gw.api.data.DataSets" for generating AB sample data -->
+  <param name="GosuSampleDataMethod" value="createDefaultSampleData"/>
+
+
+
+  <!-- Velocity parameters; can be overridden -->
+  <!-- NOTE velocimacro.library.autoreload MUST be set false in production -->
+  <!-- NOTE file.resource.loader.modificationCheckInterval SHOULD be set to -1 in production (disables reloading the files) -->
+  <!-- NOTE resource.manager.defaultcache.size SHOULD be a prime number larger than total number of templates -->
+  <velocityParam name="file.resource.loader.cache" value="true"/>
+  <velocityParam name="file.resource.loader.modificationCheckInterval"
+                 value="-1"/>
+  <velocityParam name="velocimacro.library" value="cc_VelocityMacros.vm"/>
+  <velocityParam name="velocimacro.permissions.allow.inline" value="true"/>
+  <velocityParam name="velocimacro.library.autoreload" value="false"/>
+  <velocityParam name="velocimacro.permissions.allow.inline.to.replace.global"
+                 value="true"/>
+  <velocityParam name="resource.manager.defaultcache.size" value="127"/>
+
+  <!--
+  ==============================================================================
+    Clustering Parameters
+  ==============================================================================
+  -->
+
+  <!-- Is clustering enabled?
+       Shared with CC
+  -->
+  <param name="ClusteringEnabled" value="false"/>
+
+  <!-- If use JGroups based cluster channel.
+       Shared with CC
+  -->
+  <param name="JGroupsClusterChannel" value="true"/>
+
+  <!--
+    The IP multicast address used by the jgroups-based cluster. Must be unique within the range of the cache time
+    to live parameter. Valid IPv4 address is in the range between 224.0.0.0 and 239.255.255.255.
+    Valid IPv6 address starts with "ff" (i.e. first eight bits must be "1111 1111")
+    Shared with CC
+  -->
+  <param name="ClusterMulticastAddress" value="228.9.9.9"/>
+
+  <!--
+    The time to live for the multicast packets used for jgroups-based cluster communication.
+    For Claim Center the value will nearly always be 1, meaning only
+    deliver the packets to the local subnet. Higher time to live values require
+    multicast routing to be enabled on any intermediate routers (rare in most IT
+    organizations). Also the larger the time to live the more you have to worry
+    about allocating unique multicast addresses.
+    Shared with CC
+  -->
+  <param name="ClusterMulticastTTL" value="1"/>
+
+  <!-- The port to use for jgroups-based cluster communication
+       Shared with CC
+  -->
+  <param name="ClusterMulticastPort" value="45566"/>
+
+  <!--
+    Cluster member database record update interval (in seconds). The same interval is used to reload list of cluster
+    members from the database.
+    Note that this parameter is not used when JGroups-based cluster channel is used.
+    Shared with CC
+  -->
+  <param name="ClusterMemberRecordUpdateIntervalSecs" value="60"/>
+
+  <!--
+    Number of minutes between each cluster statistics monitor logging (0 means disable statistics logging).
+    Note that this parameter is not used when JGroups-based cluster channel is used.
+    Shared with CC
+  -->
+  <param name="ClusterStatisticsMonitorIntervalMins" value="60"/>
+
+  <!--
+  ==============================================================================
+   Environment Parameters
+  ==============================================================================
+  -->
+
+  <!-- denotes the username of the unrestricted user.  If not specified, defaults to "su"
+       Shared with CC
+  -->
+  <param name="UnrestrictedUserName" value="su"/>
+
+  <!-- Indicates if resoruces are mutable on this server. Studio uses this to
+       determine whether or not to enable modification of resources.
+       Shared with CC
+  -->
+  <param name="ResourcesMutable" value="true"/>
+
+  <!--
+    Cached range size key generator uses when generating individual keys. This
+    cannot be a normal parameter in the database because we need it before the
+    database has been initialized (and possibly upgraded)
+    Shared with CC
+  -->
+  <param name="KeyGeneratorRangeSize" value="100"/>
+
+
+  <!-- The default application locale if locale can't be determined from user or browser
+       Shared with CC
+  -->
+  <param name="DefaultApplicationLocale" value="en_US"/>
+
+  <!-- The default application language if language can't be determined from user or browser
+       Shared with CC
+  -->
+  <param name="DefaultApplicationLanguage" value="en_US"/>
+
+<!-- CurrDev: The default application CURRENCY -->
+  <param name="DefaultApplicationCurrency" value="usd"/>
+    <!-- CurrDev: Currency Mode -->
+  <param name="MultiCurrencyDisplayMode" value="MULTIPLE" /><!-- The default country. This is also used as the default for new
+       addresses that are created. This is a Country typecode, which normally
+       correspond to the standard ISO two-letter codes.
+       Shared with CC
+  -->
+  <param name="DefaultCountryCode" value="US"/>
+
+  <!-- Determines whether or not the phone widget will always show the region code or only shows it on demand.
+       Shared with CC
+  -->
+  <param name="AlwaysShowPhoneWidgetRegionCode" value="false"/>
+
+  <!-- The default server-wide phone country setting. Can be overridden per user
+       Shared with CC
+  -->
+  <param name="DefaultPhoneCountryCode" value="US" />
+
+  <!-- The default country code inside NANPA region 1
+       Shared with CC
+  -->
+  <param name="DefaultNANPACountryCode" value="US"/>
+
+  <!-- If true, stepping off a spellcheck-enabled field after making any change will invoke the spell checker for the field
+       Shared with CC
+  -->
+  <param name="CheckSpellingOnChange" value="false"/>
+
+  <!-- If true, any screen containing editable spellcheck-enabled fields will have a spell check button in the the toolbar
+       Shared with CC
+  -->
+  <param name="CheckSpellingOnDemand" value="false"/>
+
+  <!-- The number of entries to display per page in a ListView, where not explicitly specified.
+       Shared with CC
+  -->
+  <param name="ListViewPageSizeDefault" value="15"/>
+
+  <!-- The character used as a placeholder in masked input fields
+       Shared with CC
+  -->
+  <param name="InputMaskPlaceholderCharacter" value="."/>
+
+  <!-- The maximum number of browser history items to keep.  Set this to 0 to disable to back button functionality entirely.
+       Shared with CC
+  -->
+  <param name="MaxBrowserHistoryItems" value="5"/>
+
+  <!-- The prefix to use for publicids generated by the application.  Generated publicids will be of the form prefix:id where id is
+       the actual id for the entity.  This parameter should be set to different values in production and test systems
+       to allow for the clean import/export of data between systems.  This field must be 9 characters or less in length.
+       Shared with CC
+  -->
+  <param name="PublicIDPrefix" value="ab"/>
+
+  <!-- Enable internal debug tools page http://localhost:8080/app/InternalTools.do
+       Shared with CC
+  -->
+  <param name="EnableInternalDebugTools" value="true"/>
+
+  <!--
+  ==============================================================================
+    Business Calendar Parameters
+  ==============================================================================
+  -->
+
+  <!-- This marks the beginning of a business day, inclusive
+       Shared with CC
+  -->
+  <param name="BusinessDayDemarcation" value="12:00 AM"/>
+
+  <!-- What time the business day starts at.
+       Shared with CC
+  -->
+  <param name="BusinessDayStart" value="8:00 AM"/>
+
+  <!-- What time the business day ends at.
+       Shared with CC
+  -->
+  <param name="BusinessDayEnd" value="5:00 PM"/>
+
+  <!-- The day of the week considered the end of the business week.
+       Shared with CC
+  -->
+  <param name="BusinessWeekEnd" value="Friday"/>
+
+  <!-- Whether Sunday is considered a business day.
+       Shared with CC
+  -->
+  <param name="IsSundayBusinessDay" value="false"/>
+
+  <!-- Whether Monday is considered a business day.
+       Shared with CC
+  -->
+  <param name="IsMondayBusinessDay" value="true"/>
+
+  <!-- Whether Tuesday is considered a business day.
+       Shared with CC
+  -->
+  <param name="IsTuesdayBusinessDay" value="true"/>
+
+  <!-- Whether Wednesday is considered a business day.
+       Shared with CC
+  -->
+  <param name="IsWednesdayBusinessDay" value="true"/>
+
+  <!-- Whether Thursday is considered a business day.
+       Shared with CC
+  -->
+  <param name="IsThursdayBusinessDay" value="true"/>
+
+  <!-- Whether Friday is considered a business day.
+       Shared with CC
+  -->
+  <param name="IsFridayBusinessDay" value="true"/>
+
+  <!-- Whether Saturday is considered a business day.
+       Shared with CC
+  -->
+  <param name="IsSaturdayBusinessDay" value="false"/>
+
+  <!-- A comma-delimited list of dates that should be considered holidays. -->
+  <!-- This parameter is obsolete, as holidays are now queried from the database.
+       There is an Admin UI screen which can configure these holidays.
+       However, it remains present here so that the values can be imported once
+       into the database upon upgrade to the Bedrock release.
+       Shared with CC
+  -->
+  <param name="HolidayList" value="1/1/2014, 12/25/2014"/>
+
+  <!--
+  ==============================================================================
+    Security
+  ==============================================================================
+  -->
+  <!-- Session expriration timeout, in seconds.
+       Shared with CC
+  -->
+  <param name="SessionTimeoutSecs" value="10800"/>
+
+  <!-- The minimum length of a user's password.
+       Shared with CC
+  -->
+  <param name="MinPasswordLength" value="2"/>
+
+  <!-- The maximum length of a user's password.
+       Shared with CC
+  -->
+  <param name="MaxPasswordLength" value="16"/>
+
+  <!-- Number of failed attempts that are allowed before a user is locked out, or -1 to disable the account lockout feature
+       For example, setting this to 3 means that the fourth unsuccessful try will lock the user's account
+       Shared with CC
+  -->
+  <param name="FailedAttemptsBeforeLockout" value="3"/>
+
+  <!-- Time in milliseconds before a user can retry after an unsuccessful login attempt
+       Shared with CC
+  -->
+  <param name="LoginRetryDelay" value="0"/>
+
+  <!-- Time in seconds that a user's account will stay locked for, or -1 if it must be manually unlocked.
+       Please note that at this point, ContactManager does not support manual unlocking from the UI.
+       Shared with CC
+  -->
+  <param name="LockoutPeriod" value="180"/>
+
+  <!-- Whether the internal scheduler is enabled.
+       Shared with CC
+  -->
+  <param name="SchedulerEnabled" value="true"/>
+
+  <!-- If UseACLPermissions is true, setting this parameter to true means that supervisors will inherit permissions on
+       a claim that have been added for a supervised user or group.
+       Shared with CC
+  -->
+  <param name="EnableDownlinePermissions" value="true"/>
+
+  <!-- Number of minutes between each memory usage monitor logging.
+       Shared with CC
+  -->
+  <param name="MemoryUsageMonitorIntervalMins" value="15"/>
+
+  <!-- Whether or not contact potential match screens should restrict match results to items that the user has
+       permission to view.
+       @deprecated (since 8.0.0) Will not be used by ContactManager in the future.
+       Shared with CC
+   -->
+  <param name="RestrictContactPotentialMatchToPermittedItems" value="true"/>
+
+  <!-- Whether or not search screens should restrict search results to items that the user has permission to view.
+       Shared with CC
+  -->
+  <param name="RestrictSearchesToPermittedItems" value="true"/>
+
+  <!--
+  ==============================================================================
+    Geocoding related parameters.
+  ==============================================================================
+  -->
+  <!-- By default, applications will use miles/US distances for driving distance/directions; -->
+  <!-- if set to true, applications will use kilometers/metric distances.                    -->
+  <!-- NOTE THAT IF THIS PARAMETER DIFFERS BETWEEN ContactManager AND OTHER APPLICATIONS, SOME -->
+  <!-- DISTANCES-RELATED MESSAGES MAY BE DISPLAYED INCORRECTLY.                               -->
+  <!-- Shared with CC -->
+  <param name="UseMetricDistancesByDefault" value="false"/>
+
+  <!-- Enable Geocoding UI on Address Book Pages. -->
+  <!-- Shared with CC -->
+  <param name="UseGeocodingInAddressBook" value="false"/>
+
+    <!-- The maximum distance allowed when performing a proximity search for the nearest-n contacts/users.      -->
+    <!--     This value is treated as miles by default, but will be treated as kilometers if the system default -->
+    <!--     unit of distance (as controlled by UseMetricDistancesByDefault) is set to true.                    -->
+    <!-- NOTE THAT IF THIS PARAMETER DIFFERS BETWEEN ContactManager AND ClaimCenter, SOME  -->
+    <!--      DISTANCES-RELATED MESSAGES MAY BE DISPLAYED INCORRECTLY.                    -->
+    <!-- NOTE THAT THIS PARAMETER HAS NO EFFECT ON EITHER RADIUS ("n miles") SEARCHES OR  -->
+    <!--      "WALKING THE GROUP TREE" BASED PROXIMITY ASSIGNMENT                         -->
+    <!-- Shared with CC -->
+  <param name="ProximitySearchOrdinalMaxDistance" value="300"/>
+
+  <!-- The maximum number of results to be returned by a proximity search when           -->
+  <!--     using a fixed radius (n miles/km).  This is ignored for Ordinal (nearest-n)    -->
+  <!--     searches.                                                                     -->
+  <!-- This can be overriden in the UI or APIs by setting                                -->
+  <!--     ProximitySearchParameters.RadiusSearchMaxResults                              -->
+  <!-- Note: this will normally apply only to searches done directly through the         -->
+  <!--     ContactManager UI, as searches done via the integration will use the value set -->
+  <!--     in the incoming copy of ProximitySearchParameters.RadiusSearchMaxResults,     -->
+  <!--     which will normally contain the originating application's default.   -->
+  <!-- Shared with CC -->
+  <param name="ProximityRadiusSearchDefaultMaxResultCount" value="1000"/>
+
+  <!-- Whether to signal the database to discard existing query plans during a database stats batch process.-->
+  <!-- Shared with CC -->
+  <param name="DiscardQueryPlansDuringStatsUpdateBatch" value="false"/>
+
+  <!-- Shared with CC -->
+  <param name="StrictDataTypes" value="true"/>
+
+
+  <!--
+  ==============================================================================
+    Webservices
+  ==============================================================================
+  -->
+
+  <!-- the path to a list of webservices that are available to the webservices servlet.  This is
+   first checked against config, then against gosu type system, then against class loader, and finally
+   as a file path (or fully qualified).
+
+   If empty then it will search the typesystem for any @WsiWebService
+   Shared with CC
+  -->
+  <param name="WebservicesAvailableServices" value=""/>
+
+  <!-- "true" if this page is to be displayed, false otherwise.
+       Shared with CC
+  -->
+  <param name="WebservicesHideListPage" value="false"/>
+
+  <!--
+    The soap webservices uses finite namespace - something is either in the api, entity, fault, or enumeration namespace.
+    This quite often leads to conflicts/overwriting of classes in that namespace.  This prevents you from having duplicate
+    webservice class names.  But for referenced classes this is not an issue unless you call these soap webservices via
+    soap.local, or generate the clients clients in the same directory.
+    So to turn off the warning in studio change this to true.
+    Shared with CC
+  -->
+
+  <param name="AllowSoapWebServiceReferenceNamespaceCollisions" value="false"/>
+
+  <!--
+    The soap webservices bundle was setting ignore bean version conflicts, several people have pointed out that this
+    is quite dangerous. So we have changed the default behavior, and added an annotation to get back to that behavior,
+    however we do not want to disrupt current customer in a minor version upgrade so the new behavior is dependent
+    on setting this to true.
+    Shared with CC
+   -->
+  <param name="UseSafeBundleForWebServiceOperations" value="true"/>
+
+  <!-- The soap (encoded) webservices have to initialize the definition and create the service objects.
+    If true this will cause the creation of the service objects at startup of the soap encoded webservice servlet, it does
+    this by creating a thread and that thread will wait until the application servlet is started and will then
+    start the webservices.  This can be overridden on a per node basis if only some nodes respond to soap requests.
+    Shared with CC
+  -->
+  <param name="LoadSoapServicesOnStartup" value="false"/>
+
+  <!-- **************************************************************-->
+  <!-- Mime Type Information                                         -->
+  <!-- This section tells the system how to map between mime types,  -->
+  <!-- file extensions, and icons in the UI                          -->
+  <!-- **************************************************************-->
+
+  <mimetypemapping>
+    <mimetype name="application/msword" extensions=".doc" icon="word.png"
+              description="Microsoft Word Document"/>
+    <mimetype name="application/vnd.ms-excel" extensions=".xls"
+              icon="excel.png" description="Microsoft Excel Worksheet"/>
+    <mimetype name="application/x-msexcel" extensions=".xls" icon="excel.png"
+              description="Microsoft Excel Worksheet (Windows 98)"/>
+    <mimetype name="application/pdf" extensions=".pdf" icon="acrobat.png"
+              description="PDF File"/>
+    <mimetype name="text/plain" extensions=".txt" icon="document.png"
+              description="Text Document"/>
+    <mimetype name="text/html" extensions=".html|.htm" icon="document.png"
+              description="HTML File"/>
+    <mimetype name="text/xml" extensions=".xml" icon="document.png"
+              description="XML Document"/>
+    <mimetype name="image/bmp" extensions=".bmp" icon="document.png"
+              description="Bitmap Image"/>
+    <mimetype name="image/jpeg" extensions=".jpg" icon="document.png"
+              description="JPEG Image"/>
+    <mimetype name="image/pjpeg" extensions=".jpg" icon="document.png"
+              description="JPEG Image"/>
+    <mimetype name="application/rtf" extensions=".rtf" icon="word.png"
+              description="Rich Text Format"/>
+    <mimetype name="application/csv" extensions=".csv" icon="excel.png"
+              description="Microsoft Office Excel Comma Separated Values File"/>
+    <mimetype name="image/tiff" extensions=".tiff|.tif" icon="document.png"
+              description="Microsoft Office Document Imaging File"/>
+    <mimetype name="application/octet-stream" extensions="" icon="document.png"
+              description="Unrecognized File Format"/>
+        <mimetype extensions=".docx" name="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  icon="word.png"
+              description="open xml word"/>
+        <mimetype extensions=".xlsx" name="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                  icon="excel.png"
+              description="open xml excel"/>
+    <mimetype extensions=".ps" name="application/postscript" icon="document.png"
+              description="Postscript"/>
+    <mimetype extensions=".rtx" name="text/richtext" icon="document.png"
+              description="Rich text"/>
+    <mimetype extensions=".wav" name="audio/wav" icon="document.png"
+              description="Wave audio"/>
+    <mimetype extensions=".wma" name="audio/x-ms-wma" icon="document.png"
+              description="Microsoft audio"/>
+    <mimetype extensions=".mdi" name="image/vnd.ms-modi" icon="document.png"
+              description="Microsoft modi"/>
+    <mimetype extensions=".gif" name="image/gif" icon="document.png"
+              description="gif image"/>
+    <mimetype extensions=".png" name="image/x-png" icon="document.png"
+              description="png image"/>
+    <mimetype extensions=".mov" name="video/quicktime" icon="document.png"
+              description="QuickTime video"/>
+    <mimetype extensions=".mpg|.mpeg" name="video/mpeg" icon="document.png"
+              description="mpeg video"/>
+    <mimetype extensions=".avi" name="video/x-msvideo" icon="document.png"
+              description="Microsoft video"/>
+    <mimetype extensions=".ppt|.pps" name="application/vnd.ms-powerpoint" icon="document.png"
+              description="Power point"/>
+        <mimetype extensions=".pptx" name="application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                  icon="document.png"
+              description="Power point"/>
+  </mimetypemapping>
+
+  <!-- The name of the current encryption plugin.
+       Shared with CC
+  -->
+  <param name="CurrentEncryptionPlugin" value="IEncryption"/>
+  <!-- the default pdf merging is handled by a product that has a license.  This license can be server specific so
+       this line may have to be repeated for each server.
+       Shared with CC
+  -->
+  <param name="PDFMergeHandlerLicenseKey" value="" />
+
+</config>

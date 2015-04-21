@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<PCF
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../../pcf.xsd">
+  <InputSet
+    id="ABAdjudicatorBasicsInputSet"
+    mode="ABAdjudicator">
+    <Require
+      name="contact"
+      type="ABContact"/>
+    <Input
+      editable="true"
+      id="AdjudicatorLicense"
+      label="displaykey.Web.ContactDetail.Adjudicator.AdjudicatorLicense"
+      value="(contact as ABAdjudicator).AdjudicatorLicense"/>
+    <TypeKeyInput
+      editable="true"
+      id="AdjudicativeDomain"
+      label="displaykey.Web.ContactDetail.Adjudicator.AdjudicativeDomain"
+      value="(contact as ABAdjudicator).AdjudicativeDomain"/>
+  </InputSet>
+</PCF>
