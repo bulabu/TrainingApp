@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+  <component name="PasswordDatabase">
+    <option name="PASSWORDS">
+      <array>
+        <array>
+          <option value="b4cbf5225fd0c061c1f1c4ba1d12488ee0cea0a21bd067a5c1ede8699a49fff7" />
+          <option value="21f889a3f6a6266a9f573969a5ab3c025409b60beba66357527df37f33c042ed" />
+        </array>
+        <array>
+          <option value="4c25aaf5dbf756029768a5a290252d9c1bded244850c9ee4b997098cd40016ad" />
+          <option value="83ccacecfcdad8fe3b323d364904adfb" />
+        </array>
+      </array>
+    </option>
+  </component>
+</application>
+
